@@ -1,0 +1,34 @@
+8
+
+dir
+81
+file:///usr/local/puppet/modules/puppet_LaunchDaemon
+file:///usr/local/puppet
+
+
+
+2009-12-14T14:16:03.594370Z
+81
+root
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+46b88788-5473-4eb6-b5f7-e3713769c5b3
+
+files
+dir
+
+manifests
+dir
+

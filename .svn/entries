@@ -1,0 +1,49 @@
+8
+
+dir
+16
+file:///usr/local/puppet
+file:///usr/local/puppet
+
+
+
+2009-07-21T13:46:28.765256Z
+16
+root
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+46b88788-5473-4eb6-b5f7-e3713769c5b3
+
+ssl
+dir
+
+puppet.conf
+file
+70
+
+
+
+2009-12-10T00:33:05.000000Z
+a14e89adf7f47b5586f49c3891ec0de5
+2009-12-10T19:21:40.113195Z
+70
+root
+
+modules
+dir
+
+manifests
+dir
+

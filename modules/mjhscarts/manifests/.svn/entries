@@ -1,0 +1,40 @@
+8
+
+dir
+80
+file:///usr/local/puppet/modules/mjhscarts/manifests
+file:///usr/local/puppet
+
+
+
+2009-06-29T20:05:18.656815Z
+11
+root
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+46b88788-5473-4eb6-b5f7-e3713769c5b3
+
+init.pp
+file
+
+
+
+
+2009-06-29T16:41:28.000000Z
+80302d1d15ecc4baf987ae7f88984afd
+2009-06-29T20:05:18.656815Z
+11
+root
+

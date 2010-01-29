@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+        <key>EnvironmentVariables</key>
+        <dict>
+                <key>PATH</key>
+                <string>/sbin:/usr/sbin:/bin:/usr/bin</string>
+                <key>RUBYLIB</key>
+                <string>/usr/lib/ruby/site_ruby/1.8/</string>
+        </dict>
+        <key>Label</key>
+        <string>com.huronhs.puppetconfig</string>
+        <key>OnDemand</key>
+        <true/>
+        <key>ProgramArguments</key>
+        <array>
+                <string>/usr/bin/puppetd.sh</string>
+        </array>
+        <key>StandardErrorPath</key>
+        <string>/var/puppet/log/puppet.err</string>
+        <key>StandardOutPath</key>
+        <string>/var/puppet/log/puppet.out</string>
+        <key>StartInterval</key>
+        <integer>3600</integer>
+	<key>RunAtLoad</key>
+	<true/>
+</dict>
+</plist>
+

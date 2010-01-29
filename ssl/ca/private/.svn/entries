@@ -1,0 +1,40 @@
+8
+
+dir
+16
+file:///usr/local/puppet/ssl/ca/private
+file:///usr/local/puppet
+
+
+
+2009-06-23T18:05:30.331333Z
+1
+root
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+46b88788-5473-4eb6-b5f7-e3713769c5b3
+
+ca.pass
+file
+
+
+
+
+2009-06-23T18:25:23.000000Z
+76471ed5365cdcac5ea07747beb03592
+2009-06-23T18:05:30.331333Z
+1
+root
+
