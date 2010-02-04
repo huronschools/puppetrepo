@@ -8,7 +8,7 @@ class general_image {
 	
 	# Package Names
 	$facter = "facter.1.5.7.dmg"
-	$puppetcurrent = "puppet0.25.3.dmg"
+	$puppetcurrent = "puppet25.4.dmg"
 	$firstclass = "Firstclass.dmg"
 	$textwrangler = "TextWrangler_3.0.dmg"
 	$ard = "ardalllocal.dmg"
