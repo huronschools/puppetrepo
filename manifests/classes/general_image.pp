@@ -17,14 +17,14 @@ class general_image {
 	Package{ensure => installed,provider => pkgdmg}
 
 	# Package Calls
-	package{"$facter": 
-		source => "$pkg_base/$facter",
-		require => Package[$puppetcurrent],
-		}
-	package{"$puppetcurrent":
-		source => "$pkg_base/$facter",
-		before => Package[$facter],
-		}
+#	package{"$facter": 
+#		source => "$pkg_base/$facter",
+#		require => Package[$puppetcurrent],
+#		}
+#	package{"$puppetcurrent":
+#		source => "$pkg_base/$facter",
+#		before => Package[$facter],
+#		}
 	package{"$textwrangler": 
 		source => "$pkg_base/$textwrangler",
 		provider => appdmg,
