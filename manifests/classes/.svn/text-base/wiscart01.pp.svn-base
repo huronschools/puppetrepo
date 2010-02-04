@@ -32,7 +32,8 @@ class wiscart01 {
 		}
 	package{"$ksapp": 
 		source =>"$pkg_base/$ksapp",
-		require => Package[$keyskills]
+		require => Package[$keyskills],
+		provider => appdmg,
 		}
 
 } # End of Class
