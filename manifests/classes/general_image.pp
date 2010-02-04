@@ -8,7 +8,7 @@ class general_image {
 	
 	# Package Names
 	$facter = "facter.1.5.7.dmg"
-	$puppetcurrent = "puppet.25.4.dmg"
+	$puppetcurrent = "puppet-0.25.4.dmg"
 	$firstclass = "Firstclass.dmg"
 	$textwrangler = "TextWrangler_3.0.dmg"
 	$ard = "ardalllocal.dmg"
@@ -17,14 +17,14 @@ class general_image {
 	Package{ensure => installed,provider => pkgdmg}
 
 	# Package Calls
-#	package{"$facter": 
-#		source => "$pkg_base/$facter",
-#		require => Package[$puppetcurrent],
-#		}
-#	package{"$puppetcurrent":
-#		source => "$pkg_base/$facter",
-#		before => Package[$facter],
-#		}
+	package{"$facter": 
+		source => "$pkg_base/$facter",
+		require => Package[$puppetcurrent],
+		}
+	package{"$puppetcurrent":
+		source => "$pkg_base/$facter",
+		before => Package[$facter],
+		}
 	package{"$textwrangler": 
 		source => "$pkg_base/$textwrangler",
 		provider => appdmg,
