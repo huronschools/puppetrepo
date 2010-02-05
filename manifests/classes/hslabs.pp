@@ -13,6 +13,7 @@ class hslabs {
 	$imagein = "ImageIn.dmg"
 	$keychainminder = "KeychainMinder.dmg"
 	$hpscanjet = "HPScanjet.dmg"
+	$alice = "Alice.dmg"
 
 	# Set Package resource defaults for OS X clients
 	Package{ensure => installed,provider => pkgdmg}
