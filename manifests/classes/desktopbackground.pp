@@ -5,9 +5,6 @@
 
 class desktopbackground {
 
-	file{"/users/students/library/preferences/com.apple.desktop.plist":
-		ensure => absent,
-		backup => false;
-	    }
+	file { "/users/students/library/preferences/com.apple.desktop.plist": ensure => absent}
 
 } //End of class
