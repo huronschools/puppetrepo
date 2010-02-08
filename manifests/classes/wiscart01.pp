@@ -5,6 +5,7 @@ class wiscart01 {
 
 	# Includes
 	include general_image
+	include desktopbackground
 
 	# Package Names
 	$fastmath = "Fastmath.dmg"

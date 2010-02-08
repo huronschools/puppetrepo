@@ -6,6 +6,7 @@ class mjhscart01 {
 	# Create the Student Data Folder
 	include studentdata
 	include general_image
+	include desktopbackground
 
 	# Package Names
 	$audacityppc = "AudacityPPC.dmg"

@@ -4,6 +4,7 @@ class msimaclab {
 
 	#  Include the studentdata class which creates our Student Data Folder
 	include hslabs
+	include desktopbackground
 
 	# Package Names
 	$bootpicker = "bootpicker.dmg"
