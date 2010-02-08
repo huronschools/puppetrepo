@@ -15,7 +15,8 @@ class mjhsmultimedia {
 	Package{ensure => installed,provider => pkgdmg}	
 
 	# Install Specialized Packages
-#	package{"$finalcut": source => "$pkg_base/$finalcut",}
+	package{"$finalcut": 
+		source => "http://msdocs.huronhs.com/pkgs/$finalcut",}
 	package{"$googleearth": source => "$pkg_base/$googleearth",}
 
 } # End of Class
