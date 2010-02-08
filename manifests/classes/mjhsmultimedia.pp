@@ -5,6 +5,7 @@ class mjhsmultimedia {
 	#  Includes
 	include studentdata
 	include general_image
+	include desktopbackground
 
 	# Package Names
 	$finalcut = "FinalCut.dmg"
