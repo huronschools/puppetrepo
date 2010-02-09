@@ -1,4 +1,4 @@
-# /etc/puppet/modules/puppet_LaunchDaemons/manifests/init.pp
+# /etc/puppet/manifests/classes/puppetlaunchdaemon.pp
 
 class puppet_LaunchDaemon {
 
@@ -6,6 +6,6 @@ class puppet_LaunchDaemon {
 		owner => root,
 		group => wheel,
 		mode => 644,
-		source => "puppet:///puppet_LaunchDaemon/com.huronhs.puppetconfig.plist",
+		source => "puppet:///files/com.huronhs.puppetconfig.plist",
 	}
 }

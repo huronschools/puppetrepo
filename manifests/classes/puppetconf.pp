@@ -1,4 +1,4 @@
-# /etc/puppet/modules/puppet_conf/manifests/init.pp
+# /etc/puppet/manifests/classes/puppetconf.pp
 
 class puppet_conf {
 
@@ -6,6 +6,6 @@ class puppet_conf {
 		owner => root,
 		group => wheel,
 		mode => 644,
-		source => "puppet:///puppet_conf/puppet.conf",
+		source => "puppet:///files/puppet.conf",
 	}
 }

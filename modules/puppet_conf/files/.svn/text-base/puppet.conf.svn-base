@@ -1,3 +1,0 @@
-[main]
-pluginsync = true
-factpath = $vardir/lib/facter
