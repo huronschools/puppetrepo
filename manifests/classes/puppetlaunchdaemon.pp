@@ -7,8 +7,13 @@ class puppet_LaunchDaemon {
 		group => wheel,
 		mode => 644,
 		source => "puppet:///files/com.huronhs.puppetconfig.plist",
-#		provider => launchd,
-#		ensure => running,
 		ensure => present,
-	}
-}
+	} # End of File
+
+	service { "com.huronhs.puppetconfig":
+		enable => true,
+		ensure => running,
+		require => File["/Library/LaunchDaemons/com.huronhs.puppetconfig.plist"],
+	}# End of Service
+
+} #End of Class
