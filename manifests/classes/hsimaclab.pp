@@ -7,7 +7,7 @@ class hsimaclab {
 	include hslabs
 	include general_image
 	include desktopbackground
-	include studentuser
+#	include studentuser
 
 	# Package Names
 	$shockwave = "shockwave.dmg"
