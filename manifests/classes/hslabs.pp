@@ -14,6 +14,7 @@ class hslabs {
 	$keychainminder = "KeychainMinder.dmg"
 	$hpscanjet = "HPScanjet.dmg"
 	$alice = "Alice.dmg"
+	$googleearth = "GoogleEarth.dmg"
 
 	# Set Package resource defaults for OS X clients
 	Package{ensure => installed,provider => pkgdmg}
@@ -25,6 +26,6 @@ class hslabs {
 	package{"$fmpro": source => "$pkg_base/$fmpro",}
 	package{"$keychainminder": source => "$pkg_base/$keychainminder",}
 	package{"$hpscanjet": source => "$pkg_base/$hpscanjet",}
-
+	package{"$googleearth": source => "$pkg_base/$googleearth",}
 
 } # End of Class
