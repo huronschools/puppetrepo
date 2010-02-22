@@ -68,3 +68,4 @@
 0x0050 2010-01-03T19:01:07UTC 2015-01-02T19:01:07UTC /CN=ashermobile-hsstaff-hhs.local
 0x0051 2010-01-20T18:49:55UTC 2015-01-19T18:49:55UTC /CN=scherley-mjhsstaff-mjhs.local
 0x0052 2010-01-27T18:51:14UTC 2015-01-26T18:51:14UTC /CN=busgarage2-wesstaff-busgarage.local
+0x0053 2010-02-21T18:30:06UTC 2015-02-20T18:30:06UTC /CN=berry-shawstaff-shawsped.local
