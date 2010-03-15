@@ -13,7 +13,6 @@ class general_image {
 	$firstclass = "Firstclass.dmg"
 	$textwrangler = "TextWrangler_3.0.dmg"
 	$ard = "ardalllocal.dmg"
-	$sophos = "Sophos.dmg"
 	$firefox = "Firefox3.6.dmg"
 
 	# Set Package resource defaults for OS X clients
@@ -33,7 +32,6 @@ class general_image {
 		provider => appdmg,
 		}
 	package{"$ard": source => "$pkg_base/$ard",}
-	package{"$sophos": source => "$pkg_base/$sophos",}
 	package{"$firefox": 
 		source => "$pkg_base/$firefox",
 		provider => appdmg,

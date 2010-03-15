@@ -11,6 +11,8 @@ class leopard {
 	$timezone = "Timezone.dmg"	
 	$office = "Office2004.dmg"
 	$officeupdates = "OfficeUpdates.dmg"
+	$sophos = "Sophos.dmg"
+
 
 	# Set Package resource defaults for OS X clients
 	#Package{ensure => installed,provider => pkgdmg}
@@ -20,6 +22,7 @@ class leopard {
         package{"$ilife": source => "$pkg_base/$ilife",}
         package{"$iwork": source => "$pkg_base/$iwork",}
 	package{"$timezone": source => "$pkg_base/$timezone",}
+	package{"$sophos": source => "$pkg_base/$sophos",}
 	package{"$office": 
 		source => "$pkg_base/$office",
 		before => Package[$officeupdates],

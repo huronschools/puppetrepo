@@ -9,9 +9,9 @@ class wiscart01 {
 
 	# Package Names
 	$fastmath = "Fastmath.dmg"
-	$flash = "flash10.dmg"
+	$flash = "flash10.0.45.2.dmg"
 	$flip4mac = "flip4mac.dmg"
-	$shockwave = "shockwave.dmg"
+	$shockwave = "shockwave11.5.dmg"
 	$arplugins = "arplugins.dmg"
 	$dvdunlock = "dvdunlock.dmg"
 	$keyskills = "keyskills.dmg"
