@@ -34,7 +34,7 @@ class nrpe {
 		source => "pkg_base/$plugins",
 		require => User["nagiosuser"],
 		require => Group["nagios"],
-		before => Package[$plugins],
+		before => Package[$nrpe],
 	}
 
 }
