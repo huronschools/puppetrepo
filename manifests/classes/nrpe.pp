@@ -35,4 +35,6 @@ class nrpe {
 		require => User["nagiosuser"],
 		require => Group["nagios"],
 		require => Package[$devtools],
-}
+	}
+
+}// End of Class
