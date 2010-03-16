@@ -37,4 +37,4 @@ class nrpe {
 		require => Package[$devtools],
 	}
 
-}// End of Class
+}
