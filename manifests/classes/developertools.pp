@@ -16,6 +16,7 @@ class developertools {
 		10.6: { 
 			package{"$devtools106":
 				source => "$pkg_base/$devtools10.6",
-	               	}
+	        	       	}
+			}
 	}
 } # End of Class
