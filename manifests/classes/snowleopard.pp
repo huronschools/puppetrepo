@@ -4,6 +4,9 @@
 #
 
 class snowleopard {
+
+	include office2008
+
 	# Package Names
 	$ilife = "iLife09.dmg"
 	$iwork = "iWork09.dmg"
