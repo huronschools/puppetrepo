@@ -15,7 +15,7 @@ class nrpe {
 	group { 'nagios':
     		members => ['nagiosuser'],
     		ensure => 'present',
-    		gid => 5509
+    		gid => '5509'
 	}
 
 	Package{ensure => installed,provider => pkgdmg}
