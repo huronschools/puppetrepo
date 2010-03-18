@@ -14,7 +14,7 @@ class snowleopard {
 	$timezone = "Timezone.dmg"	
 
 	# Set Package resource defaults for OS X clients
-	#Package{ensure => installed,provider => pkgdmg}
+	Package{ensure => installed,provider => pkgdmg}
 
 	# Package Calls
 	package{"$serveradmin": source => "$pkg_base/$serveradmin",}
