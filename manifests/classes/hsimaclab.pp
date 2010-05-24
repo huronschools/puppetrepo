@@ -10,6 +10,7 @@ class hsimaclab {
 #	include studentuser
 
 	# Package Names
+	$skype = "Skype_2.8.0.851.dmg"
 	$shockwave = "shockwave.dmg"
 	$flash = "flash10.dmg"
 	$flip4mac = "flip4mac.dmg"
@@ -20,5 +21,9 @@ class hsimaclab {
 	package{"$flash": source => "$pkg_base/$flash"}
 	package{"$flip4mac": source => "$pkg_base/$flip4mac"}
 	package{"$fireworks": source => "$pkg_base/$fireworks"}
+	package { "$skype":
+		source => "$pkg_base/$skype",
+		provider => appdmg
+	}
 
 } # End of Class
