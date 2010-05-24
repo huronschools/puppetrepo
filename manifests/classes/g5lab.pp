@@ -29,4 +29,8 @@ class g5lab {
 		source => "$pkg_base/$adobecs1",
 		before => Package[$imagein],
 		}
+		
+	#Symlink fix for Illustrator
+	file { "/Applications/Adobe Illustrator CS/Illustrator CS.app/Contents/Frameworks/AdobeSplashKit.framework/AdobeSplashKit": ensure => "/Applications/Adobe Illustrator CS/Illustrator CS.app/Contents/Frameworks/AdobeSplashKit.framework/Versions/A/AdobeSplashKit" }
+
 } # End of Class
