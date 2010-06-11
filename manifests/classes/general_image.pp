@@ -4,8 +4,8 @@ class general_image {
 
 	# Includes
 	include staff
-	include puppet_conf
 	include puppet_LaunchDaemon
+	#include boe_conf
 	
 	# Package Names
 	$facter = "facter.1.5.7.dmg"

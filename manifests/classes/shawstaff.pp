@@ -4,6 +4,5 @@ class shawstaff {
 
 	include staff
 	include general_image
-
 } # End of Class
 

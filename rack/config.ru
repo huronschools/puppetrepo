@@ -11,7 +11,6 @@ require 'puppet'
 # ARGV << "--debug"
 
 ARGV << "--rack"
-#ARGV << "--reports puppet_dashboard"
 
 require 'puppet/application/puppetmasterd'
 # we're usually running inside a Rack::Builder.new {} block,
