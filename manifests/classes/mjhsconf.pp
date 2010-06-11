@@ -2,6 +2,7 @@
 
 class mjhs_conf {
 
+	include mjhs_puppetd
 	file { "/etc/puppet/puppet.conf":
 		owner => root,
 		group => wheel,

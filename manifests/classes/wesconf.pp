@@ -2,6 +2,7 @@
 
 class wes_conf {
 
+	include wes_puppetd
 	file { "/etc/puppet/puppet.conf":
 		owner => root,
 		group => wheel,
