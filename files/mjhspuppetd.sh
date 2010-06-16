@@ -24,7 +24,7 @@ SUFFIX=huronhs.com
 if [ "$1" = "-v" ]; then echo "SUFFIX set to $SUFFIX "; fi 
  
 # this is the server to sent a puppetca clean to 
-SERVER=mspuppet.huronhs.com 
+SERVER=msreplica.huronhs.com 
 if [ "$1" = "-v" ]; then echo "SERVER set to $SERVER "; fi 
  
 # see if the MAC_UID is in nvram already 
