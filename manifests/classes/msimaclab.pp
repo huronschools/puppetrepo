@@ -7,14 +7,12 @@ class msimaclab {
 	include desktopbackground
 
 	# Package Names
-	$bootpicker = "bootpicker.dmg"
 	$photoshopcs3 = "PhotoshopCS3.dmg"
 
 	# Set Package resource defaults for OS X clients
 	Package{ensure => installed,provider => pkgdmg}
 
 	# Package Calls
-	package{"$bootpicker": source => "$pkg_base/$bootpicker",}
 	package{"$photoshopcs3": source => "$pkg_base/$photoshopcs3",}
 
 } # End of Class

@@ -24,7 +24,7 @@ class shawlabs {
 	package{"$fastmath": source =>"$pkg_base/$fastmath",}
 	package{"$flash": source =>"$pkg_base/$flash",}
 	package{"$flip4mac": source =>"$pkg_base/$flip4mac",}
-	package{"$shockwave": source =>"$pkg_base/$shockwave",}
+	#package{"$shockwave": source =>"$pkg_base/$shockwave",}
 	package{"$arplugins": source =>"$pkg_base/$arplugins",}
 	package{"$dvdunlock": source =>"$pkg_base/$dvdunlock",}
 	package{"$keyskills": 
