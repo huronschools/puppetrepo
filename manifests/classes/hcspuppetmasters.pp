@@ -7,7 +7,7 @@ class hcspuppetmasters {
 		source => "puppet:///files/rubyexternalnode.rb",
 		mode => 0755,
 		owner => root,
-		group => root,
+		group => wheel,
 	}
 	
 	file {"/Library/WebServer/CGI-Executables/pclean.rb":
