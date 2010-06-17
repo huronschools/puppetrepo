@@ -17,4 +17,4 @@ class hcspuppetmasters {
 	group => staff,
 	}
 
-}
+} # End of Class

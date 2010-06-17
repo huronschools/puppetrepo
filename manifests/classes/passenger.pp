@@ -3,24 +3,24 @@ class passenger {
 	file { ["/etc/puppet/rack", "/etc/puppet/rack/public"]:
 	  ensure => directory,
 	  mode => 0755,
-	  owner => puppet,
-	  group => puppet,
+	  owner => "puppet",
+	  group => "puppet",
 	}
 
 	file { "/etc/puppet/rack/config.ru":
 	  ensure => present,
 	  source => "puppet:///files/config.ru",
 	  mode => 0644,
-	  owner => puppet,
-	  group => puppet,
+	  owner => "puppet",
+	  group => "puppet",
 	}
 
 	file { "/etc/apache2/httpd.conf":
 	  ensure => present,
 	  source => "puppet:///files/httpd.passenger.conf",
 	  mode => 0644,
-	  owner => root,
-	  group => wheel,
+	  owner => "root",
+	  group => "wheel",
 	  before => File["/etc/apache2/passenger.conf"],
 	  notify => Service["apache2"],
 	}
@@ -29,8 +29,8 @@ class passenger {
 	  ensure => present,
 	  source => "puppet:///files/passenger.conf",
 	  mode => 0644,
-	  owner => root,
-	  group => root,
+	  owner => "root",
+	  group => "wheel",
 	  require => [File["/etc/puppet/rack/config.ru"], File["/etc/puppet/rack/public"], Package["passenger"]],
 	  notify => Service["apache2"],
 	}
