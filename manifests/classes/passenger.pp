@@ -31,7 +31,7 @@ class passenger {
 	  mode => 0644,
 	  owner => root,
 	  group => root,
-	  require => [File["/etc/puppet/rack/config.ru"], File["/etc/puppet/rack/public"], Package["apache2"], Package["passenger"]],
+	  require => [File["/etc/puppet/rack/config.ru"], File["/etc/puppet/rack/public"], Package["passenger"]],
 	  notify => Service["apache2"],
 	}
 
@@ -41,6 +41,9 @@ class passenger {
 	}
 
 	service { "apache2":
+		enable => true,
+		ensure => true,
+		hasrestart => true,
 	}
 
 	exec { "/usr/bin/passenger-install-apache2-module --auto":
