@@ -12,7 +12,7 @@ class passenger {
 	  source => "puppet:///files/config.ru",
 	  mode => 0644,
 	  owner => puppet,
-	  group => root,
+	  group => puppet,
 	}
 
 	file { "/etc/apache2/httpd.conf":
@@ -20,7 +20,7 @@ class passenger {
 	  source => "puppet:///files/httpd.passenger.conf",
 	  mode => 0644,
 	  owner => root,
-	  group => root,
+	  group => wheel,
 	  before => File["/etc/apache2/passenger.conf"],
 	  notify => Service["apache2"],
 	}
