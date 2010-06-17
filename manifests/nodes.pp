@@ -10,3 +10,7 @@ node default {
 	include general_image
 }
 
+node "msreplica.huronhs.com" {
+	include hcspuppetmasters
+	include nagiosusers
+}
