@@ -37,6 +37,7 @@ class passenger {
 
 	package { ["rack", "passenger"]:
 	  ensure => installed,
+	  name => 'passenger',
 	  provider => "gem",
 	}
 
