@@ -1,6 +1,5 @@
 class hcspuppetmasters {
 
-	include passenger
 	include passengerclass
 	include puppetusers
 

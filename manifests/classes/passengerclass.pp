@@ -33,7 +33,7 @@ class passengerclass {
 	  mode => 0644,
 	  owner => "root",
 	  group => "wheel",
-	  require => [File["/etc/puppet/rack/config.ru"], File["/etc/puppet/rack/public"], Package["passenger::passenger"]],
+	  require => [File["/etc/puppet/rack/config.ru"], File["/etc/puppet/rack/public"]],
 	  notify => Service["apache2"],
 	}
 
