@@ -1,6 +1,4 @@
 class passengerclass {
-	
-	include passenger
 
 	file { ["/etc/puppet/rack", "/etc/puppet/rack/public"]:
 	  ensure => directory,
