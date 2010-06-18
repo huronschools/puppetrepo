@@ -35,7 +35,7 @@ class passenger {
 
   exec {'gem-update':
     path => [ $passenger::params::gem_binary_path, '/usr/bin', '/bin'],
-    command => 'gem update --system'
+    command => 'gem update --system',
   	logoutput => true,
 	before => [Package['passenger'], Exec['compile-passenger']],
   }
