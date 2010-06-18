@@ -1,0 +1,9 @@
+{
+  "types": [
+
+  ],
+  "dependencies": {},
+  "checksums": {},
+  "version": "0.0.1",
+  "name": "puppetlabs-passenger"
+}
