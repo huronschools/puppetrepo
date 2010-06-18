@@ -35,8 +35,8 @@ class passenger {
 	  notify => Service["apache2"],
 	}
 
-	package { ["rack", "passenger"]:
-	  ensure => installed,
+	package { 'passenger':
+	  ensure => '2.2.11',
 	  name => 'passenger',
 	  provider => "gem",
 	}
