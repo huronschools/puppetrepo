@@ -1,4 +1,6 @@
 class passengerclass {
+	
+	include passenger
 
 	file { ["/etc/puppet/rack", "/etc/puppet/rack/public"]:
 	  ensure => directory,
@@ -31,7 +33,7 @@ class passengerclass {
 	  mode => 0644,
 	  owner => "root",
 	  group => "wheel",
-	  require => [File["/etc/puppet/rack/config.ru"], File["/etc/puppet/rack/public"], Package[$passenger::passenger]],
+	  require => [File["/etc/puppet/rack/config.ru"], File["/etc/puppet/rack/public"], Package["passenger::passenger"]],
 	  notify => Service["apache2"],
 	}
 
