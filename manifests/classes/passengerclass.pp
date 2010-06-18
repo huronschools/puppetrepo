@@ -24,7 +24,7 @@ class passengerclass {
 	  owner => "root",
 	  group => "wheel",
 	  before => File["/etc/apache2/passenger.conf"],
-	  notify => Service["apache2"],
+	  notify => Service["org.apache.httpd"],
 	}
 
 	file { "/etc/apache2/passenger.conf":
@@ -34,25 +34,15 @@ class passengerclass {
 	  owner => "root",
 	  group => "wheel",
 	  require => [File["/etc/puppet/rack/config.ru"], File["/etc/puppet/rack/public"], Class["passenger"]],
-	  notify => Service["apache2"],
+	  notify => Service["org.apache.httpd"],
 	}
 
-#	package { 'passenger':
-#	  ensure => '2.2.14',
-#	  name => 'passenger',
-#	  provider => "gem",
-#	}
-
-	service { "apache2":
+	service { "org.apache.httpd":
 		enable => true,
 		ensure => true,
-		hasrestart => true,
+		subscribe => [File["/etc/apache2/passenger.conf"], File["/etc/apache2/httpd.conf"]],
+		require => [File["/etc/apache2/passenger.conf"], File["/etc/apache2/httpd.conf"]],
 	}
 
-#	exec { "/usr/bin/passenger-install-apache2-module --auto":
-#	      subscribe => Package["passenger"],
-#	      before => Service["apache2"],
-#	      require => [Package["passenger"], File["/etc/apache2/httpd.conf"]],
-#	}
 
 } #End of Class
