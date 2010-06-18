@@ -13,7 +13,7 @@ class hcspuppetmasters {
 		source => "$pkg_base/$developertools",
 		ensure => installed,
 		provider => pkgdmg,
-		before => Package['passenger::passenger'],
+		before => Class['passenger'],
 		}
 
 	file {"/usr/bin/rubyexternalnode.pp":
