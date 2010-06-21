@@ -23,7 +23,7 @@ class general_image {
 		source => "$pkg_base/$facter",
 		require => Package[$puppetcurrent],
 		}
-	package{"$firstclass": source => "pkg_base/$firstclass",}
+	package{"$firstclass": source => "$pkg_base/$firstclass",}
 	package{"$puppetcurrent":
 		source => "$pkg_base/$facter",
 		before => Package[$facter],
