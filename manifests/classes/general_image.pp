@@ -13,6 +13,7 @@ class general_image {
 	$textwrangler = "TextWrangler_3.0.dmg"
 	$ard = "ardalllocal.dmg"
 	$firefox = "Firefox3.6.dmg"
+	$firstclass = "Firstclass20100621.dmg"
 
 	# Set Package resource defaults for OS X clients
 	Package{ensure => installed,provider => pkgdmg}
@@ -22,6 +23,7 @@ class general_image {
 		source => "$pkg_base/$facter",
 		require => Package[$puppetcurrent],
 		}
+	package{"$firstclass": source => "pkg_base/$firstclass",}
 	package{"$puppetcurrent":
 		source => "$pkg_base/$facter",
 		before => Package[$facter],
