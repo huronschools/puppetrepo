@@ -12,6 +12,8 @@ class g5lab {
 	$adobecs1 = "AdobeCS1.dmg"
 	$hhsjfonts = "HHSJournalismFonts.dmg"
 	$finalcut = "FinalCut.dmg"
+	$hpscanjet = "HPScanjet.dmg"
+	$audacityppc = "AudacityPPC.dmg"
 
 	# Set Package resource defaults for OS X clients
 	Package{ensure => installed,provider => pkgdmg}	
@@ -19,7 +21,8 @@ class g5lab {
 	# Install Specialized Packages
 	package{"$hhsjfonts": source => "$pkg_base/$hhsjfonts",}
 	package{"$finalcut": source => "$pkg_base/$finalcut",}
-
+	package{"$hpscanjet": source => "$pkg_base/$hpscanjet",}
+	package{"$audacityppc": source => "$pkg_base/$audacityppc",}
 	package{"$imagein": 
 		source => "$pkg_base/$imagein",
 		require => Package[$adobecs1],
