@@ -17,10 +17,18 @@ class hslabs {
 	Package{ensure => installed,provider => pkgdmg}
 
 	#Package Calls
-	package{"$studio8": source => "$pkg_base/$studio8",}
+	package{"$studio8": 
+		source => "$pkg_base/$studio8",
+		before => Exec[Dreamweaver Fix],
+	}
 	package{"$alice": source => "$pkg_base/$alice",}
 	package{"$fmpro": source => "$pkg_base/$fmpro",}
 	package{"$googleearth": source => "$pkg_base/$googleearth",}
+	exec { "Dreamweaver Fix":
+		command => "mv /Applications/Macromedia\ Dreamweaver\ 8/Dreamweaver\ 8/ /Applications/Macromedia\ Dreamweaver\ 8/Dreamweaver\ 8.app",
+		creates => "/Applications/Macromedia\ Dreamweaver\ 8/Dreamweaver\ 8.app",
+		require => Package[$studio8],
+	}
 	
 	case $macosx_productversion_major {
 		10.5: { 
