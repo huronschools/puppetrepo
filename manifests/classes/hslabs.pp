@@ -19,7 +19,7 @@ class hslabs {
 	#Package Calls
 	package{"$studio8": 
 		source => "$pkg_base/$studio8",
-		before => Exec[Dreamweaver Fix],
+		before => Exec["Dreamweaver Fix"],
 	}
 	package{"$alice": source => "$pkg_base/$alice",}
 	package{"$fmpro": source => "$pkg_base/$fmpro",}
