@@ -12,7 +12,8 @@ class hslabs {
 	$keychainminder = "KeychainMinder.dmg"
 	$alice = "Alice.dmg"
 	$googleearth = "GoogleEarth.dmg"
-
+	$rosetta = "Rosetta.dmg"
+	
 	# Set Package resource defaults for OS X clients
 	Package{ensure => installed,provider => pkgdmg}
 
@@ -21,6 +22,7 @@ class hslabs {
 		source => "$pkg_base/$studio8",
 		before => Exec["Dreamweaver Fix"],
 	}
+	
 	package{"$alice": source => "$pkg_base/$alice",}
 	package{"$fmpro": source => "$pkg_base/$fmpro",}
 	package{"$googleearth": source => "$pkg_base/$googleearth",}
@@ -33,7 +35,10 @@ class hslabs {
 	case $macosx_productversion_major {
 		10.5: { 
 			package{"$keychainminder": source => "$pkg_base/$keychainminder",}
-		       }			
+		       }	
+		10.6: {
+			package{"$rosetta": source =>"$pkg_base/$rosetta",}
+		}		
 	}
 
 } # End of Class
