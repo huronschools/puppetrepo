@@ -28,7 +28,7 @@ class hslabs {
 	package{"$googleearth": source => "$pkg_base/$googleearth",}
 	exec { "Dreamweaver Fix":
 		command => 'mv /Applications/Macromedia\ Dreamweaver\ 8/Dreamweaver\ 8/ /Applications/Macromedia\ Dreamweaver\ 8/Dreamweaver\ 8.app',
-		creates => '/Applications/Macromedia\ Dreamweaver\ 8/Dreamweaver\ 8.app',
+		creates => '/Applications/Macromedia Dreamweaver 8/Dreamweaver 8.app',
 		require => Package[$studio8],
 	}
 	
