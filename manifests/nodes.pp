@@ -11,6 +11,8 @@ node default {
 }
 node "testing.huronhs.com"{
 	include nagios_osx_commands
+	include nagios_hosts
+	include nagios_services
 }
 node "msreplica.huronhs.com" {
 	include hcspuppetmasters

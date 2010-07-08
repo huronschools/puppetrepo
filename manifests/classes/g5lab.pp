@@ -6,6 +6,7 @@ class g5lab {
 	include studentdata
 	include general_image
 	include hslabs
+	include office2008
 
 	# Package Names
 	$imagein = "ImageIn.dmg"
