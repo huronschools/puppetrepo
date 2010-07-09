@@ -15,7 +15,7 @@
         <true/>
         <key>ProgramArguments</key>
         <array>
-                <string>/usr/bin/puppetd.sh</string>
+                <string>/usr/bin/puppetd.rb</string>
         </array>
         <key>StandardErrorPath</key>
         <string>/var/puppet/log/puppet.err</string>
