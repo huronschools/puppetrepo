@@ -4,6 +4,7 @@ class general_image {
 
 	# Includes
 	include staff
+	include puppet_LaunchDaemon
 	
 	# Package Names
 	$facter = "facter.1.5.7.dmg"
@@ -39,15 +40,12 @@ class general_image {
 	case $macosx_productversion_major {
 		10.5: { 
 			include leopard
-			include puppet_LaunchDaemon_leopard
 		       }			
 		10.6: { 
 			include snowleopard
-			include puppet_LaunchDaemon
 	               }
 		10.4: { 
 			include tiger
-			include puppet_LaunchDaemon_leopard
 		       }
 	}
 
