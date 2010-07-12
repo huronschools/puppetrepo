@@ -16,10 +16,10 @@ ENV['TERM'] = 'xterm-color'
 $stdout.sync=(true) if not $stdout.sync
 
 ## Root Check - Only root should be running this script
-if ENV['USER'] != "root"
-  puts "This script must be run as root."
-  exit(1)
-end
+#if ENV['USER'] != "root"
+#  puts "This script must be run as root."
+#  exit(1)
+#end
 
 ##  Variable Declarations
 suffix = 'huronhs.com'
