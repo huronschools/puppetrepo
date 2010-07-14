@@ -11,7 +11,7 @@ class wiscart01 {
 	$fastmath = "Fastmath.dmg"
 #	$flash = "flash10.0.45.2.dmg"
 	$flip4mac = "flip4mac.dmg"
-	$shockwave = "shockwave11.5.dmg"
+#	$shockwave = "shockwave11.5.dmg"
 	$arplugins = "arplugins.dmg"
 	$dvdunlock = "dvdunlock.dmg"
 	$keyskills = "keyskills.dmg"
@@ -25,7 +25,7 @@ class wiscart01 {
 	package{"$fastmath": source =>"$pkg_base/$fastmath",}
 #	package{"$flash": source =>"$pkg_base/$flash",}
 	package{"$flip4mac": source =>"$pkg_base/$flip4mac",}
-	package{"$shockwave": source =>"$pkg_base/$shockwave",}
+#	package{"$shockwave": source =>"$pkg_base/$shockwave",}
 	package{"$arplugins": source =>"$pkg_base/$arplugins",}
 	package{"$dvdunlock": source =>"$pkg_base/$dvdunlock",}
 	package{"$keyskills": 
