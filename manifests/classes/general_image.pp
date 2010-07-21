@@ -24,7 +24,7 @@ class general_image {
 		require => Package[$puppetcurrent],
 		}
 	package{"$firstclass": source => "$pkg_base/$firstclass",}
-	package{"$flash": source => "$pkg_base/$flash",}
+	#package{"$flash": source => "$pkg_base/$flash",}
 	package{"$puppetcurrent":
 		source => "$pkg_base/$facter",
 		before => Package[$facter],
