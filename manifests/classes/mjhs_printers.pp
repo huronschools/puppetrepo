@@ -12,6 +12,7 @@ class mjhs_printers {
 	exec { "mjhs_office_9050":
 		command => "/usr/sbin/lpadmin -p psm_MJHS_Office_9050 -L MJHS\ Office -D MJHS\ Main\ Office\ 9050\ Copier -v lpd://10.13.2.7/Main_Office_9050_Copier -P /Library/Printers/PPDs/Contents/Resources/HP\ LaserJet\ 9050.gz -E -o printer-is-shared=false",
 		creates => "/var/db/printers/psm_MJHS_Office_9050.mjhs",
+		before => File["/etc/cups/ppd/psm_MJHS_Office_9050.ppd"]
 		#refreshonly => true,
 	}
 	
@@ -21,7 +22,6 @@ class mjhs_printers {
 		mode => 644,
 		source => "puppet:///files/psm_MJHS_Office_9050.ppd",
 		ensure => present,
-		requires => Exec["mjhs_office_9050"],
 	}
 
 } # End of Class
