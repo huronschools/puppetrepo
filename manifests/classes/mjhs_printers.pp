@@ -15,5 +15,13 @@ class mjhs_printers {
 		#refreshonly => true,
 	}
 	
+	file { "/etc/cups/ppd/psm_MJHS_Office_9050.ppd":
+		owner => "root",
+		group => "_lp",
+		mode => 644,
+		source => "puppet:///files/psm_MJHS_Office_9050.ppd",
+		ensure => present,
+		requires => Exec["mjhs_office_9050"],
+	}
 
 } # End of Class
