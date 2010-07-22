@@ -8,11 +8,11 @@ class printers_mjhs_imaclabcolor {
 		require => File["/Library/Printers/PPDs/Contents/Resources/HP LaserJet CP3505.gz"],
 	}
 
-	file { "/Library/Printers/PPDs/Contents/Resources/HP LaserJet CP3505.gz":
+	file { "/Library/Printers/PPDs/Contents/Resources/HP Color LaserJet CP3505.gz":
 		owner => "root",
 		group => "admin",
 		mode => 664,
-		source => "puppet:///files/HP LaserJet CP3505.gz",
+		source => "puppet:///files/HP Color LaserJet CP3505.gz",
 		ensure => present,
 		before => Exec["mjhs_imaclab_color"],
 	}
