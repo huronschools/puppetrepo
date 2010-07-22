@@ -6,6 +6,7 @@ class msimaclab {
 	include hslabs
 	include desktopbackground
 	include printers_mjhs_office9050
+	include printers_mjhs_office9040
 
 	# Package Names
 	$photoshopcs3 = "PhotoshopCS3.dmg"
