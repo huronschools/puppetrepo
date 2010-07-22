@@ -15,6 +15,7 @@ class printers_mjhs_imaclabbw {
 		source => "puppet:///files/HP LaserJet 4200 Series.gz",
 		ensure => present,
 		before => Exec["mjhs_imaclab_bw"],
+		replace => false,
 	}
 
 } # End of Class

@@ -15,6 +15,7 @@ class printers_mjhs_imaclabcolor {
 		source => "puppet:///files/HP Color LaserJet CP3505.gz",
 		ensure => present,
 		before => Exec["mjhs_imaclab_color"],
+		replace => false,
 	}
 
 } # End of Class
