@@ -5,7 +5,7 @@ class msimaclab {
 	#  Include the studentdata class which creates our Student Data Folder
 	include hslabs
 	include desktopbackground
-	include mjhs_printers
+	include printers_mjhs_office9050
 
 	# Package Names
 	$photoshopcs3 = "PhotoshopCS3.dmg"

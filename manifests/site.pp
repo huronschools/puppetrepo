@@ -5,6 +5,7 @@ import "classes/*"
 import "nodes"
 import "users/*"
 import "templates"
+import "classes/printers/*"
 
 # The filebucket option allows for file backups to the server
 #filebucket { main : server => 'testing.huronhs.com' }
