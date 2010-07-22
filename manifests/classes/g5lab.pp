@@ -7,6 +7,7 @@ class g5lab {
 	include general_image
 	include hslabs
 	include office2008
+	include printers_hhs_g5labbw
 
 	# Package Names
 	$imagein = "ImageIn.dmg"

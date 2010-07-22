@@ -2,6 +2,6 @@
 
 class mms {
 
-	include mjhs_conf
+	include mjhs
 
 } # End of Class
