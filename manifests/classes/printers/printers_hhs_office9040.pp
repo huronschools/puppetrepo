@@ -3,7 +3,7 @@
 class printers_hhs_office9040 {
 
 	exec { "hhs_office9040":
-		command => "/usr/sbin/lpadmin -p psm_HHS_Office_9040 -L HHS\\ Main\\ Office\\ -D HHS\\ Main\\ Office\\ Fax\\ Copier -v lpd://10.13.1.8/HHS_Office_Fax_Printer -P /Library/Printers/PPDs/Contents/Resources/HP\\ LaserJet\\ 9040.gz -E -o printer-is-shared=false",
+		command => "/usr/sbin/lpadmin -p psm_HHS_Office_9040 -L HHS\\ Main\\ Office\\ -D HHS\\ Main\\ Office\\ Fax\\ Copier -v lpd://10.13.1.8/HHS_Office_9040_Fax_Printer -P /Library/Printers/PPDs/Contents/Resources/HP\\ LaserJet\\ 9040.gz -E -o printer-is-shared=false",
 		before => File["/etc/cups/ppd/psm_HHS_Office_9040.ppd"],
 		unless => "/usr/bin/lpstat -a psm_HHS_Office_9040",
 	}
