@@ -1,6 +1,6 @@
 #/etc/puppet/manifests/classes/printers/printers_hhs_g5labcolor.pp
 
-class printers_mjhs_imaclabcolor {
+class printers_hhs_g5labcolor {
 
 	exec { "hhs_g5lab_color":
 		command => "/usr/sbin/lpadmin -p psm_HHS_G5_Color -L HHS\\ Room\\ 099 -D HHS\\ G5\\ Lab\\ Color\\ Printer -v lpd://10.13.1.8/HHS_G5_Lab_Color_Printer -P /Library/Printers/PPDs/Contents/Resources/HP\\ Color\\ LaserJet\\ CP3505.gz -E -o printer-is-shared=false",
