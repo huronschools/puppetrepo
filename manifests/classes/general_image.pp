@@ -8,7 +8,7 @@ class general_image {
 	
 	# Package Names
 	$facter = "facter.1.5.7.dmg"
-	$puppetcurrent = "puppet-0.25.4.dmg"
+	$puppetcurrent = "puppet-0.25.5.dmg"
 	$textwrangler = "TextWrangler_3.0.dmg"
 	$ard = "ardalllocal.dmg"
 	$firefox = "Firefox3.6.dmg"
@@ -18,18 +18,16 @@ class general_image {
 
 	# Set Package resource defaults for OS X clients
 	Package{ensure => installed,provider => pkgdmg}
+	
+	# Ensure Vardir for .25.4 -> .25.5 clients
+	file { "/var/lib/": ensure => directory,}
 
 	# Package Calls
 	package{"$facter": 
 		source => "$pkg_base/$facter",
-		require => Package[$puppetcurrent],
 		}
 	package{"$firstclass": source => "$pkg_base/$firstclass",}
 	#package{"$flash": source => "$pkg_base/$flash",}
-	package{"$puppetcurrent":
-		source => "$pkg_base/$facter",
-		before => Package[$facter],
-		}
 	package{"$sophos": source => "$pkg_base/$sophos",}
 	package{"$textwrangler": 
 		source => "$pkg_base/$textwrangler",
@@ -41,6 +39,28 @@ class general_image {
 		provider => appdmg,
 		}
 
+	 # case $puppetversion{
+	 # 		 "0.25.4": {
+	 # 				file { "/var/lib/puppet":
+	 # 					ensure => directory,
+	 # 					before => Exec["Move_puppet_vardir"],
+	 # 				}
+	 # 				
+	 # 				exec { "Move_puppet_vardir":
+	 # 					command => "cp -R /var/puppet /var/lib/puppet",
+	 # 					path => "/usr/bin:/usr/sbin:/bin:/usr/local/bin",
+	 # 					require => File["/var/lib/puppet"],
+	 # 					onlyif => "ls /var/lib/puppet",
+	 # 				}
+	 # 				
+	 # 				package{"$puppetcurrent":
+	 # 					source => "$pkg_base/$facter",
+	 # 					require => Exec["Move_puppet_vardir"],
+	 # 					}
+	 # 				
+	 # 			}
+	 # 		}
+	
 	case $macosx_productversion_major {
 		10.5: { 
 			include leopard

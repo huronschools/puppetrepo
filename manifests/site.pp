@@ -1,10 +1,9 @@
 # /etc/puppet/manifests/site.pp
 
-import "modules"
+#import "modules"
 import "classes/*"
 import "nodes"
 import "users/*"
-import "templates"
 import "classes/printers/*"
 
 # The filebucket option allows for file backups to the server

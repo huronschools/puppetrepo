@@ -17,3 +17,4 @@ require 'puppet/application/puppetmasterd'
 # therefore we need to call run *here*.
 run Puppet::Application[:puppetmasterd].run
 
+
