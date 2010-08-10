@@ -17,6 +17,7 @@ class garyclass {
 	$textmate = "TextMate_1.5.9.dmg"
 	$growl = "Growl-1.2.1.dmg"
 	$ard = "ARD_3.3.dmg"
+	$istat = "istat304.dmg"
 	$git = "git-1.7.2-intel-leopard.dmg"
 
 	# Set Package resource defaults for OS X clients
@@ -25,8 +26,8 @@ class garyclass {
 	# Install Specialized Packages
 	package{"$finalcut": source => "$pkg_base/$finalcut"}
 	package{"$adobecs3": source => "$pkg_base/$adobecs3"}
-	package { "$git": source => "$pkg_base/$git"}
-	}
+	package{"$istat": source => "$pkg_base/$istat"}
+	package{"$git": source => "$pkg_base/$git"}
 	package{"$ard": source => "$pkg_base/$ard"}
 	package{"$onepassword": 
 		source => "$pkg_base/$onepassword",
