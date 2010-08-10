@@ -15,6 +15,7 @@ class general_image {
 	$firstclass = "Firstclass20100621.dmg"
 	$flash = "Flash10.1.dmg"
 	$sophos = "sophos72810.dmg"
+	$dnealian = "dnealian.dmg"
 
 	# Set Package resource defaults for OS X clients
 	Package{ensure => installed,provider => pkgdmg}
@@ -29,6 +30,7 @@ class general_image {
 	package{"$firstclass": source => "$pkg_base/$firstclass",}
 	#package{"$flash": source => "$pkg_base/$flash",}
 	package{"$sophos": source => "$pkg_base/$sophos",}
+	package{"$dnealian": source => "$pkg_base/$dnealian",}
 	package{"$textwrangler": 
 		source => "$pkg_base/$textwrangler",
 		provider => appdmg,
