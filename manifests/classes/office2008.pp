@@ -11,9 +11,7 @@ class office2008 {
 	$update1220 = "Office2008-1220UpdateEN.dmg"
 	$update1223 = "Office2008-1223UpdateEN.dmg"
 	$update1224 = "Office2008-1224UpdateEN.dmg"
-	$officeconfig = "Office2008Config.dmg"
-	$officestudent = "Office2008Studentconfig.dmg"
-	$officesave = "Office2008Savesettings.dmg"
+	$update1226 = "Office2008-1226UpdateEN.dmg"
 	
 	# Set Package resource defaults for OS X clients
 	#Package{ensure => installed,provider => pkgdmg}
@@ -22,34 +20,23 @@ class office2008 {
 	package{"$office": 
 		source => "$pkg_base/$office",
 		}
-        package{"$officeconfig":
-                source => "$pkg_base/$officeconfig",
-                before => Package[$officestudent],
-                require => Package[$office],
-                } 	
-	package{"$officestudent":
-		source => "$pkg_base/$officestudent",
-		before => Package[$officesave],
-		require => Package[$officeconfig],
-		}
-	package{"$officesave":
-		source => "$pkg_base/$officesave",
-		before => Package[$update1220],
-		require => Package[$officestudent],
-	}
 	package{"$update1220":
                 source => "$pkg_base/$update1220",
                 require => Package[$office],
                 before => Package[$update1223],
                 }
 	package{"$update1223":
-                source => "$pkg_base/$update1223",
+	                source => "$pkg_base/$update1223",
+	                require => Package[$update1220],
+	                before => Package[$update1226],
+	                }
+	# package{"$update1224":
+	#                 source => "$pkg_base/$update1224",
+	#                 require => Package[$update1223],
+	#                 }
+	package{"$update1226":
+                source => "$pkg_base/$update1226",
                 require => Package[$update1220],
-                before => Package[$update1224],
-                }
-	package{"$update1224":
-                source => "$pkg_base/$update1224",
-                require => Package[$update1223],
                 }
 
 }
