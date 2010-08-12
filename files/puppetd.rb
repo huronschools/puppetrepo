@@ -42,6 +42,7 @@ if ARGV[0] == "-c"
   puts "Cleaning SSL and Vardir, then cleaning cert from server."
   FileUtils.rm_rf '/etc/puppet/ssl'
   FileUtils.rm_rf '/var/puppet'
+  FileUtils.rm_rf '/var/lib/puppet'
   system "curl #{command}"
   exit(0)
 end
@@ -55,6 +56,7 @@ end
 def clean_certs (command, mac_uid)
     FileUtils.rm_rf '/etc/puppet/ssl'
     FileUtils.rm_rf '/var/puppet'
+    FileUtils.rm_rf '/var/lib/puppet'
     system "curl #{command}"
 
   5.times do
@@ -62,10 +64,6 @@ def clean_certs (command, mac_uid)
     sleep(1)
   end
 
-  system "puppetd -o --no-daemonize --verbose --certname=#{mac_uid} --debug --report 2>&1"  
-  system "puppetd -o --no-daemonize --verbose --certname=#{mac_uid} --debug --report 2>&1"  
-  system "puppetd -o --no-daemonize --verbose --certname=#{mac_uid} --debug --report 2>&1"  
-  system "puppetd -o --no-daemonize --verbose --certname=#{mac_uid} --debug --report 2>&1"
   system "puppetd -o --no-daemonize --verbose --certname=#{mac_uid} --debug --report 2>&1"
   exit(0)
 end
