@@ -3,12 +3,12 @@
 class hsminis {
 
 	# Package Names
-	$hsdropbox = "hsdropbox.dmg"
+	$hhsdropbox = "hhsdropbox.dmg"
 
 	# Install Required Packages First
 
-	package { "$hsdropbox":
-		source => "$pkg_base/$hsdropbox",
+	package { "$hhsdropbox":
+		source => "$pkg_base/$hhsdropbox",
 		provider => appdmg
 	}
 
