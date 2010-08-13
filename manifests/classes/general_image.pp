@@ -10,7 +10,6 @@ class general_image {
 	$facter = "facter.1.5.7.dmg"
 	$puppetcurrent = "puppet-0.25.5.dmg"
 	$textwrangler = "TextWrangler_3.0.dmg"
-	$ard = "ardalllocal.dmg"
 	$firefox = "Firefox3.6.dmg"
 	$firstclass = "Firstclass20100621.dmg"
 	$flash = "Flash10.1.dmg"
@@ -35,7 +34,6 @@ class general_image {
 		source => "$pkg_base/$textwrangler",
 		provider => appdmg,
 		}
-	package{"$ard": source => "$pkg_base/$ard",}
 	package{"$firefox": 
 		source => "$pkg_base/$firefox",
 		provider => appdmg,
