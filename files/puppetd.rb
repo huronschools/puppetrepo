@@ -65,6 +65,7 @@ def clean_certs (command, mac_uid)
   end
 
   system "puppetd -o --no-daemonize --verbose --certname=#{mac_uid} --debug --report 2>&1"
+  system "puppetd -o --no-daemonize --verbose --certname=#{mac_uid} --debug --report 2>&1"
   exit(0)
 end
 
