@@ -25,15 +25,6 @@ class office2008 {
                 require => Package[$office],
                 before => Package[$update1223],
                 }
-	package{"$update1223":
-	                source => "$pkg_base/$update1223",
-	                require => Package[$update1220],
-	                before => Package[$update1226],
-	                }
-	# package{"$update1224":
-	#                 source => "$pkg_base/$update1224",
-	#                 require => Package[$update1223],
-	#                 }
 	package{"$update1226":
                 source => "$pkg_base/$update1226",
                 require => Package[$update1220],
