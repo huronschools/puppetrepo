@@ -23,7 +23,7 @@ class office2008 {
 	package{"$update1220":
                 source => "$pkg_base/$update1220",
                 require => Package[$office],
-                before => Package[$update1223],
+                before => Package[$update1226],
                 }
 	package{"$update1226":
                 source => "$pkg_base/$update1226",
