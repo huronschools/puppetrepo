@@ -12,6 +12,7 @@ class general_image {
 	$textwrangler = "TextWrangler_3.0.dmg"
 	$firefox = "Firefox3.6.dmg"
 	$firstclass = "Firstclass20100621.dmg"
+	$fcupdate = "firstclass10.013.dmg"
 	$flash = "Flash10.1.dmg"
 	$sophos = "sophos72810.dmg"
 	$dnealian = "dnealian.dmg"
@@ -30,6 +31,11 @@ class general_image {
 	#package{"$flash": source => "$pkg_base/$flash",}
 	package{"$sophos": source => "$pkg_base/$sophos",}
 	package{"$dnealian": source => "$pkg_base/$dnealian",}
+	package{"$fcupdate": 
+		source => "$pkg_base/$fcupdate",
+		provider => appdmg,
+		require => Package["$firstclass"],
+		}
 	package{"$textwrangler": 
 		source => "$pkg_base/$textwrangler",
 		provider => appdmg,
