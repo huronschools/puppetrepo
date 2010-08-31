@@ -7,7 +7,7 @@ class hsimaclab {
 	include hslabs
 	include general_image
 	include desktopbackground
-#	include studentuser
+	include printers_hhs_201lab
 
 	# Package Names
 	$skype = "Skype_2.8.0.851.dmg"
