@@ -44,28 +44,6 @@ class general_image {
 		source => "$pkg_base/$firefox",
 		provider => appdmg,
 		}
-
-	 # case $puppetversion{
-	 # 		 "0.25.4": {
-	 # 				file { "/var/lib/puppet":
-	 # 					ensure => directory,
-	 # 					before => Exec["Move_puppet_vardir"],
-	 # 				}
-	 # 				
-	 # 				exec { "Move_puppet_vardir":
-	 # 					command => "cp -R /var/puppet /var/lib/puppet",
-	 # 					path => "/usr/bin:/usr/sbin:/bin:/usr/local/bin",
-	 # 					require => File["/var/lib/puppet"],
-	 # 					onlyif => "ls /var/lib/puppet",
-	 # 				}
-	 # 				
-	 # 				package{"$puppetcurrent":
-	 # 					source => "$pkg_base/$facter",
-	 # 					require => Exec["Move_puppet_vardir"],
-	 # 					}
-	 # 				
-	 # 			}
-	 # 		}
 	
 	case $macosx_productversion_major {
 		10.5: { 

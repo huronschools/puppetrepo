@@ -15,6 +15,14 @@ class sciencelab101 {
 
 	# Package Calls
 	package{"$quizshow": source => "$pkg_base/$quizshow",}
-	package{"$vchem": source => "$pkg_base/$vchem",}
+	package{"$vchem": 
+		source => "$pkg_base/$vchem",
+		before => File["/Applications/VirtualChemLab"],
+	}
+	file { "/Applications/VirtualChemLab":
+		ensure => directory,
+		mode => 755,
+		require => Package["$vchem"],
+	}
 
 } # End of Class
