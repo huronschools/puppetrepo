@@ -14,7 +14,6 @@ class wiscart01 {
 	$dvdunlock = "dvdunlock.dmg"
 	$keyskills = "keyskills.dmg"
 	$ksapp = "keyskillsapp.dmg"
-	$rosetta = "Rosetta.dmg"
 
 	# Set package resource defaults for OS X clients
 	Package{ensure => installed,provider => pkgdmg}
@@ -34,11 +33,7 @@ class wiscart01 {
 		provider => appdmg,
 		}
 
-	case $macosx_productversion_major {
-		10.6: { 
-			package{"$rosetta": source =>"$pkg_base/$rosetta",}
-	               }
-	}
+
 
 } # End of Class
 
