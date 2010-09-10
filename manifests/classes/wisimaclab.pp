@@ -11,7 +11,12 @@ class wisimaclab {
 #	include studentuser
 
 	# Package Names
-
+	$timetogo = "TimeToGo.dmg"
+	
 	# Install Required Packages First
-
+	package{"$timetogo": 
+		source =>"$pkg_base/$timetogo",
+		provider => appdmg,
+		}
+		
 } # End of Class
