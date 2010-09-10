@@ -7,6 +7,7 @@ class wisimaclab {
 	include hslabs
 	include general_image
 	include desktopbackground
+	include wiscart01
 #	include studentuser
 
 	# Package Names
