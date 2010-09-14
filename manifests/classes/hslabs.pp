@@ -12,7 +12,6 @@ class hslabs {
 	$keychainminder = "KeychainMinder.dmg"
 	$alice = "Alice.dmg"
 	$googleearth = "GoogleEarth.dmg"
-	$rosetta = "Rosetta.dmg"
 
 	
 	# Set Package resource defaults for OS X clients
@@ -36,10 +35,7 @@ class hslabs {
 	case $macosx_productversion_major {
 		10.5: { 
 			package{"$keychainminder": source => "$pkg_base/$keychainminder",}
-		       }	
-		10.6: {
-			package{"$rosetta": source =>"$pkg_base/$rosetta",}
-		}		
+		       }			
 	}
 
 } # End of Class
