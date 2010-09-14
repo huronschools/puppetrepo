@@ -8,6 +8,7 @@ class hsimaclab {
 	include general_image
 	include desktopbackground
 	include printers_hhs_201lab
+	include loginhooks
 
 	# Package Names
 	$skype = "Skype_2.8.0.851.dmg"

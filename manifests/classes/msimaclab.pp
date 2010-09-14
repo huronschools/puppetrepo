@@ -7,6 +7,7 @@ class msimaclab {
 	include desktopbackground
 	include printers_mjhs_imaclabbw
 	include printers_mjhs_imaclabcolor
+	include loginhooks
 
 	# Package Names
 	$photoshopcs3 = "PhotoshopCS3.dmg"

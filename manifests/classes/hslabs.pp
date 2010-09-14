@@ -13,6 +13,7 @@ class hslabs {
 	$alice = "Alice.dmg"
 	$googleearth = "GoogleEarth.dmg"
 	$rosetta = "Rosetta.dmg"
+
 	
 	# Set Package resource defaults for OS X clients
 	Package{ensure => installed,provider => pkgdmg}

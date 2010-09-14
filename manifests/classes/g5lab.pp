@@ -9,6 +9,7 @@ class g5lab {
 	include office2008
 	include printers_hhs_g5labbw
 	include printers_hhs_g5labcolor
+	include loginhooks
 
 	# Package Names
 	$imagein = "ImageIn.dmg"
