@@ -34,6 +34,14 @@ class loginhooks {
 		mode => 755,
 		source => "puppet:///files/Loginhooks/LOLogger.hook",
 	}
+	file { "/etc/hooks/LORemoveCachesLink.hook":
+		ensure => file,
+		require => Package["$hooks"],
+		owner => "root",
+		group => "admin",
+		mode => 755,
+		source => "puppet:///files/Loginhooks/LORemoveCachesLink.hook",
+	}
 	
 	
 

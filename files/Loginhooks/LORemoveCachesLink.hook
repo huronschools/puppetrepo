@@ -1,0 +1,23 @@
+#!/bin/sh
+PATH = "/bin"
+
+#  Logout Redirection Script
+#
+#  Author:  Gary Larizza
+#
+#  Date Modified:  9/14/2010
+#
+#  Description:  Simple logouthook that removes all symlinks and redirection-goodness
+
+# Get the User
+theUser = $1
+
+# Get the Homedir
+eval theHome = ~$1
+
+echo "Removing Symlink"
+# If we have a symlink, break it
+[ -L "$theHome"/Library/Caches ] && rm "$theHome"/Library/Caches && echo "Removing symlink at $theHome/Library/Caches"
+sleep 2
+
+exit 0
