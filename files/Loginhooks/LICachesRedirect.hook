@@ -1,0 +1,58 @@
+#!/bin/sh
+PATH="/bin:/usr/bin:/usr/sbin"
+
+#  Login Redirection Script for McCormick iMac Lab
+#
+#  Author:  Gary Larizza
+#
+#  Last Modified: 9/14/10
+#
+#  Description:  Redirect /Library/Caches to a safe space on the drive and then kill the redirect at logout (with logouthook)
+
+# Get the Username
+theUser=$1
+logger -t Redirect "theUser: ${theUser}" 1>&2
+
+# Get the Homedrive Location
+eval theHome=~$1
+logger -t Redirect "theHome: ${theHome}" 1>&2
+
+# Local User Test - versions 10.4 and 10.5/10.6 are checked
+echo "Beginning DS Tool Check"
+echo %BEGINPOLE
+sleep 1
+
+if [ -x "/usr/bin/nicl" ]; then
+	[ $(nicl . -read /users/"$theUser" &> /dev/null) == 0 ] && echo "User is a local user, aborting! " && exit 1
+elif [ -x "/usr/bin/dscl" ]; then
+	[ $(dscl . -read /users/"$theUser" &> /dev/null) == 0 ] && echo "User is a local user, aborting! " && exit 1
+else
+	echo "DS Tool not found. " && exit 1
+fi
+
+
+# iHook Update
+echo "Beginning Folder Redirection"
+echo %50
+sleep 1 
+
+# Set the redirect folder, ensure it exists, set ownership and permissions
+redirectDir=/tmp/"$theUser"
+mkdir -p "$redirectDir" &> /dev/null
+chown "$theUser" "$redirectDir"
+chmod 700 "$redirectDir"
+
+# Redirect ~/Library/Caches directory.  Others can be added later
+mkdir -p "$redirectDir"/Library/Caches
+sudo -u "$theUser" rm -rf "$theHome"/Library/Caches
+sudo -u "$theUser" ln -s "$redirectDir"/Library/Caches "$theHome"/Library/Caches
+chown "$theUser" "$redirectDir"/Library/Caches
+
+# iHook Update
+echo "Redirected $redirectDir/Library/Caches"
+logger -t Redirect "Redirected to ${redirectDir}/Library/Caches" 1>2
+
+echo %100
+sleep 1
+
+exit 0
