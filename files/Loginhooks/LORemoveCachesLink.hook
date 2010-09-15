@@ -10,10 +10,10 @@ PATH = "/bin"
 #  Description:  Simple logouthook that removes all symlinks and redirection-goodness
 
 # Get the User
-theUser = $1
+theUser=$1
 
 # Get the Homedir
-eval theHome = ~$1
+eval theHome=~$1
 
 echo "Removing Symlink"
 # If we have a symlink, break it
