@@ -26,12 +26,12 @@ class nrpe {
 	
 	# Package Calls
 	package{"$nrpe": 
-		source => "pkg_base/$nrpe",
+		source => "$pkg_base/$nrpe",
 		require => Package[$plugins],
 	}
 
 	package{"$plugins":
-		source => "pkg_base/$plugins",
+		source => "$pkg_base/$plugins",
 		require => User["nagiosuser"],
 		before => Package[$nrpe],
 	}
