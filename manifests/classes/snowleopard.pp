@@ -13,6 +13,8 @@ class snowleopard {
 	$serveradmin = "ServerAdminTools10.6.dmg"
 	$timezone = "Timezone.dmg"	
 	$rosetta = "Rosetta.dmg"
+	$flash = "Flash_Installer_64_Bit-20100920.dmg"
+	$shockwave = "Shockwave_Installer_64_Bit-20100920.dmg"
 
 	# Set Package resource defaults for OS X clients
 	Package{ensure => installed,provider => pkgdmg}
@@ -23,4 +25,6 @@ class snowleopard {
     package{"$iwork": source => "$pkg_base/$iwork",}
 	package{"$timezone": source => "$pkg_base/$timezone",}
 	package{"$rosetta": source =>"$pkg_base/$rosetta",}
+	package{"$flash": source =>"$pkg_base/$flash",}
+	package{"$shockwave": source =>"$pkg_base/$shockwave",}
 }
