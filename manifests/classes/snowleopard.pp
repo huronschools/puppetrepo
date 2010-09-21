@@ -14,7 +14,7 @@ class snowleopard {
 	$timezone = "Timezone.dmg"	
 	$rosetta = "Rosetta.dmg"
 	$flash = "Flash_Installer_64_Bit-20100920.dmg"
-	$shockwave = "Shockwave_Installer_64_Bit-20100920.dmg"
+	$shockwave = "Shockwave64bit.dmg"
 
 	# Set Package resource defaults for OS X clients
 	Package{ensure => installed,provider => pkgdmg}

@@ -2,6 +2,8 @@
 
 class hsminis {
 
+	include printers_hhs_g5labbw
+
 	# Package Names
 	$hhsdropbox = "hhsdropbox.dmg"
 
