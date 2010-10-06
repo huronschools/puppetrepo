@@ -7,7 +7,7 @@ class general_image {
 	include puppet_LaunchDaemon
 	
 	# Package Names
-	$facter = "facter.1.5.7.dmg"
+	$facter = "facter-1.5.8.dmg"
 	$puppetcurrent = "puppet-0.25.5.dmg"
 	$textwrangler = "TextWrangler_3.0.dmg"
 	$firefox = "Firefox3.6.dmg"
