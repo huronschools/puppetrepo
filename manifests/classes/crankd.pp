@@ -3,6 +3,10 @@
 class crankd {
 	
 	file { "/Library/HuronHS": ensure => directory,}
+	file { "/usr/local/sbin": 
+		ensure => directory,
+		before => File["/usr/local/sbin/crankd.py"],
+	}
 	
 	file { "/Library/HuronHS/Python2.5": 
 		recurse => true,
