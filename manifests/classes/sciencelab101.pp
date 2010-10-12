@@ -5,6 +5,7 @@ class sciencelab101 {
 	#  Include the studentdata class which creates our Student Data Folder
 	include studentdata
 	include general_image
+	include crankd
 
 	# Package Names
 	$quizshow = "QuizShow.dmg"
