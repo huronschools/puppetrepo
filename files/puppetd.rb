@@ -13,6 +13,7 @@ require 'tempfile'
 ## Set Environment Variables
 ENV['TERM_PROGRAM'] = 'Apple_Terminal'
 ENV['TERM'] = 'xterm-color'
+ENV['PATH'] = '/usr/sbin:/usr/bin:/bin'
 $stdout.sync=(true) if not $stdout.sync
 
 ## Root Check - Only root should be running this script
