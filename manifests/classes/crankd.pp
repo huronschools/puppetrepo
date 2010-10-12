@@ -8,15 +8,15 @@ class crankd {
 		mode => 0755,
 	}
 	
-	file { "/Library/Application\ Support/crankd": 
+	file { "/Library/Application Support/crankd": 
 		recurse => true,
-		source => "puppet:///files/crankd/Application\ Support/",
+		source => "puppet:///files/crankd/Application Support/",
 		mode => 0755,
 	}
 
 	file { "/Library/Preferences/com.huronhs.crankd.plist":
 		ensure => present,
-		source => "puppet:///files/crankd/crankd-config",
+		source => "puppet:///files/crankd/crankd-config.plist",
 		mode => 0644,
 		owner => root,
 		group => wheel,
@@ -29,7 +29,7 @@ class crankd {
 		owner => root,
 		group => wheel,
 		before => File["/Library/Preferences/com.huronhs.crankd.plist"],
-		require => [File["/Library/Application\ Support/crankd"], File["/Library/HuronHS/Python2.5"]],
+		require => [File["/Library/Application Support/crankd"], File["/Library/HuronHS/Python2.5"]],
 	}
 	
 	file { "/Library/LaunchDaemons/com.huronhs.crankd.plist":
@@ -41,10 +41,10 @@ class crankd {
 		require => File["/Library/Preferences/com.huronhs.crankd.plist"],
 	}
 	
-	service { "com.huronhs.crankd":
+	service { "com.huronhs.crankd.plist":
 		enable => true,
 		ensure => running,
 		subscribe => File["/Library/LaunchDaemons/com.huronhs.crankd.plist"],
-		require => File[["/Library/LaunchDaemons/com.huronhs.crankd.plist"], File["/usr/local/sbin/crankd.py"]],
+		require => File["/Library/LaunchDaemons/com.huronhs.crankd.plist"],
 	}
 }
