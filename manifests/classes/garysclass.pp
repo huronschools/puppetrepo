@@ -22,6 +22,7 @@ class garyclass {
 	$istat = "istat304.dmg"
 	$git = "git-1.7.2-intel-leopard.dmg"
 	$cord = "cord.dmg"
+	$smart = "smartboard101210.dmg"
 
 	# Set Package resource defaults for OS X clients
 	Package{ensure => installed,provider => pkgdmg}	
@@ -32,6 +33,7 @@ class garyclass {
 	package{"$istat": source => "$pkg_base/$istat"}
 	package{"$git": source => "$pkg_base/$git"}
 	package{"$ard": source => "$pkg_base/$ard"}
+	package{"$smart": source => "$pkg_base/$smart"}
 	package{"$cord": 
 		source => "$pkg_base/$cord",
 		provider => appdmg,

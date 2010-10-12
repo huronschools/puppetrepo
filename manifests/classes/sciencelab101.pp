@@ -10,12 +10,14 @@ class sciencelab101 {
 	# Package Names
 	$quizshow = "QuizShow.dmg"
 	$vchem = "VirtualChem.dmg"
+	$smart = "smartboard101210.dmg"
 
 	# Set Package resource defaults for OS X clients
 	Package{ensure => installed,provider => pkgdmg}
 
 	# Package Calls
 	package{"$quizshow": source => "$pkg_base/$quizshow",}
+	package{"$smart": source => "$pkg_base/$smart"}
 	package{"$vchem": 
 		source => "$pkg_base/$vchem",
 		before => File["/Applications/VirtualChemLab"],

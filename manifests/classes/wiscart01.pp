@@ -15,12 +15,14 @@ class wiscart01 {
 	$dvdunlock = "dvdunlock.dmg"
 	$keyskills = "keyskills.dmg"
 	$ksapp = "keyskillsapp.dmg"
+	$smart = "smartboard101210.dmg"
 
 	# Set package resource defaults for OS X clients
 	Package{ensure => installed,provider => pkgdmg}
 
 	# Package Calls
 	package{"$fastmath": source =>"$pkg_base/$fastmath",}
+	package{"$smart": source => "$pkg_base/$smart"}
 	package{"$flip4mac": source =>"$pkg_base/$flip4mac",}
 	package{"$arplugins": source =>"$pkg_base/$arplugins",}
 	package{"$dvdunlock": source =>"$pkg_base/$dvdunlock",}
