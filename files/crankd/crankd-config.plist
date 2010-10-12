@@ -4,24 +4,7 @@
 <dict>
   <key>SystemConfiguration</key>
       <dict>
-		<key>State:/Network/Interface/en1/Link</key>
-        <dict>
-          <key>method</key>
-          <array>
-				<string>CrankTools</string>
-				<string>OnNetworkLoad</string>
-		  </array>
-        </dict>
-
-		<key>State:/Network/Interface/en0/Link</key>
-        <dict>
-          	<key>method</key>
-	          <array>
-					<string>CrankTools</string>
-					<string>OnNetworkLoad</string>
-			  </array>
-        </dict>
-
+	
 		<key>State:/Network/Interface/en0/IPv4</key>
         <dict>
           	<key>method</key>
