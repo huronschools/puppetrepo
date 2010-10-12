@@ -22,6 +22,24 @@
 			  </array>
         </dict>
 
+		<key>State:/Network/Interface/en0/IPv4</key>
+        <dict>
+          	<key>method</key>
+	          <array>
+					<string>CrankTools</string>
+					<string>OnNetworkLoad</string>
+			  </array>
+        </dict>
+
+		<key>State:/Network/Interface/en1/IPv4</key>
+        <dict>
+          	<key>method</key>
+	          <array>
+					<string>CrankTools</string>
+					<string>OnNetworkLoad</string>
+			  </array>
+        </dict>
+
 	  </dict>	
 </dict>
 </plist>

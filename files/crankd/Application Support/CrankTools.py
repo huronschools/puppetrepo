@@ -26,7 +26,7 @@ _PUPPETD = '/usr/bin/puppetd.rb'
 class CrankTools():
 	"""The main CrankTools class needed for our crankd config plist"""
 	
-	def crankdRun(self):
+	def puppetRun(self):
 		"""Checks for an active network connection and calls puppet if it finds one.  
 			If the network is NOT active, it logs an error and exits
 		"""
@@ -50,49 +50,48 @@ class CrankTools():
 			that the search path and contacts path are correct.  If the IP DOESN'T match,
 			we remove the search path and contacts path to stabilize logins.
 		"""
+		onNetwork = 'false'
 		
 		if LinkState.status('en1') == 1 and LinkState.status('en0') == 1:
 			syslog.syslog(syslog.LOG_ALERT, "Internet Connection Not Found, OD Check Exiting...")
-			return
+			return onNetwork
 			
 		# Capture all IP Addresses of Network Interfaces
 		ip = socket.gethostbyname_ex(socket.gethostname())[-1]
 
 		# Set 'node' to be the server to which we're bound (IF we're bound)
 		node = dsutils.GetLDAPServer()
+		
+		for i in ip:
+			octet=i.split('.')
+			if octet[0] == '10':
+				if octet[1] == '13':
+					syslog.syslog(syslog.LOG_ALERT, "On Huron Network")
+					onNetwork = 'true'
+				else:
+					syslog.syslog(syslog.LOG_ALERT, "2nd octet doesn\'t match, removing bindings")
+					onNetwork = 'false'
+			else:
+				syslog.syslog(syslog.LOG_ALERT, "1st octet doesn\'t match, removing bindings")
+				onNetwork = 'false'
 
 		# If we are bound to a server....
-		if node != "/LDAPv3/":
-
-		# Check to see if we're on the HuronHS Network
-		# If we are, ensure the Search Paths are correct
-		# If not, strip out Search Paths
-			for i in ip:
-				octet=i.split('.')
-				if octet[0] == '10':
-					if octet[1] == '13':
-						dsutils.EnsureSearchNodePresent(node)
-						dsutils.EnsureContactsNodePresent(node)
-						syslog.syslog(syslog.LOG_ALERT, "On Huron Network")
-						#logging.info('On Huron Network')
-						
-						break
-					else:
-						syslog.syslog(syslog.LOG_ALERT, "2nd octet doesn\'t match, removing bindings")
-						dsutils.DeleteNodeFromSearchPath(node)
-						dsutils.DeleteNodeFromContactsPath(node)
-				else:
-					syslog.syslog(syslog.LOG_ALERT, "1st octet doesn\'t match, removing bindings")
-					dsutils.DeleteNodeFromSearchPath(node)
-					dsutils.DeleteNodeFromSearchPath(node)	
+		if node != "/LDAPv3/" and onNetwork == 'true':
+			dsutils.EnsureSearchNodePresent(node)
+			dsutils.EnsureContactsNodePresent(node)
+			return onNetwork
 		else:
-			syslog.syslog(syslog.LOG_ALERT, "We\'re not bound")
+			dsutils.DeleteNodeFromSearchPath(node)
+			dsutils.DeleteNodeFromSearchPath(node)
 
 	def OnNetworkLoad(self, *args, **kwargs):
 		"""Called from crankd directly on a Network State Change. We sleep for 5 seconds to ensure that
 			an IP address has been cleared or attained, and then check for OD Bindings and a Puppet run.
 		"""
-		sleep(5)
-		self.checkOD()
-		self.crankdRun()
+		sleep(10)
+		onNetwork = self.checkOD()
+		
+		if onNetwork == 'true':
+			self.puppetRun()
+		
 	
