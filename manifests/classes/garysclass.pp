@@ -6,6 +6,7 @@ class garyclass {
 	include general_image
 	include hslabs
 	include developertools
+	include crankd
 
 	# Package Names
 	$adobecs3 = "AdobeCS3.dmg"
