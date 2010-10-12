@@ -7,6 +7,7 @@ class mjhscart01 {
 	include studentdata
 	include general_image
 	include desktopbackground
+	include crankd
 
 	# Package Names
 	$audacityppc = "AudacityPPC.dmg"
