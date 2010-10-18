@@ -12,8 +12,7 @@ __version__ = '0.1'
 
 import sys
 sys.path.append('/Library/HuronHS/Python2.5')
-import LinkState
-import dsutils
+import pymacds
 import syslog
 import subprocess
 import os
@@ -30,9 +29,9 @@ class CrankTools():
 		"""Checks for an active network connection and calls puppet if it finds one.  
 			If the network is NOT active, it logs an error and exits
 		"""
-		if LinkState.status('en1') == 0:
+		if not self.LinkState('en1'):
 			self.callPuppet()
-		elif LinkState.status('en0') == 0:
+		elif not self.LinkState('en0'):
 			self.callPuppet()
 		else:
 			syslog.syslog(syslog.LOG_ALERT, "Internet Connection Not Found, Puppet Run Exiting...")
@@ -44,6 +43,10 @@ class CrankTools():
 		task = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 		task.communicate()
 	
+	def LinkState(self, interface):
+		"""This utility returns the status of the passed interface."""
+		status = subprocess.call(["ipconfig", "getifaddr", interface])
+	
 	def checkOD(self):
 		"""Checks for an active network connection and then compares the IP address
 			to see if it matches the scheme we use in Huron.  If the IP matches, we ensure
@@ -52,16 +55,17 @@ class CrankTools():
 		"""
 		onNetwork = 'false'
 		
-		if LinkState.status('en1') == 1 and LinkState.status('en0') == 1:
+		if self.LinkState('en1') == 1 and self.LinkState('en0') == 1:
 			syslog.syslog(syslog.LOG_ALERT, "Internet Connection Not Found, OD Check Exiting...")
 			return onNetwork
 			
 		# Capture all IP Addresses of Network Interfaces
 		ip = socket.gethostbyname_ex(socket.gethostname())[-1]
 
-		# Set 'node' to be the server to which we're bound (IF we're bound)
-		node = dsutils.GetLDAPServer()
+		# Capture all bound LDAPv3 Servers
+		nodes = pymacds.ConfiguredNodesLDAPv3()
 		
+		# If the IP address matches the Huron scheme, set onNetwork to true
 		for i in ip:
 			octet=i.split('.')
 			if octet[0] == '10':
@@ -75,14 +79,18 @@ class CrankTools():
 				syslog.syslog(syslog.LOG_ALERT, "1st octet doesn\'t match, removing bindings")
 				onNetwork = 'false'
 
-		# If we are bound to a server....
-		if node != "/LDAPv3/" and onNetwork == 'true':
-			dsutils.EnsureSearchNodePresent(node)
-			dsutils.EnsureContactsNodePresent(node)
+		# If we are on the Huron Network and Bound, make sure the Search/Contacts paths are set
+		if nodes and onNetwork == 'true':
+			for node in nodes:
+				pymacds.EnsureSearchNodePresent(node)
+				pymacds.EnsureContactsNodePresent(node)
 			return onNetwork
-		else:
-			dsutils.DeleteNodeFromSearchPath(node)
-			dsutils.DeleteNodeFromSearchPath(node)
+			
+		# If we're bound and off the Huron Network, remove the Search/Contacts paths
+		if nodes and onNetwork == 'false':
+			for node in nodes:
+				pymacds.EnsureSearchNodeAbsent(node)
+				pymacds.EnsureContactsNodeAbsent(node)
 
 	def OnNetworkLoad(self, *args, **kwargs):
 		"""Called from crankd directly on a Network State Change. We sleep for 5 seconds to ensure that
