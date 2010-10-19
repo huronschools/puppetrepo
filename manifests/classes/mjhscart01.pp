@@ -12,6 +12,7 @@ class mjhscart01 {
 	# Package Names
 	$audacityppc = "AudacityPPC.dmg"
 	$dvdunlock = "dvdunlock.dmg"
+	$smart = "smartboard101210.dmg"
 
 	# Set Package Defaultss
 	Package{ensure => installed,provider =>pkgdmg}
@@ -19,6 +20,7 @@ class mjhscart01 {
 	# Package Calls
 	package{"$audacityppc": source => "$pkg_base/$audacityppc",}
 	package{"$dvdunlock": source => "$pkg_base/$dvdunlock",}
+	package{"$smart": source => "$pkg_base/$smart"}
 
 } # End of Class
 
