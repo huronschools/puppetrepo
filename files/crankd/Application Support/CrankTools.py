@@ -18,6 +18,7 @@ import subprocess
 import os
 import socket
 from time import sleep
+from SystemConfiguration import *
 
 syslog.openlog("CrankD")
 _PUPPETD = '/usr/bin/puppetd.rb'
@@ -46,6 +47,36 @@ class CrankTools():
 	def LinkState(self, interface):
 		"""This utility returns the status of the passed interface."""
 		status = subprocess.call(["ipconfig", "getifaddr", interface])
+		
+	def checkIP(self, interface):
+		"""This function accepts an interface name and returns an IP Address"""
+		store = SCDynamicStoreCreate(None, "global-network", None , None)
+		ifKey = "State:/Network/Interface/" + interface + "/IPv4"
+		keyStore = SCDynamicStoreCopyValue(store, ifKey)
+		
+		try:
+			print keyStore['Addresses'][0]
+		except TypeError:
+			syslog.syslog(syslog.LOG_ALERT, "Interface " + interface + " not active.")
+			return "false"
+			
+		return self.onNetwork(str(keyStore['Addresses'][0]))
+	
+	def onNetwork(self, ipAddress):
+		ipAddress = ipAddress.encode('iso-8859-5')
+		octet = ipAddress.split('.')
+		
+		# If the IP address matches the Huron scheme, set onNetwork to true
+		if octet[0] == '10':
+			if octet[1] == '13':
+				syslog.syslog(syslog.LOG_ALERT, "On Huron Network")
+				return 'true'
+			else:
+				syslog.syslog(syslog.LOG_ALERT, "2nd octet doesn\'t match, removing bindings")
+				return 'false'
+		else:
+			syslog.syslog(syslog.LOG_ALERT, "1st octet doesn\'t match, removing bindings")
+			return 'false'
 	
 	def checkOD(self):
 		"""Checks for an active network connection and then compares the IP address
@@ -60,37 +91,25 @@ class CrankTools():
 			return onNetwork
 			
 		# Capture all IP Addresses of Network Interfaces
-		ip = socket.gethostbyname_ex(socket.gethostname())[-1]
-
+		airportIP = self.checkIP('en1')
+		ethernetIP = self.checkIP('en0')
+		
 		# Capture all bound LDAPv3 Servers
 		nodes = pymacds.ConfiguredNodesLDAPv3()
 		
-		# If the IP address matches the Huron scheme, set onNetwork to true
-		for i in ip:
-			octet=i.split('.')
-			if octet[0] == '10':
-				if octet[1] == '13':
-					syslog.syslog(syslog.LOG_ALERT, "On Huron Network")
-					onNetwork = 'true'
-				else:
-					syslog.syslog(syslog.LOG_ALERT, "2nd octet doesn\'t match, removing bindings")
-					onNetwork = 'false'
-			else:
-				syslog.syslog(syslog.LOG_ALERT, "1st octet doesn\'t match, removing bindings")
-				onNetwork = 'false'
-
-		# If we are on the Huron Network and Bound, make sure the Search/Contacts paths are set
-		if nodes and onNetwork == 'true':
+		if airportIP == 'true' or ethernetIP == 'true':
+			# If we are on the Huron Network and Bound, make sure the Search/Contacts paths are set
 			for node in nodes:
 				pymacds.EnsureSearchNodePresent(node)
 				pymacds.EnsureContactsNodePresent(node)
-			return onNetwork
+			return 'true'
 			
 		# If we're bound and off the Huron Network, remove the Search/Contacts paths
-		if nodes and onNetwork == 'false':
+		if airportIP and ethernetIP == 'false':
 			for node in nodes:
 				pymacds.EnsureSearchNodeAbsent(node)
 				pymacds.EnsureContactsNodeAbsent(node)
+			return 'false'
 
 	def OnNetworkLoad(self, *args, **kwargs):
 		"""Called from crankd directly on a Network State Change. We sleep for 5 seconds to ensure that
