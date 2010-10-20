@@ -27,10 +27,10 @@ suffix = 'huronhs.com'
 ip = Facter.value(:ipaddress).split('.')[2]
 mac_uid = %x(nvram MAC_UID 2>/dev/null | awk '{print $2}').chomp
 server = case ip
-  when 0 then 'testing.huronhs.com'
-  when 1, 5 then 'helpdesk.huronhs.com'
-  when 2 then 'msreplica.huronhs.com'
-  when 3 then 'wesreplica.huronhs.com'
+  when '0' then 'testing.huronhs.com'
+  when '1', '5' then 'helpdesk.huronhs.com'
+  when '2' then 'msreplica.huronhs.com'
+  when '3' then 'wesreplica.huronhs.com'
   else 'testing.huronhs.com'
 end
 command = "http://#{server}/cgi-bin/pclean.rb?certname=#{mac_uid}"
