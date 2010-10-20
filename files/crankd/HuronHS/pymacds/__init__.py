@@ -327,6 +327,55 @@ def DSSet(dstype, objectname, attribute=None, value=None):
                                                     ds_path,
                                                     stderr))
 
+def DSQueryLDAPv3(dstype, node, objectname, attribute=None):
+  """LDAPv3 DirectoryServices query.
+
+  Args:
+    dstype: The type of objects to query. user, group.
+    node:  The node to query.
+    objectname: the object to query.
+    attribute: the optional attribute to query.
+  Returns:
+    If an attribute is specified, the value of the attribute. Otherwise, the
+    entire plist.
+  Raises:
+    DSException: Cannot query DirectoryServices.
+  """
+  ds_path = '/%ss/%s' % (dstype.capitalize(), objectname)
+  cmd = [_DSCL, '-plist', node, '-read', ds_path]
+  if attribute:
+    cmd.append(attribute)
+  (stdout, stderr, returncode) = RunProcess(cmd)
+  if returncode:
+    raise DSException('Cannot query %s for %s: %s' % (ds_path,
+                                                      attribute,
+                                                      stderr))
+  plist = NSString.stringWithString_(stdout).propertyList()
+  if attribute:
+    value = None
+    if 'dsAttrTypeStandard:%s' % attribute in plist:
+      value = plist['dsAttrTypeStandard:%s' % attribute]
+    elif attribute in plist:
+      value = plist[attribute]
+    try:
+      # We're copying to a new list to convert from NSCFArray
+      return value[:]
+    except TypeError:
+      # ... unless we can't
+      return value
+  else:
+    return plist
+
+def LDAPv3UserAttribute(node, username, attribute):
+  """Returns the requested DirectoryService attribute for this user.
+
+  Args:
+    username: the user to retrieve a value for.
+    attribute: the attribute to retrieve.
+  Returns:
+    the value of the attribute.
+  """
+  return DSQueryLDAPv3('user', node, username, attribute)
 
 def DSDelete(dstype, objectname, attribute=None, value=None):
   """DirectoryServices attribute delete.
