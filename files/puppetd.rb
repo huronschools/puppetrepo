@@ -17,11 +17,11 @@ ENV['PATH'] = '/usr/sbin:/usr/bin:/bin'
 $stdout.sync=(true) if not $stdout.sync
 
 ## Determine whether we're using Puppet 2.6 or legacy
-_PUPPETD = 'puppet agent'
+$_PUPPETD = 'puppet agent'
 if Facter.value(:puppetversion) < "0.26"
-	_PUPPETD = 'puppetd'
+	$_PUPPETD = 'puppetd'
 elsif Facter.value(:puppetversion) > "0.26"
-  _PUPPETD = 'puppet agent'
+  $_PUPPETD = 'puppet agent'
 end
 
 ##  Variable Declarations
@@ -67,8 +67,8 @@ def clean_certs (command, mac_uid)
     sleep(1)
   end
 
-  system "#{_PUPPETD} -o --no-daemonize --verbose --certname=#{mac_uid} --debug --report 2>&1"
-  system "#{_PUPPETD} -o --no-daemonize --verbose --certname=#{mac_uid} --debug --report 2>&1"
+  system "#{$_PUPPETD} -o --no-daemonize --verbose --certname=#{mac_uid} --debug --report 2>&1"
+  system "#{$_PUPPETD} -o --no-daemonize --verbose --certname=#{mac_uid} --debug --report 2>&1"
   exit(0)
 end
 
@@ -97,12 +97,12 @@ end
 ##
 if ARGV[0] == "-v"
   arg_file = Tempfile.new('puppetd')
-  puts "#{_PUPPETD} -o --no-daemonize --verbose --certname=#{mac_uid} --debug --report"
-  system "#{_PUPPETD} -o --no-daemonize --verbose --certname=#{mac_uid} --debug --report 2>&1 | /usr/bin/tee #{arg_file.path}"
+  puts "#{$_PUPPETD} -o --no-daemonize --verbose --certname=#{mac_uid} --debug --report"
+  system "#{$_PUPPETD} -o --no-daemonize --verbose --certname=#{mac_uid} --debug --report 2>&1 | /usr/bin/tee #{arg_file.path}"
   cert_error = system "cat #{arg_file.path} | grep -q \"/Certificate request does not match existing certificate\" "
   cert_error = system "cat #{arg_file.path} | grep -q \"Retrieved certificate does not match private key\" "
 else
-   puppet_results = %x(#{_PUPPETD} -o --no-daemonize -v --certname=#{mac_uid} --report 2>&1)
+   puppet_results = %x(#{$_PUPPETD} -o --no-daemonize -v --certname=#{mac_uid} --report 2>&1)
   if /Retrieved certificate does not match private key/ =~ puppet_results || /Certificate request does not match existing certificate/ =~ puppet_results
     cert_error = true
   end
