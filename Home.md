@@ -7,6 +7,12 @@ Why do I want to do that?
 
 [[http://www.huronhs.com/images/turbine-red.jpg]]
 
+Note that if you want code with color, you need to install Pygments with the following command:
+```sh
+  bash-3.2#: easy_install Pygments
+```
+
+
 ##Testing some Markdown:
 
 ```ruby
