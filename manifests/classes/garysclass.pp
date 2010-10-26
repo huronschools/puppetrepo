@@ -19,48 +19,65 @@ class garyclass {
 	$textmate = "TextMate_1.5.9.dmg"
 	$growl = "Growl-1.2.1.dmg"
 	$ard = "ARD_3.3.dmg"
-	$istat = "istat304.dmg"
+	$colloquy = "colloquy.dmg"
 	$git = "git-1.7.2-intel-leopard.dmg"
 	$cord = "cord.dmg"
 	$smart = "smartboard101210.dmg"
-
-	# Set Package resource defaults for OS X clients
-	Package{ensure => installed,provider => pkgdmg}	
+	$finder = "finderrenamer.dmg"
 
 	# Install Specialized Packages
-	package{"$finalcut": source => "$pkg_base/$finalcut"}
-	package{"$adobecs3": source => "$pkg_base/$adobecs3"}
-	package{"$istat": source => "$pkg_base/$istat"}
-	package{"$git": source => "$pkg_base/$git"}
-	package{"$ard": source => "$pkg_base/$ard"}
-	package{"$smart": source => "$pkg_base/$smart"}
+	package{"$finalcut": 
+		source 		=> "$pkg_base/$finalcut",
+	}
+	package{"$finderrenamer": 
+		source		 => "$pkg_base/$finderrenamer",
+		provider	 => appdmg,
+	}
+	package{"$adobecs3": 
+		source 		=> "$pkg_base/$adobecs3",
+	}
+	package{"$git": 
+		source 		=> "$pkg_base/$git",
+	}
+	package{"$ard": 
+		source		 => "$pkg_base/$ard",
+	}
+	package{"$smart": 
+		source		 => "$pkg_base/$smart",
+	}
+	package{"$colloquy": 
+		source		 => "$pkg_base/$colloquy",
+		provider	 => appdmg,
+	}
 	package{"$cord": 
-		source => "$pkg_base/$cord",
-		provider => appdmg,
+		source		 => "$pkg_base/$cord",
+		provider 	 => appdmg,
 	}
 	package{"$onepassword": 
-		source => "$pkg_base/$onepassword",
-		provider => appdmg,
+		source		 => "$pkg_base/$onepassword",
+		provider	 => appdmg,
 	}
 	package{"$dropbox": 
-		source => "$pkg_base/$dropbox",
-		provider => appdmg,
+		source		 => "$pkg_base/$dropbox",
+		provider	 => appdmg,
 	}
 	package{"$echofon": 
-		source => "$pkg_base/$echofon",
-		provider => appdmg,
+		source		 => "$pkg_base/$echofon",
+		provider	 => appdmg,
 	}
 	package{"$chrome": 
-		source => "$pkg_base/$chrome",
-		provider => appdmg,
+		source		 => "$pkg_base/$chrome",
+		provider	 => appdmg,
 	}
 	package{"$smugmug": 
-		source => "$pkg_base/$smugmug",
-		provider => appdmg,
+		source		 => "$pkg_base/$smugmug",
+		provider	 => appdmg,
 	}
 	package{"$textmate": 
-		source => "$pkg_base/$textmate",
-		provider => appdmg,
+		source		 => "$pkg_base/$textmate",
+		provider	 => appdmg,
 	}
-	package{"$growl": source => "$pkg_base/$growl"}	
+	package{"$growl": 
+		source		 => "$pkg_base/$growl",
+	}
 } # End of Class

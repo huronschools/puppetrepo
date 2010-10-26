@@ -12,3 +12,4 @@ import "classes/printers/*"
 # Set global defaults - paths
 #File { backup => main}
 Exec { path => "/usr/bin:/usr/sbin:/bin:/sbin"}
+Package{ensure => installed,provider => pkgdmg}	
