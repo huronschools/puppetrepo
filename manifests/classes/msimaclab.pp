@@ -5,6 +5,7 @@ class msimaclab {
 	#  Include the studentdata class which creates our Student Data Folder
 	include hslabs
 	include desktopbackground
+	include studentuser
 	include printers_mjhs_imaclabbw
 	include printers_mjhs_imaclabcolor
 	include loginhooks

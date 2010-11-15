@@ -7,6 +7,7 @@ class wiscart01 {
 	include general_image
 	include desktopbackground
 	include crankd
+	include studentuser
 
 	# Package Names
 	$fastmath = "Fastmath.dmg"

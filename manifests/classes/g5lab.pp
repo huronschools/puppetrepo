@@ -6,6 +6,7 @@ class g5lab {
 	include studentdata
 	include general_image
 	include hslabs
+	include studentuser
 	include office2008
 	include printers_hhs_g5labbw
 	include printers_hhs_g5labcolor
