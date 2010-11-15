@@ -3,7 +3,6 @@
 class general_image {
 
 	# Includes
-	include staff
 	include puppet_LaunchDaemon
 	
 	# Package Names
@@ -27,7 +26,7 @@ class general_image {
 		source 		=> "$pkg_base/$facter",
 		before		=> Package["$puppetcurrent"],
 	}
-	package { "$puppetcurrent":
+	package{"$puppetcurrent":
 		source 		=> "$pkg_base/$puppetcurrent",
 	}	
 	package{"$firstclass": 

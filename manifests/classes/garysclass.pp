@@ -24,13 +24,18 @@ class garyclass {
 	$cord = "cord.dmg"
 	$smart = "smartboard101210.dmg"
 	$finder = "finderrenamer.dmg"
+	$droplr = "droplr-1.1.1.dmg"
 
 	# Install Specialized Packages
 	package{"$finalcut": 
 		source 		=> "$pkg_base/$finalcut",
 	}
-	package{"$finderrenamer": 
-		source		 => "$pkg_base/$finderrenamer",
+	package { "$droplr":
+		source		=> "$pkg_base/$droplr",
+		provider	=> appdmg,
+	}
+	package{"$finder": 
+		source		 => "$pkg_base/$finder",
 		provider	 => appdmg,
 	}
 	package{"$adobecs3": 

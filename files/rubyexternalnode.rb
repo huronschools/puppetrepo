@@ -21,8 +21,8 @@ default = {'classes' => []}
 
 # Check to see if either supported YAML Facts store exists.
 begin
-  if File.exists?("/var/db/puppet/yaml/facts/") && File.directory?("/var/db/puppet/yaml/facts/")
-    vardir_path = "/var/db/puppet/yaml/facts/"
+  if File.exists?("/var/lib/puppet/yaml/facts") && File.directory?("/var/lib/puppet/yaml/facts")
+    vardir_path = "/var/lib/puppet/yaml/facts/"
   elsif File.exists?("/var/puppet/yaml/facts") && File.directory?("/var/puppet/yaml/facts")
     vardir_path = "/var/puppet/yaml/facts/"
   else
