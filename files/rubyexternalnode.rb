@@ -20,6 +20,7 @@ function = nil
 default = {'classes' => []}
 
 # Check to see if either supported YAML Facts store exists.
+#  Updated for 2.6.2 $vardir
 begin
   if File.exists?("/var/lib/puppet/yaml/facts") && File.directory?("/var/lib/puppet/yaml/facts")
     vardir_path = "/var/lib/puppet/yaml/facts/"
