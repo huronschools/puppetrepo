@@ -8,7 +8,7 @@ class Puppetca
 	# added using visudo
 	# _www    ALL = NOPASSWD: /usr/bin/puppetca, !/usr/bin/puppetca -- clean --all
 	def self.clean certname, addr
-		command = "/usr/bin/sudo /usr/sbin/puppetca --clean #{certname}"
+		command = "/usr/bin/sudo /usr/bin/puppet cert --clean #{certname}"
 		# for some reason the "system" command causes Mac apache to crash
 		# when used here
 		%x{#{command}}
@@ -29,7 +29,7 @@ pattern = /[^a-z0-9.\-:]/
 # determine if any other characters are in the certname
 reject = (certname =~ pattern) ? 1 : 0
 if ((reject == 0) && Puppetca.clean(certname, ENV['REMOTE_ADDR']))
-	cgi.out("status" => "OK", "connection" => "close") {"OK #{certname} cleaned\n"}
+	cgi.out("status" => "OK", "connection" => "close") {"OK #{certname} cleaned from testing.huronhs.com\n"}
 else
 	cgi.out("status" => "BAD_REQUEST", "connection" => "close") {"Not Processed: #{certname}\n"} 
 end
