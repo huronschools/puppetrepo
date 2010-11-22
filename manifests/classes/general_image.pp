@@ -20,6 +20,12 @@ class general_image {
 	file { "/var/lib/": 
 		ensure 		=> directory,
 	}
+	
+	# Templating Example
+	file { "/etc/puppet/template.txt":
+		ensure => file,
+		content => template("sample.erb"),
+	}
 
 	# Package Calls
 	package{"$facter": 
