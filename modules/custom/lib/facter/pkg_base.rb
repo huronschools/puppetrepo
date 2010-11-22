@@ -6,33 +6,33 @@ $ip = Facter.value(:ipaddress).split('.')[2]
 Facter.add("pkg_base") do
 	if $ip == "0"
 		setcode do
+		  $location = "SHEL"
 			$pkg_base = "http://testing.huronhs.com/pkgs/general_image"
-			$location = "SHEL"
 		end
 	elsif $ip == "1"
 		setcode do
+      $location = "HHS"
 			$pkg_base = "http://helpdesk.huronhs.com/pkgs"
-			$location = "HHS"
 		end
 	elsif $ip == "5"
 		setcode do
+      $location = "HHS"
 			$pkg_base = "http://helpdesk.huronhs.com/pkgs"
-			$location = "HHS"
 		end
 	elsif $ip == "2"
 		setcode do
+      $location = "MJHS"
 			$pkg_base = "http://mspuppet.huronhs.com/pkgs"
-			$location = "MJHS"
 		end
 	elsif $ip == "3"
 		setcode do
+      $location = "WIS"
 			$pkg_base = "http://wesreplica.huronhs.com/pkgs"
-			$location = "WIS"
 		end
 	else
 		setcode do
+      $location = "UNKNOWN"
 			$pkg_base = "http://testing.huronhs.com/pkgs/general_image"
-			$location = "UNKNOWN"
 		end
   end
 end

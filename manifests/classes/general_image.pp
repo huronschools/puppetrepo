@@ -62,6 +62,7 @@ class general_image {
 	case $macosx_productversion_major {
 		10.5: { 
 			include leopard
+			include mcollective
 		       }			
 		10.6: { 
 			include snowleopard
