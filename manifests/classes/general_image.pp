@@ -4,6 +4,7 @@ class general_image {
 
 	# Includes
 	include puppet_LaunchDaemon
+
 	
 	# Package Names
 	$facter = "facter-1.5.8.dmg"
@@ -64,6 +65,7 @@ class general_image {
 		       }			
 		10.6: { 
 			include snowleopard
+			include mcollective
 	               }
 		10.4: { 
 			include tiger

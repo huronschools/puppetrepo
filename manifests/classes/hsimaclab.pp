@@ -7,6 +7,7 @@ class hsimaclab {
 	include hslabs
 	include general_image
 	include desktopbackground
+	include studentuser
 	include printers_hhs_201lab
 	include loginhooks
 

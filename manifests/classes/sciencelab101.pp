@@ -6,6 +6,7 @@ class sciencelab101 {
 	include studentdata
 	include general_image
 	include crankd
+	include studentuser
 
 	# Package Names
 	$quizshow = "QuizShow.dmg"
