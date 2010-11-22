@@ -8,7 +8,7 @@ if Facter.value('kernel') == 'Darwin'
   #  Next fetch warranty information from Apple, convert the resulting json to a hash
   warranty_info = eval %x{curl -k -s "#{url}"}.split(',').each { |element|
     element.sub! ':', ' => '
-  }.join ',' 
+  }.join(',') 
 end
 
 #  Set the Purchase Date by searching through the Array

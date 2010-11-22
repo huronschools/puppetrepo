@@ -6,9 +6,6 @@ node "demomini.huronhs.com" {
 node "wesdocs.huronhs.com" {
 	include nrpe
 }
-node default {
-	include general_image
-}
 node "testing.huronhs.com"{
 	include nagios_osx_commands
 	include nagios_hosts
@@ -17,4 +14,11 @@ node "testing.huronhs.com"{
 node "msreplica.huronhs.com" {
 	include hcspuppetmasters
 	include nagiosusers
+}
+node "boe.huronhs.com" {
+	include general_image
+	include boe
+}
+node default {
+	include general_image
 }
