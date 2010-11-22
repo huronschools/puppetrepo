@@ -41,15 +41,15 @@ class mcollective {
 		require		=> File["/Library/LaunchDaemons/com.huronhs.mcollective.plist"],
 	}
 	
-	file { "/usr/libexec/mcollective/facts/facter.rb":
-		ensure 		=> file,
-		source		=> "puppet:///files/facter-plugin.rb",
-		before		=> File["/Library/LaunchDaemons/com.huronhs.mcollective.plist"],
-	}
-	
 	package { "stomp":
 		ensure		=> installed,
 		provider	=> gem,
 		before		=> File["/Library/LaunchDaemons/com.huronhs.mcollective.plist"],
+	}
+	
+	file { "/etc/mcollective/facts.yaml":
+		ensure 		=> file,
+	    content 	=> inline_template("<%= scope.to_hash.to_yaml %>"),
+		before		=> Service["com.huronhs.mcollective"],
 	}
 }
