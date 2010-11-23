@@ -52,5 +52,6 @@ class mcollective {
 #	    content 	=> inline_template("<%= scope.to_hash.to_yaml.to_s %>"),
 		content		=> inline_template("<%= facts = {}; scope.to_hash.each_pair {|k,v| facts[k.to_s] = v.to_s}; facts.to_yaml %>"),
 		before		=> Service["com.huronhs.mcollective"],
+		notify		=> Service["com.huronhs.mcollective"],
 	}
 }
