@@ -15,7 +15,7 @@ end
 Facter.add("purchase_date") do
   confine :kernel => "Darwin"
   setcode do
-    warranty_info['PURCHASE_DATE']
+    warranty_info['PURCHASE_DATE'].gsub("-", ".")
   end 
 end
 
@@ -32,6 +32,6 @@ end
 Facter.add("warranty_end") do
   confine :kernel => "Darwin"
   setcode do
-    warranty_info['COVERAGE_DATE']
+    warranty_info['COVERAGE_DATE'].gsub("-", ".")
   end 
 end
