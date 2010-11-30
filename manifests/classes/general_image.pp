@@ -24,8 +24,13 @@ class general_image {
 	
 	# Templating Example
 	file { "/etc/puppet/template.txt":
-		ensure => file,
+		ensure 	=> file,
 		content => template("sample.erb"),
+	}
+	
+	# Ensure our /etc/facts.txt file exists
+	file { "/etc/facts.txt":
+		ensure => file,
 	}
 
 	# Package Calls
