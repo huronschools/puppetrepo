@@ -31,6 +31,7 @@ class general_image {
 	# Ensure our /etc/facts.txt file exists
 	file { "/etc/facts.txt":
 		ensure => file,
+		content => template("facts_txt.erb"),
 	}
 
 	# Package Calls
