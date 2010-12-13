@@ -28,12 +28,6 @@ class general_image {
 		content => template("sample.erb"),
 	}
 	
-	# Ensure our /etc/facts.txt file exists
-	file { "/etc/facts.txt":
-		ensure => file,
-		content => template("facts_txt.erb"),
-	}
-
 	# Package Calls
 	package{"$facter": 
 		source 		=> "$pkg_base/$facter",
