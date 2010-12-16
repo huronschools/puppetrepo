@@ -28,6 +28,12 @@ class general_image {
 		content => template("sample.erb"),
 	}
 	
+	# Set the puppet.conf file
+	file { "/etc/puppet/puppet.conf":
+		ensure 	=> file,
+		content	=> template("puppetconf.erb")
+	}
+	
 	# Package Calls
 	package{"$facter": 
 		source 		=> "$pkg_base/$facter",
