@@ -7,9 +7,7 @@ node "wesdocs.huronhs.com" {
 	include nrpe
 }
 node "testing.huronhs.com"{
-	include nagios_osx_commands
-	include nagios_hosts
-	include nagios_services
+	include mcollective
 }
 node "msreplica.huronhs.com" {
 	include hcspuppetmasters

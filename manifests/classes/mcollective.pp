@@ -41,11 +41,16 @@ class mcollective {
 		require		=> File["/Library/LaunchDaemons/com.huronhs.mcollective.plist"],
 	}
 	
-	package { "stomp":
-		ensure		=> installed,
-		provider	=> gem,
-		before		=> File["/Library/LaunchDaemons/com.huronhs.mcollective.plist"],
+	case $macosx_productversion_major {			
+		10.6: { 
+			package { "stomp":
+				ensure		=> installed,
+				provider	=> gem,
+				before		=> File["/Library/LaunchDaemons/com.huronhs.mcollective.plist"],
+			}
+	    }
 	}
+	
 	
 	file { "/etc/mcollective/facts.yaml":
 		ensure 		=> file,
