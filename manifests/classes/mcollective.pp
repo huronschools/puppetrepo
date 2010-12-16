@@ -3,7 +3,8 @@
 class mcollective {
 
 	$mcollective = "mcollective-0.4.10.dmg"
-
+	$stomp = "Stomp_Install-20101216.dmg"
+	
 	package { "$mcollective":
 		source		=> "$pkg_base/$mcollective",
 		before		=> [File["/etc/mcollective/server.cfg"], File["/etc/mcollective/client.cfg"]],
@@ -49,6 +50,15 @@ class mcollective {
 				before		=> File["/Library/LaunchDaemons/com.huronhs.mcollective.plist"],
 			}
 	    }
+		
+		10.5: {
+			package {"$stomp":
+				ensure		=> installed,
+				provider	=> pkgdmg,
+				source		=> "$pkg_base/$stomp",
+			}
+			
+		}
 	}
 	
 	
