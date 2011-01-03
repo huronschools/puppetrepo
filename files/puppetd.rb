@@ -102,10 +102,11 @@ end
 # Arguments: None
 ##
 def clean_certs ()
-    FileUtils.rm_rf '/etc/puppet/ssl'
-    FileUtils.rm_rf '/var/puppet'
-    FileUtils.rm_rf '/var/lib/puppet'
-    system "curl #{$command}"
+  puts "Removing /etc/puppet/ssl and #{$vardir}"
+  FileUtils.rm_rf '/etc/puppet/ssl'
+  FileUtils.rm_rf $vardir
+  puts "Cleaning SSL Certificate from the Server"
+  system "curl #{$command}"
 
   5.times do
     putc('.')
