@@ -2,10 +2,18 @@
 #
 # puppetd.rb
 #
-# Usage:  This script will run puppet from the appropriate server and report back verbosely
-#          or silently. There's also a -c argument to clean the puppet SSL and vardir, and
-#          the script will check for invalid certs and clean them out.
+# Usage:  This script determines which puppet master server to contact and will call puppet.
+#          The script will accept arguments of -c (which will clean the puppet SSL Certificate)
+# =>       and -v (which is a verbose mode).  If an /etc/puppet/puppet.conf or /etc/facts.txt
+# =>       file doesn't exist, this script will create an initial version of those files.
+# =>       Finally, the script will delete the /var/lib/puppet/state/puppetdlock file if its
+# =>       modification date is older than 24 hours.  
 #
+# Author:  Gary Larizza
+#
+# Last Modified: 1/3/2011
+#
+
 require 'facter'
 require 'puppet'
 require 'fileutils'
@@ -18,11 +26,27 @@ ENV['TERM'] = 'xterm-color'
 ENV['PATH'] = '/usr/sbin:/usr/bin:/bin'
 $stdout.sync=(true) if not $stdout.sync
 
+## Determine whether we're using Puppet 2.6 or legacy
+$_PUPPETD = 'puppet agent'
+if Facter.value(:puppetversion) < "0.26"
+	$_PUPPETD = 'puppetd'
+elsif Facter.value(:puppetversion) > "0.26"
+  $_PUPPETD = 'puppet agent'
+end
+
+## Parse the /etc/puppet/puppet.conf settings (if the file exists).
+Puppet.settings.parse
+
 ## Declare Global Variables
+$arg_file = Tempfile.new('puppetd') if ARGV[0] == "-v"
 $mac_uid = %x(/usr/sbin/nvram MAC_UID 2>/dev/null | awk '{print $2}').chomp
 $suffix = 'huronhs.com'
 $ip = Facter.value(:ipaddress).split('.')[2]
 $vardir = Puppet[:vardir]
+$certname = Puppet[:certname]
+$puppet_command = "#{$_PUPPETD} --onetime --no-daemonize --verbose --debug"
+$puppet_verbose = "#{$puppet_command} 2>&1 | /usr/bin/tee #{$arg_file.path}"
+
 
 ## Check for an empty $mac_uid variable.
 if $mac_uid.empty?
@@ -32,14 +56,6 @@ if $mac_uid.empty?
   end
   ## Set the mac_uid variable in NVRAM.
   %x(/usr/sbin/nvram MAC_UID=#{$mac_uid})
-end
-
-## Determine whether we're using Puppet 2.6 or legacy
-$_PUPPETD = 'puppet agent'
-if Facter.value(:puppetversion) < "0.26"
-	$_PUPPETD = 'puppetd'
-elsif Facter.value(:puppetversion) > "0.26"
-  $_PUPPETD = 'puppet agent'
 end
 
 ## Determine which server to contact
@@ -61,7 +77,7 @@ def setPuppetConf()
   confHash = {} # Our hash of puppet.conf keys and values
   
   # Set the confHash equal to all your puppet.conf settings
-  confHash = {"server" => $server, "certname" => $mac_uid, "pluginsync" => "true", "factpath" => "$vardir/lib/facter"}
+  confHash = {"server" => $server, "certname" => $mac_uid, "pluginsync" => "true", "factpath" => "$vardir/lib/facter", "report" => "true"}
   
   # Output values to the puppet.conf file
   File.open("/etc/puppet/puppet.conf", 'w') {|f| 
@@ -105,7 +121,7 @@ def clean_certs ()
   puts "Removing /etc/puppet/ssl and #{$vardir}"
   FileUtils.rm_rf '/etc/puppet/ssl'
   FileUtils.rm_rf $vardir
-  puts "Cleaning SSL Certificate from the Server"
+  puts "Removing Certificate from #{$server}"
   system "curl #{$command}"
 
   5.times do
@@ -113,7 +129,7 @@ def clean_certs ()
     sleep(1)
   end
 
-  system "#{$_PUPPETD} -o --no-daemonize --verbose --certname=#{$mac_uid} --debug --report 2>&1"
+  system "#{$puppet_command} 2>&1"
   exit(0)
 end
 
@@ -123,7 +139,7 @@ end
 # Arguments: None
 ##
 def puppetrun()
-  puppet_results = %x(#{$_PUPPETD} -o --no-daemonize -v --certname=#{$mac_uid} --report 2>&1)
+  puppet_results = %x(#{$puppet_command} 2>&1)
   if /Retrieved certificate does not match private key/ =~ puppet_results || /Certificate request does not match existing certificate/ =~ puppet_results
     cert_error = true
   end
@@ -171,17 +187,18 @@ end
 #  and check for our certificate errors (cleaning certs as warranted)
 ##
 if ARGV[0] == "-v"
-  arg_file = Tempfile.new('puppetd')
-  puts "#{$_PUPPETD} -o --no-daemonize --verbose --certname=#{$mac_uid} --debug --report"
-  system "#{$_PUPPETD} -o --no-daemonize --verbose --certname=#{$mac_uid} --debug --report 2>&1 | /usr/bin/tee #{arg_file.path}"
-  cert_error = system "cat #{arg_file.path} | grep -q \"/Certificate request does not match existing certificate\" "
-  cert_error = system "cat #{arg_file.path} | grep -q \"Retrieved certificate does not match private key\" "
+  puts "#{$puppet_verbose}"
+  system "#{$puppet_verbose}"
+  cert_error = system "cat #{$arg_file.path} | grep -q \"/Certificate request does not match existing certificate\" "
+  cert_error = system "cat #{$arg_file.path} | grep -q \"Retrieved certificate does not match private key\" "
   
   ## If a certificate error was found, then call the clean_certs method
   if cert_error
     puts "A certificate error has been found - cleaning SSL and Vardir, then cleaning cert from server."
     clean_certs()
   end
+  
+  exit(0)
 else
   puppetrun()
 end
