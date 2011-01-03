@@ -4,6 +4,7 @@ class general_image {
 
 	# Includes
 	include puppet_LaunchDaemon
+	include mcollective
 
 	
 	# Package Names
@@ -19,7 +20,7 @@ class general_image {
 	
 	# Ensure Vardir for .25.4 -> .25.5 clients
 	file { "/var/lib/": 
-		ensure 		=> directory,
+		ensure 	=> directory,
 	}
 	
 	# Templating Example
@@ -30,30 +31,39 @@ class general_image {
 	
 	# Set the puppet.conf file
 	file { "/etc/puppet/puppet.conf":
-		ensure 	=> file,
-		content	=> template("puppetconf.erb")
+		ensure	=> file,
+		content	=> template("puppetconf.erb"),
+		require => File["/usr/bin/puppetd.rb"],
+	}
+	
+	# Set the puppet wrapper script
+	file { "/usr/bin/puppetd.rb":
+		owner	=> root,
+		group 	=> wheel,
+		mode 	=> 755,
+		source 	=> "puppet:///files/puppetd.rb",
 	}
 	
 	# Package Calls
 	package{"$facter": 
-		source 		=> "$pkg_base/$facter",
-		before		=> Package["$puppetcurrent"],
+		source 	=> "$pkg_base/$facter",
+		before	=> Package["$puppetcurrent"],
 	}
 	package{"$puppetcurrent":
-		source 		=> "$pkg_base/$puppetcurrent",
+		source 	=> "$pkg_base/$puppetcurrent",
 	}	
 	package{"$firstclass": 
-		source 		=> "$pkg_base/$firstclass",
+		source 	=> "$pkg_base/$firstclass",
 	}
 	package{"$sophos": 
-		source 		=> "$pkg_base/$sophos",
+		source 	=> "$pkg_base/$sophos",
 	}
 	package{"$dnealian": 
-		source 		=> "$pkg_base/$dnealian",
+		source 	=> "$pkg_base/$dnealian",
 	}
 	package{"$fcupdate": 
 		source 		=> "$pkg_base/$fcupdate",
-		provider 	=> appdmg,
+		provider	=> appdmg,
 		require 	=> Package["$firstclass"],
 	}
 	package{"$textwrangler": 
@@ -68,11 +78,9 @@ class general_image {
 	case $macosx_productversion_major {
 		10.5: { 
 			include leopard
-			include mcollective
 		       }			
 		10.6: { 
 			include snowleopard
-			include mcollective
 	               }
 		10.4: { 
 			include tiger

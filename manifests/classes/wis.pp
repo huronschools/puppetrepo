@@ -2,7 +2,6 @@
 
 class wis {
 
-	include wes_conf
 	include printers_wis_office9050
 	include printers_wis_officeworkroom
 	include printers_wis_wing2
@@ -13,7 +12,6 @@ class wis {
 
 class wes {
 
-	include wes_conf
 	include printers_wis_office9050
 	include printers_wis_officeworkroom
 	include printers_wis_wing2
