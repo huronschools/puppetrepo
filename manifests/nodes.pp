@@ -15,8 +15,16 @@ node "msreplica.huronhs.com" {
 }
 node "boe.huronhs.com" {
 	include general_image
+	include garyclass
 	include boe
 }
+
+node "ym8243s5ze3.huronhs.com" {
+	include general_image
+	include garyclass
+	include boe
+}
+
 node default {
 	include general_image
 }

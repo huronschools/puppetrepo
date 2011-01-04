@@ -12,8 +12,10 @@ class garyclass {
 	$adobecs3 = "AdobeCS3.dmg"
 	$finalcut = "FinalCut.dmg"
 	$onepassword = "1Password-3.2.5.dmg"
-	$dropbox = "Dropbox0.7.110.dmg"
+	$dropbox = "Dropbox-1.0.10.dmg"
 	$echofon = "Echofon_1.0.4.dmg"
+	$yorufukurou = "Yorufukurou.dmg"
+	$gittower = "Git-tower.dmg"
 	$chrome = "googlechrome.dmg"
 	$smugmug = "MacDaddy-3.0.4.510.dmg"
 	$textmate = "TextMate_1.5.9.dmg"
@@ -32,6 +34,14 @@ class garyclass {
 	}
 	package { "$droplr":
 		source		=> "$pkg_base/$droplr",
+		provider	=> appdmg,
+	}
+	package { "$gittower":
+		source		=> "$pkg_base/$gittower",
+		provider	=> appdmg,
+	}
+	package { "$yorufukurou":
+		source		=> "$pkg_base/$yorufukurou",
 		provider	=> appdmg,
 	}
 	package{"$finder": 
