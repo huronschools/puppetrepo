@@ -2,6 +2,10 @@
 
 class garyclass {
 
+	# Things that don't install silently:
+	# VMWare Fusion
+	# 
+
 	#  Includes
 	include general_image
 	include hslabs
@@ -10,6 +14,7 @@ class garyclass {
 
 	# Package Names
 	$adobecs3 = "AdobeCS3.dmg"
+	$pacifist = "Pacifist-2.6.4.dmg"
 	$finalcut = "FinalCut.dmg"
 	$onepassword = "1Password-3.2.5.dmg"
 	$dropbox = "Dropbox-1.0.10.dmg"
@@ -34,6 +39,10 @@ class garyclass {
 	}
 	package { "$droplr":
 		source		=> "$pkg_base/$droplr",
+		provider	=> appdmg,
+	}
+	package { "$pacifist":
+		source		=> "$pkg_base/$pacifist",
 		provider	=> appdmg,
 	}
 	package { "$gittower":

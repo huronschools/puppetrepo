@@ -45,7 +45,7 @@ $ip = Facter.value(:ipaddress).split('.')[2]
 $vardir = Puppet[:vardir]
 $certname = Puppet[:certname]
 $puppet_command = "#{$_PUPPETD} --onetime --no-daemonize --verbose --debug"
-$puppet_verbose = "#{$puppet_command} 2>&1 | /usr/bin/tee #{$arg_file.path}"
+$puppet_verbose = "#{$puppet_command} 2>&1 | /usr/bin/tee #{$argfile_path}" if ARGV[0] == "-v"
 
 
 ## Check for an empty $mac_uid variable.
