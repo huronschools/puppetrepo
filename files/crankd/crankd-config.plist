@@ -10,7 +10,7 @@
           	<key>method</key>
 	          <array>
 					<string>CrankTools</string>
-					<string>OnNetworkLoad</string>
+					<string>ethernetStateChange</string>
 			  </array>
         </dict>
 
@@ -19,7 +19,7 @@
           	<key>method</key>
 	          <array>
 					<string>CrankTools</string>
-					<string>OnNetworkLoad</string>
+					<string>airportStateChange</string>
 			  </array>
         </dict>
 
