@@ -131,7 +131,7 @@ class CrankTools():
 		keyStore = SCDynamicStoreCopyValue(store, ifKey)
 
 		try:
-			print "The IP Address for interface: " + interface + " is: " + keyStore['Addresses'][0]
+			print "The IP Address for interface " + interface + " is: " + keyStore['Addresses'][0]
 		except TypeError:
 			syslog.syslog(syslog.LOG_ALERT, "Interface " + interface + " not active.")
 			return ("false", "0.0.0.0")
