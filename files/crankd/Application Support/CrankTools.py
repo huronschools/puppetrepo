@@ -106,8 +106,8 @@ class CrankTools():
 		"""
 		command = [_PUPPETD]
 		syslog.syslog(syslog.LOG_ALERT, "Puppet was called")
-		# task = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-		# 		task.communicate()
+		task = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+		task.communicate()
 		
 	def checkIP(self, interface):
 		"""This function accepts a BSD interface name and returns the state of that interface as
