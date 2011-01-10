@@ -1,7 +1,7 @@
 class developertools {
 
 	# Package Names
-	$devtools106 = "DeveloperTools-3.2.5.dmg"
+	$devtools106 = "DeveloperTools322.dmg"
 	$devtools105 = "developertools10.5.dmg"
 
 
@@ -11,10 +11,10 @@ class developertools {
 				source => "$pkg_base/$devtools105",
 			}
 		}			
-		# 10.6: { 
-		# 			package{"$devtools106":
-		# 				source => "$pkg_base/$devtools106",
-		# 			}
-		# 		}
+		10.6: { 
+			package{"$devtools106":
+				source => "$pkg_base/$devtools106",
+			}
+		}
 	}
 } # End of Class

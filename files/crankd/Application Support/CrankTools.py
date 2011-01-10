@@ -16,7 +16,7 @@
 #				10/12/2010
 #
 # Last Revised:
-#				1/6/2011
+#				1/10/2011
 
 __author__ = 'Gary Larizza (gary@huronhs.com)'
 __version__ = '0.2'
@@ -34,128 +34,68 @@ from SystemConfiguration import *
 syslog.openlog("CrankD")
 _PUPPETD = '/usr/bin/puppetd.rb'
 _AIRPORT = '/usr/sbin/networksetup'
+_SCUTIL = '/usr/sbin/scutil -r odm.huronhs.com'
+ethTest = "/usr/sbin/networksetup -listnetworkserviceorder | awk -F': ' '/Ethernet,/ || /Ethernet .,/ {gsub(/\)/,\"\");print $3}'"
+apTest = "/usr/sbin/networksetup -listnetworkserviceorder | awk -F': ' '/AirPort,/ {gsub(/\)/,\"\");print $3}'"
+interfaces = {}
 
-class CrankTools():
-	
-	def airportStateChange(self, *args, **kwargs):
-		"""Triggered when a "State:/Network/Interface/en1/IPv4" change occurs.  This method will disable
-			the Airport if the Ethernet port is also active and on-network.  If the Airport is disabled,
-			it will simply log this occurrence. If the Airport is enabled and the Ethernet port is active
-			and OFF-NETWORK, it will log this and allow it. If the Airport is enabled and on-network, it
-			will ensure the Search and Contact nodes.  If the airport is enabled and off-network, it will
-			remove these nodes.
-			
-			The purpose is to prohibit an Airport and Ethernet simultaneous connection while we're on the
-			Huron Network.  When we're off-network, however, we don't care.
-		"""
-		# Sleep for 10 seconds to allow IP Addresses to be registered.
-		# NOTE: If you're having IP Errors, you may need to increase this value. 
-		sleep(10)
-		
-		# Grab IP Addresses and Statuses for both interfaces.
-		# NOTE: Hard coding en0 and en1 will cause issues on machines that have multiple network interfaces
-		#		  You WILL have to fix this on those machines.
-		(en1Status, en1IP) = self.checkIP('en1')
-		(en0Status, en0IP) = self.checkIP('en0')
-		nodes = pymacds.ConfiguredNodesLDAPv3()
-		
-		if en1Status == "false":
-			if en0Status == "true":
-				syslog.syslog(syslog.LOG_ALERT, "The Airport is going down, but the Ethernet interface is active.")
-			else:
-				syslog.syslog(syslog.LOG_ALERT, "The Airport is going down, and the Ethernet interfaces is inactive.")
-				syslog.syslog(syslog.LOG_ALERT, "Removing Bindings")
-				for node in nodes:
-					pymacds.EnsureSearchNodeAbsent(node)
-					pymacds.EnsureContactsNodeAbsent(node)
-		else:
-			if en0Status == "true":
-				if self.checkNetwork(en0IP) == "true":
-					syslog.syslog(syslog.LOG_ALERT, "The Ethernet interface is already enabled and on-network. Disabling the Airport Interface.")
-					self.toggleAirport('en1', 'off')
-					self.callPuppet()
-				else:
-					syslog.syslog(syslog.LOG_ALERT, "The Ethernet interface is already enabled and off-network. Doing Nothing.")
-			else:
-				if self.checkNetwork(en1IP) == "true":
-					syslog.syslog(syslog.LOG_ALERT, "The Airport interface is on the Huron Network; Ensuring Bindings.")
-					for node in nodes:
-						pymacds.EnsureSearchNodePresent(node)
-						pymacds.EnsureContactsNodePresent(node)
-					syslog.syslog(syslog.LOG_ALERT, "Performing a Puppet Run.")
-					self.callPuppet()
-				else:
-					syslog.syslog(syslog.LOG_ALERT, "The Airport interface is off-network; Removing Bindings.")
-					for node in nodes:
-						pymacds.EnsureSearchNodeAbsent(node)
-						pymacds.EnsureContactsNodeAbsent(node)
-					
-	def ethernetStateChange(self, *args, **kwargs):
+class CrankTools():	
+	def interfaceSetter(self, enStatus, apStatus, enIP, apIP, apInterface):
 		"""Triggered when a "State:/Network/Interface/en0/IPv4" change occurs.  This method will disable
 			the Airport if the Ethernet port becomes active and on-network.  If the Ethernet connection is
 			disabled, it will simply log this occurrence. If the Ethernet connection is enabled and on-
 			network, it will enable the Search and Contact nodes. Finally, if the Ethernet connection is
 			enabled and off-network, it will remove these nodes.
 		"""
-		
-		# Sleep for 10 seconds to allow IP Addresses to be registered.
-		# NOTE: If you're having IP Errors, you may need to increase this value. 
-		sleep(10)
-		
-		# Grab IP Addresses and Statuses for both interfaces.
-		# NOTE: Hard coding en0 and en1 will cause issues on machines that have multiple network interfaces
-		#		  You WILL have to fix this on those machines.
-		(en1Status, en1IP) = self.checkIP('en1')
-		(en0Status, en0IP) = self.checkIP('en0')
+		# Set nodes to the configured LDAP node using the pymacds library
 		nodes = pymacds.ConfiguredNodesLDAPv3()
 		
-		if en0Status == "false":
-			if en1Status == "true":
-				syslog.syslog(syslog.LOG_ALERT, "The Ethernet interface is going down, but the Airport is active.")
+		# This large set of nested if-statements will check to see if each interface is
+		#	active and on the Huron Network. It will also disable the Airport interface
+		#	if the Ethernet interface is active and on-network. If any interface is off-
+		#	network, it will remove our LDAP bindings.
+		if enStatus == "false":
+			if apStatus == "true":
+				if self.onHuronNetwork(apIP):
+					syslog.syslog(syslog.LOG_ALERT, "The Ethernet interface is down, but the Airport is active and on-network.")
+					self.ensureLDAPNodes(nodes)
+					syslog.syslog(syslog.LOG_ALERT, "Performing a Puppet Run.")
+					self.callPuppet()
+				else:
+					syslog.syslog(syslog.LOG_ALERT, "The Ethernet interface is down, but the Airport is active and off-network.")
+					self.removeLDAPNodes(nodes)
 			else:
-				syslog.syslog(syslog.LOG_ALERT, "The Ethernet interface is going down, and the Airport is inactive.")
-				syslog.syslog(syslog.LOG_ALERT, "Removing Bindings")
-				for node in nodes:
-					pymacds.EnsureSearchNodeAbsent(node)
-					pymacds.EnsureContactsNodeAbsent(node)
+				syslog.syslog(syslog.LOG_ALERT, "The Ethernet interface is down, and the Airport is inactive.")
+				self.removeLDAPNodes(nodes)
 		else:
-			if en1Status == "true":
-				if self.checkNetwork(en1IP) == "true":
-					if self.checkNetwork(en0IP) == "true":
+			if apStatus == "true":
+				if self.onHuronNetwork(apIP) == "true":
+					if self.onHuronNetwork(enIP) == "true":
 						syslog.syslog(syslog.LOG_ALERT, "Because both the Airport and Ethernet are enabled and on-network, we're disabling the Airport Interface.")
-						self.toggleAirport('en1','off')
-						for node in nodes:
-							pymacds.EnsureSearchNodePresent(node)
-							pymacds.EnsureContactsNodePresent(node)
+						self.toggleAirport(apInterface,'off')
+						self.ensureLDAPNodes(nodes)
 						syslog.syslog(syslog.LOG_ALERT, "Performing a Puppet Run.")
 						self.callPuppet()
 					else:
 						syslog.syslog(syslog.LOG_ALERT, "The Airport and Ethernet are enabled, but the Airport is on-network and the Ethernet connection is not.")
 				else:
-					if self.checkNetwork(en0IP) == "true":
+					if self.onHuronNetwork(enIP) == "true":
 						syslog.syslog(syslog.LOG_ALERT, "The Ethernet connection is enabled and on-network, but the Airport connection is also enabled and off-network.")
-						syslog.syslog(syslog.LOG_ALERT, "Ensuring Bindings for Ethernet connection.")
-						for node in nodes:
-							pymacds.EnsureSearchNodePresent(node)
-							pymacds.EnsureContactsNodePresent(node)
+						self.ensureLDAPNodes(nodes)
 						syslog.syslog(syslog.LOG_ALERT, "Performing a Puppet Run.")
 						self.callPuppet()
 					else:
 						syslog.syslog(syslog.LOG_ALERT, "Both the Airport and Ethernet connection are enabled and off-network.")
+						self.removeLDAPNodes(nodes)
 			else:
-				if self.checkNetwork(en0IP) == "true":
+				if self.onHuronNetwork(enIP) == "true":
 					syslog.syslog(syslog.LOG_ALERT, "The Ethernet connection is enabled and on-network.")
-					syslog.syslog(syslog.LOG_ALERT, "Ensuring Bindings for Ethernet connection.")
-					for node in nodes:
-						pymacds.EnsureSearchNodePresent(node)
-						pymacds.EnsureContactsNodePresent(node)
+					self.ensureLDAPNodes(nodes)
 					syslog.syslog(syslog.LOG_ALERT, "Performing a Puppet Run.")
 					self.callPuppet()
 				else:
 					syslog.syslog(syslog.LOG_ALERT, "The Ethernet connection is enabled and off-network.")
-					for node in nodes:
-						pymacds.EnsureSearchNodeAbsent(node)
-						pymacds.EnsureContactsNodeAbsent(node)
+					self.removeLDAPNodes(nodes)
 
 	def callPuppet(self):
 		"""Simple utility function that calls puppet via subprocess. The _PUPPETD variable is set globally
@@ -165,8 +105,9 @@ class CrankTools():
 		Returns: Nothing
 		"""
 		command = [_PUPPETD]
-		task = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-		task.communicate()
+		syslog.syslog(syslog.LOG_ALERT, "Puppet was called")
+		# task = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+		# 		task.communicate()
 		
 	def checkIP(self, interface):
 		"""This function accepts a BSD interface name and returns the state of that interface as
@@ -190,21 +131,34 @@ class CrankTools():
 
 		return ("true", str(keyStore['Addresses'][0]))
 		
-	def checkNetwork(self, ipAddress):
+	def onHuronNetwork(self, ipAddress):
 		"""This function will check to see if the passed IP Address is on the Huron Network.
+			It does this by checking the passed IP Address to make sure it matches the Huron
+			scheme, and also uses scutil -r to attempt to reach an internal-only server.
 		---
 		Arguments:
 			ipAddress - A dotted IPv4 Address with four octets
 		Returns:
 			bool - Either True or False depending on if the IP Address is on the network
 		"""
-
+		# Encode and split the passed IP Address
 		ipAddress = ipAddress.encode('iso-8859-5')
 		octet = ipAddress.split('.')
 		
-		# If the IP address matches the Huron scheme, set onNetwork to true
+		# This code will use scutil -r to check for reachability against a known-
+		# 	good server that is only accessible inside our network.
+		reachable = 'false'
+		command = subprocess.Popen(_SCUTIL, shell=True, stdout=subprocess.PIPE,)
+		netcheck = command.communicate()[0].rstrip().split(',')
+		for status in netcheck:
+			if status == 'Reachable':
+				reachable = 'true'
+
+		
+		# If the IP address matches the Huron scheme, and our scutil -r reachibility
+		#	passes, then return true.
 		if octet[0] == '10':
-			if octet[1] == '13':
+			if octet[1] == '13' and reachable == 'true':
 				syslog.syslog(syslog.LOG_ALERT, "On Huron Network")
 				return 'true'
 			else:
@@ -227,3 +181,59 @@ class CrankTools():
 		syslog.syslog(syslog.LOG_ALERT, "Toggling " + interface + " " + state + ".")
 		task = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 		task.communicate()
+		
+	def ensureLDAPNodes(self, nodes):
+		"""A utility function to ensure our LDAP Search and Contact Nodes. 
+			Pymacds will already check to ensure the nodes don't exist.
+		---
+		Arguments: 
+			nodes - a list of nodes to ensure.
+		Returns: Nothing
+		"""
+		for node in nodes:			
+			pymacds.EnsureSearchNodePresent(node)
+			syslog.syslog(syslog.LOG_ALERT, "Added " + node + " to the Search path.")
+			pymacds.EnsureContactsNodePresent(node)
+			syslog.syslog(syslog.LOG_ALERT, "Added " + node + " to the Contacts path.")
+			
+	def removeLDAPNodes(self, nodes):
+		"""A utility function to remove specific LDAP Search and Contact Nodes. 
+			Pymacds will already check to ensure the nodes exist.
+		---
+		Arguments: 
+			nodes - a list of nodes to remove.
+		Returns: Nothing
+		"""
+		for node in nodes:
+			pymacds.EnsureSearchNodeAbsent(node)
+			syslog.syslog(syslog.LOG_ALERT, "Removed " + node + " from the Search path.")
+			pymacds.EnsureContactsNodeAbsent(node)
+			syslog.syslog(syslog.LOG_ALERT, "Removed " + node + " from the Contacts path.")
+					
+	def onNetworkStateChange(self, *args, **kwargs):
+		"""Triggered when a "State:/Network/Global/IPv4." change occurs.  After sleeping 
+			10 seconds (to allow for an IP address to be acquired), this method will first 
+			query /usr/sbin/networksetup and capture the BSD interface name for the first 
+			Ethernetand AirPort interface on the machine. It will then check the status 
+			of both interfaces and pass those to the interfaceSetter method.
+		"""
+		# Sleep for 10 seconds to allow IP Addresses to be registered.
+		# NOTE: If you're having IP Errors, you may need to increase this value. 
+		sleep(10)
+		
+		# Capture the first Ethernet BSD interface name into our interfaces dictionary.
+		command = subprocess.Popen(ethTest, shell=True, stdout=subprocess.PIPE,)
+		ethlist = command.communicate()[0]
+		interfaces['Ethernet'] = ethlist.rstrip().split("\n")[0]
+
+		# Capture the first Airport BSD interface name into our interfaces dictionary.
+		command = subprocess.Popen(apTest, shell=True, stdout=subprocess.PIPE,)
+		aplist = command.communicate()[0]
+		interfaces['AirPort'] = aplist.rstrip().split("\n")[0]
+	
+		# Get each interface status and IP Address.
+		(enStatus, enIP) = self.checkIP(interfaces['Ethernet'])
+		(apStatus, apIP) = self.checkIP(interfaces['AirPort'])
+	
+		# Pass each interface status and IP Address to the interfaceSetter method.
+		self.interfaceSetter(enStatus, apStatus, enIP, apIP, interfaces['AirPort'])

@@ -5,24 +5,14 @@
   <key>SystemConfiguration</key>
       <dict>
 	
-		<key>State:/Network/Interface/en0/IPv4</key>
+		<key>State:/Network/Global/IPv4</key>
         <dict>
           	<key>method</key>
 	          <array>
 					<string>CrankTools</string>
-					<string>ethernetStateChange</string>
+					<string>onNetworkStateChange</string>
 			  </array>
         </dict>
-
-		<key>State:/Network/Interface/en1/IPv4</key>
-        <dict>
-          	<key>method</key>
-	          <array>
-					<string>CrankTools</string>
-					<string>airportStateChange</string>
-			  </array>
-        </dict>
-
 	  </dict>	
 </dict>
 </plist>
