@@ -41,11 +41,19 @@ interfaces = {}
 
 class CrankTools():	
 	def interfaceSetter(self, enStatus, apStatus, enIP, apIP, apInterface):
-		"""Triggered when a "State:/Network/Interface/en0/IPv4" change occurs.  This method will disable
-			the Airport if the Ethernet port becomes active and on-network.  If the Ethernet connection is
-			disabled, it will simply log this occurrence. If the Ethernet connection is enabled and on-
-			network, it will enable the Search and Contact nodes. Finally, if the Ethernet connection is
-			enabled and off-network, it will remove these nodes.
+		"""This method will ensure or remove the district LDAP bindings depending on whether we're
+			on our HuronHS network. Also, if both the Ethernet and AirPort are enabled and on-
+			network, it will disable the AirPort interface.  This method will also make a puppet
+			run when the machine returns to the HuronHS network.
+		---
+		Arguments: 
+			enStatus - Is the Ethernet Interface active? Expects 'true' or 'false'
+			apStatus - Is the AirPort Interface active? Expects 'true' or 'false'
+			enIP - The IP Address of our Ethernet Interface (or 0.0.0.0 if inactive).
+			apIP - The IP Address of our AirPort Interface (or 0.0.0.0 if inactive).
+			apInterface - The BSD interface name (i.e. en1 or en0) of the AirPort Interface.
+			
+		Returns: Nothing
 		"""
 		# Set nodes to the configured LDAP node using the pymacds library
 		nodes = pymacds.ConfiguredNodesLDAPv3()
