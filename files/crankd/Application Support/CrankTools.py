@@ -105,7 +105,6 @@ class CrankTools():
 		Returns: Nothing
 		"""
 		command = [_PUPPETD]
-		syslog.syslog(syslog.LOG_ALERT, "Puppet was called")
 		task = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 		task.communicate()
 		
