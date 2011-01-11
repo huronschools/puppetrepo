@@ -5,6 +5,7 @@ class hslabs {
 	# Includes
 	include general_image
 	include studentdata
+	include crankd
 
 	# Package Names
 	$studio8 = "Studio8.dmg"
