@@ -10,6 +10,7 @@ class mjhsmultimedia {
 	# Package Names
 	$finalcut = "FinalCut.dmg"
 	$googleearth = "GoogleEarth.dmg"
+	$istop = "iStopMotion_Install-20101220.dmg"
 
 	# Set Package resource defaults for OS X clients
 	Package{ensure => installed,provider => pkgdmg}	
@@ -18,5 +19,6 @@ class mjhsmultimedia {
 	package{"$finalcut": 
 		source => "http://msdocs.huronhs.com/pkgs/$finalcut",}
 	package{"$googleearth": source => "$pkg_base/$googleearth",}
+	package{"$istop": source => "$pkg_base/$istop",}
 
 } # End of Class
