@@ -7,7 +7,7 @@
 require 'facter'
 
 users = []
-users += %x(ps aux 2> /dev/null | grep loginwindow | cut -d " " -f1).split()
+users += %x(ps aux 2> /dev/null | grep [l]oginwindow | cut -d " " -f1).split()
 
 Facter.add("currentuser") do
   confine :kernel => "Darwin"
