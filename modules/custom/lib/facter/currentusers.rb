@@ -9,7 +9,7 @@ require 'facter'
 users = []
 users += %x(ps aux 2> /dev/null | grep [l]oginwindow | cut -d " " -f1).split()
 
-Facter.add("currentuser") do
+Facter.add("currentusers") do
   confine :kernel => "Darwin"
   setcode do
     (users - ['root']).join(",")
