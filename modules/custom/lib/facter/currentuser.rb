@@ -4,15 +4,14 @@
 #  Description: A facter fact determining the currently-logged-in user
 #   based on the owner of the /dev/console file.
 #
-
-require 'etc' 
 require 'facter'
 
-uid = File.stat('/dev/console').uid 
+users = []
+users += %x(ps aux 2> /dev/null | grep loginwindow | cut -d " " -f1).split()
 
 Facter.add("currentuser") do
   confine :kernel => "Darwin"
   setcode do
-    Etc.getpwuid(uid).name
+    (users - ['root']).join(",")
   end
 end
