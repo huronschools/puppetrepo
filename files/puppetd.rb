@@ -11,7 +11,9 @@
 #
 # Author:  Gary Larizza
 #
-# Last Modified: 1/3/2011
+# Created: 10/15/2009
+#
+# Last Modified: 1/18/2011
 #
 
 require 'facter'
@@ -45,15 +47,24 @@ $ip = Facter.value(:ipaddress).split('.')[2]
 $vardir = Puppet[:vardir]
 $certname = Puppet[:certname]
 $puppet_command = "#{$_PUPPETD} --onetime --no-daemonize --verbose --debug"
-$puppet_verbose = "#{$puppet_command} 2>&1 | /usr/bin/tee #{$argfile_path}" if ARGV[0] == "-v"
+$puppet_verbose = "#{$puppet_command} 2>&1 | /usr/bin/tee #{$arg_file.path}" if ARGV[0] == "-v"
 
+## Check for required Puppet Directories
+if not File.directory?($vardir)
+  FileUtils.mkdir_p($vardir)
+  puts "Created #{$vardir} because it did not exist."
+end
+
+if not File.directory?('/etc/puppet')
+  FileUtils.mkdir_p('/etc/puppet')
+  puts "Created /etc/puppet because it did not exist."
+end
 
 ## Check for an empty $mac_uid variable.
 if $mac_uid.empty?
   $mac_uid = %x(system_profiler SPHardwareDataType | awk '/Serial Number/ {print $NF}').chomp.downcase + "." + $suffix
-  if $mac_uid.empty?
-    $mac_uid = %x(hostname).chomp
-  end
+  $mac_uid = %x(hostname).chomp if $mac_uid.empty?
+  
   ## Set the mac_uid variable in NVRAM.
   %x(/usr/sbin/nvram MAC_UID=#{$mac_uid})
 end
@@ -68,11 +79,11 @@ $server = case $ip
 end
 $command = "http://#{$server}/cgi-bin/pclean.rb?certname=#{$mac_uid}"
 
-##
+########
 # The setPuppetConf Method: Creates a puppet.conf file if one doesn't exist
 #
 # Arguments:  None
-##
+########
 def setPuppetConf()
   confHash = {} # Our hash of puppet.conf keys and values
   
@@ -86,11 +97,11 @@ def setPuppetConf()
   }
 end
 
-##
+########
 #  The setEtcFacts Method:  Creates an /etc/facts.txt file if one doesn't exist
 #
 #  Arguments:  None
-##
+########
 def setEtcFacts
   etcHash = {}
 
@@ -102,21 +113,19 @@ def setEtcFacts
   # If our hostname does not match the district format, set huron_class to nodes.pp - this
   # way our External Node Classifier script will recognize this and default to the nodes.pp
   # file class declarations.
-  if huron_class == "," or huron_class == nil
-    huron_class = "nodes.pp"
-   end
+  huron_class = "nodes.pp" if huron_class == "," or huron_class == nil
   
   # Output values to /etc/facts.txt file
   etcHash = {"huron_class" => huron_class, "environment" => "production"}
   File.open("/etc/facts.txt", 'w') {|g| etcHash.each{|key, value| g.write(key + "=" + value + "\n")}}  
 end
 
-##
+########
 # Our cleaning method - it will remove the SSL and vardir, call the cleaning CGI to remove
 #   the cert on the server, and then run puppet twice to ensure a good run
 # 
 # Arguments: None
-##
+########
 def clean_certs ()
   puts "Removing /etc/puppet/ssl and #{$vardir}"
   FileUtils.rm_rf '/etc/puppet/ssl'
@@ -133,11 +142,11 @@ def clean_certs ()
   exit(0)
 end
 
-##
+########
 # The puppetrun method - it will call puppet and clean the certs if an error is found
 # 
 # Arguments: None
-##
+########
 def puppetrun()
   puppet_results = %x(#{$puppet_command} 2>&1)
   if /Retrieved certificate does not match private key/ =~ puppet_results || /Certificate request does not match existing certificate/ =~ puppet_results
@@ -149,19 +158,14 @@ def puppetrun()
     puts "A certificate error has been found - cleaning SSL and Vardir, then cleaning cert from server."
     clean_certs()
   end
-  
   exit(0)
 end
 
 # If there's no puppet.conf file, set a default one.
-if !File.exists?("/etc/puppet/puppet.conf")
-  setPuppetConf()
-end
+setPuppetConf() if !File.exists?("/etc/puppet/puppet.conf")
 
 # If there's not an /etc/facts.txt file, set a default one.
-if !File.exists?("/etc/facts.txt")
-  setEtcFacts()
-end
+setEtcFacts() if !File.exists?("/etc/facts.txt")
 
 # If the Puppetd lock exists, check to see if it's older than a day.  If so, delete it.
 # We don't use the puppetdlock to disable puppet - we're using a Big Red Button ©
@@ -171,21 +175,19 @@ if File.exists?("#{$vardir}/state/puppetdlock")
   FileUtils.rm("#{$vardir}/state/puppetdlock") if days > 1
 end
 
-##
+########
 # The -c argument will clean the SSL directory, the vardir, and the cert off the server. This is to prep
 #  for imaging or to correct a certificate error.
-##
-if ARGV[0] == "-c"
-  clean_certs()
-end
+########
+clean_certs() if ARGV[0] == "-c"
 
-##
+########
 # If the -v argument is set, return everything from the puppet run and log commands into a 
 #  temporary file.  Next, check for certain certificate errors in the output and clean the certs if need be.
 #
 # If the -v argument is NOT set, run puppet silently, log all output to the puppet_results variable,
 #  and check for our certificate errors (cleaning certs as warranted)
-##
+########
 if ARGV[0] == "-v"
   puts "#{$puppet_verbose}"
   system "#{$puppet_verbose}"
@@ -197,7 +199,6 @@ if ARGV[0] == "-v"
     puts "A certificate error has been found - cleaning SSL and Vardir, then cleaning cert from server."
     clean_certs()
   end
-  
   exit(0)
 else
   puppetrun()
