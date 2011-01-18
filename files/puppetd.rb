@@ -32,7 +32,7 @@ $stdout.sync=(true) if not $stdout.sync
 $_PUPPETD = 'puppet agent'
 if Facter.value(:puppetversion) < "0.26"
 	$_PUPPETD = 'puppetd'
-elsif Facter.value(:puppetversion) > "0.26"
+else
   $_PUPPETD = 'puppet agent'
 end
 
@@ -40,6 +40,7 @@ end
 Puppet.settings.parse
 
 ## Declare Global Variables
+$script_version = '1.6.0'
 $arg_file = Tempfile.new('puppetd') if ARGV[0] == "-v"
 $mac_uid = %x(/usr/sbin/nvram MAC_UID 2>/dev/null | awk '{print $2}').chomp
 $suffix = 'huronhs.com'
@@ -180,6 +181,14 @@ end
 #  for imaging or to correct a certificate error.
 ########
 clean_certs() if ARGV[0] == "-c"
+
+#########
+# The -d argument will display the version of this script
+#########
+if ARGV[0] == "-d"
+  puts "The Current version of this Puppet Wrapper Script is #{$script_version}"
+  exit(0)
+end
 
 ########
 # If the -v argument is set, return everything from the puppet run and log commands into a 
