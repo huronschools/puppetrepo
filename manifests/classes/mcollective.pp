@@ -2,6 +2,8 @@
 
 class mcollective {
 
+	include mcplugins
+
 	$mcollective = "mcollective-0.4.10.dmg"
 	$stomp = "Stomp_Install-20101216.dmg"
 	
