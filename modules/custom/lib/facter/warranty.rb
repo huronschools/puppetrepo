@@ -16,7 +16,7 @@ OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 # Constraining to the Darwin Kernel - it's only useful for Macs
 if Facter.value('kernel') == 'Darwin'
   warranty_array = []
-  sn  = %x{ioreg  -l | grep IOPlatformSerialNumber | sed -e s/\\"//g}.chomp.split{"="}[-1].chomp
+  sn  = %x{system_profiler SPHardwareDataType | awk -F": " '/Serial/{print $2}'}
   open('https://selfsolve.apple.com/warrantyChecker.do?sn=' + sn.upcase + '&country=USA') {|item|
          item.each_line {|item|}
          warranty_array = item.strip.split('"')
