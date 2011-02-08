@@ -29,7 +29,7 @@ end
 Facter.add("purchase_date") do
   confine :kernel => "Darwin"
   setcode do
-    warranty_array[purchase+2]
+    warranty_array[purchase+2].gsub("-",".")
   end 
 end
 
@@ -44,6 +44,6 @@ end
 Facter.add("warranty_end") do
   confine :kernel => "Darwin"
   setcode do
-    (!warranty_array[coverage+2].empty?) ? warranty_array[coverage+2] : "Expired"
+    (!warranty_array[coverage+2].empty?) ? warranty_array[coverage+2].gsub("-",".") : "Expired"
   end 
 end
