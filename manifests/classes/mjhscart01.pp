@@ -9,6 +9,8 @@ class mjhscart01 {
 	include general_image
 	include desktopbackground
 	include crankd
+	include printers_mjhs_mbcart01
+	include printers_mjhs_mbcart02
 
 	# Package Names
 	$audacityppc = "AudacityPPC.dmg"
