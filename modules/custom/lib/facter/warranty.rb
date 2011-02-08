@@ -3,7 +3,7 @@ require 'open-uri'
 
 # This is a complete hack to disregard SSL Cert validity for the Apple
 #  Selfserve site.  We had SSL errors as we're behind a proxy.  I'm
-#  open suggestions for doing it 'Less-Hacky.'
+#  open to suggestions for doing it 'Less-Hacky.'
 module OpenSSL
   module SSL
     remove_const:VERIFY_PEER
@@ -13,7 +13,7 @@ end
 OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
 
-# Constraining to the Darwain Kernel - it's only useful for Macs
+# Constraining to the Darwin Kernel - it's only useful for Macs
 if Facter.value('kernel') == 'Darwin'
   warranty_array = []
   sn  = %x{ioreg  -l | grep IOPlatformSerialNumber | sed -e s/\\"//g}.chomp.split{"="}[-1].chomp
