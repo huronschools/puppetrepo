@@ -56,3 +56,11 @@ Facter.add("warranty_end") do
     (!hash['COV_END_DATE'].empty?) ? hash['COV_END_DATE'].gsub("-",".") : "Expired"
   end 
 end
+
+
+Facter.add("product_description") do
+  confine :kernel => "Darwin"
+  setcode do
+    hash['PROD_DESCR'].chomp
+  end 
+end
