@@ -13,7 +13,7 @@
 #
 # Created: 10/15/2009
 #
-# Last Modified: 1/18/2011
+# Last Modified: 2/10/2011
 #
 
 require 'facter'
@@ -21,6 +21,7 @@ require 'puppet'
 require 'fileutils'
 require 'tempfile'
 
+raise "This script must be run as root.  Exiting..." unless Process.uid == 0
 
 ## Set Environment Variables
 ENV['TERM_PROGRAM'] = 'Apple_Terminal'
@@ -29,18 +30,13 @@ ENV['PATH'] = '/usr/sbin:/usr/bin:/bin'
 $stdout.sync=(true) if not $stdout.sync
 
 ## Determine whether we're using Puppet 2.6 or legacy
-$_PUPPETD = 'puppet agent'
-if Facter.value(:puppetversion) < "0.26"
-	$_PUPPETD = 'puppetd'
-else
-  $_PUPPETD = 'puppet agent'
-end
+(Facter.value(:puppetversion) < "0.26") ? $_PUPPETD = 'puppetd' : $_PUPPETD = 'puppet agent'
 
 ## Parse the /etc/puppet/puppet.conf settings (if the file exists).
 Puppet.settings.parse
 
 ## Declare Global Variables
-$script_version = '1.6.0'
+$script_version = '1.6.2'
 $arg_file = Tempfile.new('puppetd') if ARGV[0] == "-v"
 $mac_uid = %x(/usr/sbin/nvram MAC_UID 2>/dev/null | awk '{print $2}').chomp
 $suffix = 'huronhs.com'
