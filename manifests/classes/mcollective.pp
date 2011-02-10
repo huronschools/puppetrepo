@@ -4,7 +4,7 @@ class mcollective {
 
 	include mcplugins
 
-	$mcollective = "MCollective_Installer_Full-1.1.1.dmg"
+	$mcollective = "MCollective_Installer_Full-1.1.1Revb.dmg"
 	$stomp = "Stomp_Install-20101216.dmg"
 	
 	package { "$mcollective":
