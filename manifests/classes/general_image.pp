@@ -17,6 +17,7 @@ class general_image {
 	$flash = "Flash10.1.dmg"
 	$sophos = "sophos72810.dmg"
 	$dnealian = "dnealian.dmg"
+	$itunes = "iTunes10.1.2.dmg"
 	
 	# Ensure Vardir for .25.4 -> .25.5 clients
 	file { "/var/lib/": 
@@ -52,6 +53,9 @@ class general_image {
 	package{"$puppetcurrent":
 		source 	=> "$pkg_base/$puppetcurrent",
 	}	
+	package{"$itunes":
+		source 	=> "$pkg_base/$itunes",
+	}
 	package{"$firstclass": 
 		source 	=> "$pkg_base/$firstclass",
 	}
