@@ -15,6 +15,7 @@ class snowleopard {
 	$rosetta = "Rosetta.dmg"
 	$flash = "Flash_Installer_64_Bit-20100920.dmg"
 	$shockwave = "Shockwave64bit.dmg"
+	$gbloops = "GaragebandLoops.dmg"
 
 	# Set Package resource defaults for OS X clients
 	Package{ensure => installed,provider => pkgdmg}
@@ -22,6 +23,10 @@ class snowleopard {
 	# Package Calls
 	package{"$serveradmin": source => "$pkg_base/$serveradmin",}
     package{"$ilife": source => "$pkg_base/$ilife",}
+	package{"$gbloops":
+			source 	=> "$pkg_base/$gbloops",
+			require	=> Package["$ilife"],
+		}
     package{"$iwork": source => "$pkg_base/$iwork",}
 	package{"$timezone": source => "$pkg_base/$timezone",}
 	package{"$rosetta": source =>"$pkg_base/$rosetta",}
