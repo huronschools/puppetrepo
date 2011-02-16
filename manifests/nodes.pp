@@ -8,6 +8,7 @@ node "wesdocs.huronhs.com" {
 }
 node "testing.huronhs.com"{
 	include mcollective
+	include server_puppet_conf
 }
 node "msreplica.huronhs.com" {
 	include hcspuppetmasters
@@ -19,6 +20,7 @@ node "boe.huronhs.com" {
 	include boe
 }
 
+#Gary's Laptop
 node "ym8243s5ze3.huronhs.com" {
 	include general_image
 	include garyclass

@@ -1,0 +1,22 @@
+##File controlled by Puppet - Any local changes will be lost at the next Puppet Run
+##File last modified <%= File.stat('/etc/puppet/files/templates/serverpuppetconf.erb').mtime %>
+
+
+[main]
+pluginsync = true
+external_nodes = /usr/bin/rubyexternalnode.rb
+node_terminus = exec
+factpath = $vardir/lib/facter
+libdir = $vardir/lib
+server = <%= servername %>
+certname = <%= hostname %>.<%= domain %>
+report = true
+
+[master]
+ssl_client_header = SSL_CLIENT_S_DN
+ssl_client_verify_header = SSL_CLIENT_VERIFY
+reports = http
+reporturl = http://ldap.huronhs.com:8080/reports
+autosign = true
+vardir = /var/lib/puppet
+templatedir = /etc/puppet/files/templates

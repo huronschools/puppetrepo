@@ -3,8 +3,8 @@
 class general_image {
 
 	# Includes
-	include puppet_LaunchDaemon
 	include mcollective
+	include puppet_config
 
 	
 	# Package Names
@@ -18,32 +18,6 @@ class general_image {
 	$sophos = "sophos72810.dmg"
 	$dnealian = "dnealian.dmg"
 	$itunes = "iTunes10.1.2.dmg"
-	
-	# Ensure Vardir for .25.4 -> .25.5 clients
-	file { "/var/lib/": 
-		ensure 	=> directory,
-	}
-	
-	# Templating Example
-	file { "/etc/puppet/template.txt":
-		ensure 	=> file,
-		content => template("sample.erb"),
-	}
-	
-	# Set the puppet.conf file
-	file { "/etc/puppet/puppet.conf":
-		ensure	=> file,
-		content	=> template("puppetconf.erb"),
-		require => File["/usr/bin/puppetd.rb"],
-	}
-	
-	# Set the puppet wrapper script
-	file { "/usr/bin/puppetd.rb":
-		owner	=> root,
-		group 	=> wheel,
-		mode 	=> 755,
-		source 	=> "puppet:///files/puppetd.rb",
-	}
 	
 	# Package Calls
 	package{"$facter": 
