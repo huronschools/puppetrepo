@@ -63,15 +63,5 @@ class general_image {
 			include tiger
 		       }
 	}
-	
-	# MCollective Facts
-	file { "/etc/mcollective/facts.yaml":
-		ensure 		=> file,
-		content		=> inline_template("<%= facts = {}; scope.to_hash.each_pair {|k,v| facts[k.to_s] = v.to_s}; facts.to_yaml %>"),
-		#content 	=> inline_template("<%= scope.to_hash.reject { |k,v| !( k.is_a?(String) && v.is_a?(String) ) }.to_yaml %>"),
-		before		=> Service["com.huronhs.mcollective"],
-		require		=> Package["$mcollective"],
-		notify		=> Service["com.huronhs.mcollective"],
-	}
 
 } # End of Class
