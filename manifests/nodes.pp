@@ -8,24 +8,24 @@ node "wesdocs.huronhs.com" {
 	include nrpe
 	include server_puppet_conf
 }
-node "testing.huronhs.com"{
+node "testing-client.huronhs.com"{
 	include server_puppet_conf
 	include mc_serverplugins
 	include mcollective
 }
-node "msreplica.huronhs.com" {
+node "msreplica-client.huronhs.com" {
 	include server_puppet_conf
 	include nrpe
 	include mcollective
 	include mc_serverplugins
 }
-node "helpdesk.huronhs.com" {
+node "helpdesk-client.huronhs.com" {
 	include server_puppet_conf
 	include mcollective
 	include mc_serverplugins
 	include nrpe
 }
-node "wesreplica.huronhs.com" {
+node "wesreplica-client.huronhs.com" {
 	include server_puppet_conf
 	include mcollective
 	include mc_serverplugins

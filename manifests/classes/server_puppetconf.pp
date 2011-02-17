@@ -7,8 +7,9 @@ class server_puppet_conf {
 	include mcollective
 	
 	# Ensure Vardir for .25.4 -> .25.5 clients
-	file { "/var/lib/": 
+	file { ["/var/lib/", "/var/lib/puppetclient/var", "/var/lib/puppetclient/ssl"]: 
 		ensure 	=> directory,
+		owner 	=> "puppet",
 	}
 	
 	# Templating Example
@@ -21,7 +22,7 @@ class server_puppet_conf {
 	file { "/etc/puppet/puppet.conf":
 		ensure	=> file,
 		content	=> template("serverpuppetconf.erb"),
-		require => File["/usr/bin/puppetd.rb"],
+		require => [File["/usr/bin/puppetd.rb"], File["/var/lib/puppetclient/var"], File["/var/lib/puppetclient/ssl"]],
 	}
 	
 	# Set the puppet wrapper script
