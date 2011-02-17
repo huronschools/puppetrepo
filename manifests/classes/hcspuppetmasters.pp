@@ -24,10 +24,10 @@ class hcspuppetmasters {
 	}
 	
 	file {"/Library/WebServer/CGI-Executables/pclean.rb":
-	source => "puppet:///files/pclean.rb",
-	mode => 0755,
-	owner => "root",
-	group => "staff",
+		mode 	=> 0755,
+		content	=> template("pclean.erb"),
+		owner 	=> "root",
+		group 	=> "staff",
 	}
 
 } # End of Class

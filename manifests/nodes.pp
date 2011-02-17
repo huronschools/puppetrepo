@@ -10,18 +10,25 @@ node "wesdocs.huronhs.com" {
 }
 node "testing.huronhs.com"{
 	include server_puppet_conf
+	include mc_serverplugins
+	include mcollective
 }
 node "msreplica.huronhs.com" {
-	include hcspuppetmasters
 	include server_puppet_conf
-	include nagiosusers
+	include nrpe
+	include mcollective
+	include mc_serverplugins
 }
 node "helpdesk.huronhs.com" {
 	include server_puppet_conf
+	include mcollective
+	include mc_serverplugins
 	include nrpe
 }
 node "wesreplica.huronhs.com" {
 	include server_puppet_conf
+	include mcollective
+	include mc_serverplugins
 	include nrpe
 }
 node "boe.huronhs.com" {
