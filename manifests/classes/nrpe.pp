@@ -3,8 +3,6 @@ class nrpe {
 	include developertools
 	include nagiosusers
 
-	Package{ensure => installed,provider => pkgdmg}
-
 	# Package Names
 	$nrpe = "NRPE_Setup-20100316.dmg"
 	$plugins = "Nagios_Plugins-20100316.dmg"
@@ -17,7 +15,7 @@ class nrpe {
 
 	package{"$plugins":
 		source => "$pkg_base/$plugins",
-		require => User["nagiosuser"],
+		require => User["nagios"],
 		before => Package[$nrpe],
 	}
 
