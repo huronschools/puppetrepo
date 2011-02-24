@@ -13,6 +13,7 @@ class hslabs {
 	$keychainminder = "KeychainMinder.dmg"
 	$alice = "Alice.dmg"
 	$googleearth = "GoogleEarth.dmg"
+	$musescore = "MuseScore-1.0.dmg"
 
 	
 	# Set Package resource defaults for OS X clients
@@ -23,7 +24,10 @@ class hslabs {
 		source => "$pkg_base/$studio8",
 		before => Exec["Dreamweaver Fix"],
 	}
-	
+	package { "$musescore":
+		source		=> "$pkg_base/$musescore",
+		provider	=> appdmg,
+	}
 	package{"$alice": source => "$pkg_base/$alice",}
 	package{"$fmpro": source => "$pkg_base/$fmpro",}
 	package{"$googleearth": source => "$pkg_base/$googleearth",}
