@@ -14,9 +14,7 @@ report = true
 [master]
 ssl_client_header = SSL_CLIENT_S_DN
 ssl_client_verify_header = SSL_CLIENT_VERIFY
-reports = http
 certname = <%= hostname %>.<%= domain %>
-reporturl = http://ldap.huronhs.com:8080/reports
 autosign = true
 vardir = /var/lib/puppet
 templatedir = /etc/puppet/files/templates
