@@ -1,0 +1,7 @@
+# /etc/NetworkManager/dispatcher.d/01-puppetd
+
+#!/bin/sh
+
+if [ "$2" = "up" ]; then
+	/usr/bin/puppetd.rb
+fi

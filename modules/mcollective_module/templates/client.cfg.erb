@@ -1,0 +1,23 @@
+##File controlled by Puppet - Any local changes will be lost at the next Puppet Run
+##File last modified <%= File.stat('/etc/puppet/files/templates/mc-client.erb').mtime %>
+
+topicprefix = /topic/
+libdir = <%= scope.lookupvar('mcollective_module::params::libdir') %>
+logfile = /var/log/mcollectiveclient.log
+loglevel = info
+identity = <%= hostname %>
+
+# Plugins - PSK active # TODO Manage alternatives
+securityprovider = psk
+plugin.psk = <%= scope.lookupvar('mcollective_module::params::psk') %>
+
+# Plugins - STOMP active # TODO Manage alternatives
+connector = stomp
+plugin.stomp.host = <%= scope.lookupvar('mcollective_module::params::stomp_host') %>
+plugin.stomp.port = <%= scope.lookupvar('mcollective_module::params::stomp_port') %>
+plugin.stomp.user = <%= scope.lookupvar('mcollective_module::params::stomp_user') %>
+plugin.stomp.password = <%= scope.lookupvar('mcollective_module::params::stomp_password') %>
+
+# Facts
+factsource = <%= scope.lookupvar('mcollective_module::params::factsource') %>
+plugin.yaml = /etc/mcollective/facts.yaml

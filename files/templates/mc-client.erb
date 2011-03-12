@@ -1,14 +1,16 @@
 ##File controlled by Puppet - Any local changes will be lost at the next Puppet Run
-##File last modified <%= File.stat('/etc/puppet/files/templates/mc-server.erb').mtime %>
+##File last modified <%= File.stat('/etc/puppet/files/templates/mc-client.erb').mtime %>
+
 
 # main config
 topicprefix = /topic/mcollective
 libdir = /usr/libexec/
-logfile = /var/log/mcollective.log
-daemonize = 0
-max_log_size = 10240
-loglevel = info
+logfile = /var/log/mclient.log
+loglevel = debug
 identity = <%= hostname %>
+
+factsource = yaml
+plugin.yaml = /etc/mcollective/facts.yaml
 
 # connector plugin config
 connector = stomp
@@ -17,14 +19,6 @@ plugin.stomp.port = 6163
 plugin.stomp.user = mcollective
 plugin.stomp.password = marionette
 
-# facts
-factsource = yaml
-plugin.yaml = /etc/mcollective/facts.yaml
-
 # security plugin config
 securityprovider = psk
 plugin.psk = buckeyes
-
-#registration
-registerinterval = 300
-registration = Meta
