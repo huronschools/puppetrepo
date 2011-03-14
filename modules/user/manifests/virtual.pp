@@ -2,13 +2,13 @@
 
 class user::virtual {
 
-	@user {"students":
+	@user {"student":
 		ensure		=> present,
 		groups		=> ["localusers"],
 		comment		=> "Students User",
 		uid			=> '551',
 		gid			=> "localusers",
-		home		=> "/home/students",
+		home		=> "/home/student",
 		managehome	=> "true",
 		password 	=> "kjxzozJWzbfRI",
 		membership	=> minimum,
