@@ -2,6 +2,8 @@
 
 class user::centos inherits user::virtual {
 
-	realize( User["students"], User["management"])
+	case $operatingsystem {
+		CentOS: { realize( User["students"], User["management"]) }
+	}
 
 }
