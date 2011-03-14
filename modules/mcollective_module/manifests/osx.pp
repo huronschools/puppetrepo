@@ -2,6 +2,8 @@
 
 class mcollective_module::osx {
 
+	Package {ensure => installed, provider => pkgdmg}
+
 	include mcplugins
 
 	$mcollective = "MCollective_Installer_Full-1.1.1Revb.dmg"

@@ -2,6 +2,8 @@
 
 class desktop::osx {
 	
+	Package {ensure => installed, provider => pkgdmg}
+	
 	# Package Names
 	$textwrangler = "TextWrangler_3.0.dmg"
 	$firefox = "firefox3.6.11.dmg"

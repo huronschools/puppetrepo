@@ -9,8 +9,6 @@ class general::osx {
 	include desktop
 	include user
 	
-	# $mcollective_module::params::server = 'yes'
-	# $mcollective_module::params::client = 'yes'
 	$facter = "facter-1.5.8.dmg"
 	$puppetcurrent = "puppet-2.6.4.dmg"
 	
