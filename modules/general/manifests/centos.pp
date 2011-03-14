@@ -6,10 +6,28 @@ class general::centos {
 	include general::repos
 	include user
 	
+	$minute = generate('/usr/bin/env', 'sh', '-c', 'printf $((RANDOM%60+0))')
+	
+	cron { "puppet":
+		ensure		=> present,
+		command		=> "/usr/bin/puppetd.rb",
+		user 		=> "root",
+		hour 		=> "*",
+		minute 		=> $minute,
+	}
+	
 	file { "/etc/puppet/puppet.conf":
 		ensure		=> file,
 		content		=> template("puppetconf.erb"),
 		require 	=> File["/usr/bin/puppetd.rb"],
+	}
+	
+	file { "/etc/rc.d/rc.local":
+		ensure 		=> file,
+		source		=> "puppet:///general/rc.local",
+		owner		=> "root",
+		group 		=> "root",
+		mode 		=> 755,
 	}
 	
 	file { "/usr/bin/puppetd.rb":

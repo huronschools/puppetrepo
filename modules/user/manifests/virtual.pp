@@ -18,10 +18,10 @@ class user::virtual {
 	
 	@user {"management":
 		ensure		=> present,
-		groups		=> ["admin"],
+		groups		=> ["admins"],
 		comment		=> "Computer Management",
 		uid			=> '550',
-		gid			=> "admin",
+		gid			=> "admins",
 		password	=> "saIv9a6pw5vg2",
 		home		=> "/home/management",
 		managehome	=> "true",
