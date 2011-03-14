@@ -4,7 +4,7 @@
 class wiscart01 {
 
 	# Includes
-	include general_image
+	include general
 	include desktopbackground
 	include crankd
 	include studentuser

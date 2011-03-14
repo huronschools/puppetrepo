@@ -4,7 +4,8 @@ class g5lab {
 
 	#  Includes
 	include studentdata
-	include general_image
+	include general
+	include desktop
 	include hslabs
 	include studentuser
 	include office2008

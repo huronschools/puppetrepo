@@ -6,7 +6,7 @@ class mjhscart01 {
 	# Create the Student Data Folder
 	include studentdata
 	include studentuser
-	include general_image
+	include general
 	include desktopbackground
 	include crankd
 	include printers_mjhs_mbcart01

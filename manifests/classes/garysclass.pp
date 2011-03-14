@@ -7,7 +7,8 @@ class garyclass {
 	# 
 
 	#  Includes
-	include general_image
+	include general
+	include desktop
 	include hslabs
 	include developertools
 	include printers_mjhs_mbcart01
@@ -34,7 +35,6 @@ class garyclass {
 	$finder = "finderrenamer.dmg"
 	$droplr = "droplr-1.1.1.dmg"
 	$adobereader = "AdbeRdr1000_en_US.dmg"
-	$musescore = "MuseScore-1.0.dmg"
 
 	# Install Specialized Packages
 	package{"$finalcut": 
@@ -46,10 +46,6 @@ class garyclass {
 	}
 	package { "$droplr":
 		source		=> "$pkg_base/$droplr",
-		provider	=> appdmg,
-	}
-	package { "$musescore":
-		source		=> "$pkg_base/$musescore",
 		provider	=> appdmg,
 	}
 	package { "$pacifist":

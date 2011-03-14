@@ -8,5 +8,7 @@ import "classes/printers/*"
 
 # Set global defaults - paths
 Exec {path => "/usr/bin:/usr/sbin:/bin:/sbin"}
-Package {ensure => installed, provider => pkgdmg}	
-User { provider => "directoryservice" }
+
+# Run Stages
+stage {"pre": before => Stage["main"]}
+class {"general::repos": stage => pre }

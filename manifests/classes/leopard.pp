@@ -12,23 +12,18 @@ class leopard {
 	$office = "Office2004.dmg"
 	$officeupdates = "OfficeUpdates.dmg"
 
-
-
-	# Set Package resource defaults for OS X clients
-	#Package{ensure => installed,provider => pkgdmg}
-
 	# Package Calls
 	package{"$serveradmin": source => "$pkg_base/$serveradmin",}
-        package{"$ilife": source => "$pkg_base/$ilife",}
-        package{"$iwork": source => "$pkg_base/$iwork",}
-	package{"$timezone": source => "$pkg_base/$timezone",}
+    package{"$ilife": 		source => "$pkg_base/$ilife",}
+    package{"$iwork": 		source => "$pkg_base/$iwork",}
+	package{"$timezone": 	source => "$pkg_base/$timezone",}
 	package{"$office": 
-		source => "$pkg_base/$office",
-		before => Package[$officeupdates],
-		}
+		source 	=> "$pkg_base/$office",
+		before 	=> Package[$officeupdates],
+	}
 	package{"$officeupdates": 
-		source => "$pkg_base/$officeupdates",
+		source 	=> "$pkg_base/$officeupdates",
 		require => Package[$office],
-		}
+	}
 
 }

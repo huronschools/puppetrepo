@@ -2,7 +2,7 @@
 
 class wesstaff {
 
-	include general_image
+	include general
 
 } # End of Class
 

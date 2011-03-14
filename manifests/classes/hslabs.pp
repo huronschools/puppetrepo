@@ -3,7 +3,8 @@
 class hslabs {
 
 	# Includes
-	include general_image
+	include general
+	include desktop
 	include studentdata
 	include crankd
 

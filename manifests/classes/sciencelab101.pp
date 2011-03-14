@@ -4,7 +4,7 @@ class sciencelab101 {
 
 	#  Include the studentdata class which creates our Student Data Folder
 	include studentdata
-	include general_image
+	include general
 	include crankd
 	include studentuser
 

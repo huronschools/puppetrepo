@@ -2,7 +2,7 @@
 
 class wismediacenter {
 
-	include general_image
+	include general
 
 } # End of Class
 

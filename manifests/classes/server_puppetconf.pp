@@ -3,8 +3,7 @@
 class server_puppet_conf {
 	
 	# Includes
-	include puppet_LaunchDaemon
-	include mcollective
+	include mcollective_module
 	
 	# Ensure Vardir for .25.4 -> .25.5 clients
 	file { ["/var/lib/", "/var/lib/puppetclient/var", "/var/lib/puppetclient/ssl"]: 

@@ -1,8 +1,8 @@
 # /etc/puppet/manifests/classes/wesstaff.pp
 
-class wesstaff {
+class hsstaff {
 
-	include general_image
+	include staff
 
 } # End of Class
 

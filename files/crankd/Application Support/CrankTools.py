@@ -64,7 +64,7 @@ class CrankTools():
 		#	network, it will remove our LDAP bindings.
 		if enStatus == "false":
 			if apStatus == "true":
-				if self.onHuronNetwork(apIP):
+				if self.onHuronNetwork(apIP) == "true":
 					syslog.syslog(syslog.LOG_ALERT, "The Ethernet interface is down, but the Airport is active and on-network.")
 					self.ensureLDAPNodes(nodes)
 					syslog.syslog(syslog.LOG_ALERT, "Performing a Puppet Run.")

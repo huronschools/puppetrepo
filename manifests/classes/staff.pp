@@ -2,7 +2,8 @@
 
 class staff {
 
-	include general_image
+	include general
+	include desktop
 
 } # End of Class
 

@@ -3,7 +3,7 @@
 class mjhsstaff {
 
 	include staff
-	include general_image
+	include general
 
 } # End of Class
 

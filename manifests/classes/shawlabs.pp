@@ -4,7 +4,7 @@
 class shawlabs {
 
 	# Includes
-	include general_image
+	include general
 
 	# Package Names
 	$fastmath = "Fastmath.dmg"

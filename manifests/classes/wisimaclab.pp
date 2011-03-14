@@ -5,11 +5,10 @@ class wisimaclab {
 	#  Includes
 	include studentdata
 	include hslabs
-	include general_image
+	include general
 	include desktopbackground
 	include wiscart01
 	include studentuser
-#	include studentuser
 
 	# Package Names
 	$timetogo = "TimeToGo.dmg"

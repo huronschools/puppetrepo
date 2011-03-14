@@ -5,7 +5,6 @@ class hsimaclab {
 	#  Includes
 	include studentdata
 	include hslabs
-	include general_image
 	include desktopbackground
 	include studentuser
 	include printers_hhs_201lab
@@ -18,7 +17,6 @@ class hsimaclab {
 	$fireworks = "fireworks8.dmg"
 
 	# Install Required Packages First
-#	package{"$shockwave": source => "$pkg_base/$shockwave"}
 	package{"$flash": source => "$pkg_base/$flash"}
 	package{"$flip4mac": source => "$pkg_base/$flip4mac"}
 	package{"$fireworks": source => "$pkg_base/$fireworks"}
