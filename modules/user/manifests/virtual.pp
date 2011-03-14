@@ -27,7 +27,7 @@ class user::virtual {
 		managehome	=> "true",
 		membership	=> "minimum",
 		shell		=> "/bin/bash",
-		require		=> Group["admin"],
+		require		=> Group["admins"],
 	}
 
 	group {"localusers":
@@ -35,7 +35,7 @@ class user::virtual {
 		gid			=> 1000,
 	}
 	
-	group{"admin":
+	group{"admins":
 		ensure		=> present,
 		gid			=> 1001,
 	}
