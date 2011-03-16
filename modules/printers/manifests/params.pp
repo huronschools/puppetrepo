@@ -11,12 +11,12 @@ class printers::params {
 	
 	case $operatingsystem {
 		"centos": { 
-			$ppd_path 		= "/usr/share/cups/model/foomatic-db-ppds"
+			$ppd_path		= "/usr/share/cups/model/foomatic-db-ppds"
 			$print_group 	= "root"
 			$print_owner 	= "root"	
         }			
 		"darwin": { 
-			$ppd_path 		= "/Library/Printers/PPDs/Contents/Resources"
+			$ppd_path		= "/Library/Printers/PPDs/Contents/Resources"
 			$print_group 	= "$darwinprintgroup"
 			$print_owner 	= "root"
 	    }
