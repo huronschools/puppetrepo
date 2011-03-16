@@ -11,18 +11,14 @@ class printers::params {
 	
 	case $operatingsystem {
 		"centos": { 
-			$ppd_path = "/usr/share/cups/model/foomatic-db-ppds"
-			$print_group = "root"
-			$print_owner = "root"
-			$hp_laserjet_9040 = "HP_LaserJet_9040.ppd.gz"
-			$hp_laserjet_9050 = "HP_LaserJet_9050.ppd.gz"	
+			$ppd_path 		= "/usr/share/cups/model/foomatic-db-ppds"
+			$print_group 	= "root"
+			$print_owner 	= "root"	
         }			
 		"darwin": { 
-			$ppd_path = "/Library/Printers/PPDs/Contents/Resources"
-			$print_group = "$darwinprintgroup"
-			$print_owner = "root"
-			$hp_laserjet_9040 = "HP LaserJet 9040.gz"
-			$hp_laserjet_9050 = "HP LaserJet 9050.gz"
+			$ppd_path 		= "/Library/Printers/PPDs/Contents/Resources"
+			$print_group 	= "$darwinprintgroup"
+			$print_owner 	= "root"
 	    }
 	}
 }
