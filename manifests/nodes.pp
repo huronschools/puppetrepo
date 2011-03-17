@@ -62,8 +62,6 @@ node "clzf581.huronhs.com"{
 	include general
 	include mcollective_module
 	include desktop
-	include printers::shel_workroom
-	include printers::shel_storage
 }
 
 node default {

@@ -44,4 +44,18 @@ class general::centos {
 		mode		=> 755,
 		source 		=> "puppet:///general/01-puppetd",
 	}
+	
+	file { "/etc/cups/cupsd.conf":
+		ensure 		=> file,
+		owner		=> "root",
+		group 		=> "lp",
+		mode 		=> 640,
+		source 		=> "puppet:///modules/general/cupsd.conf",
+		notify		=> Service["cups"],
+	}
+	
+	service {"cups":
+		ensure		=> running,
+		subscribe	=> File["/etc/cups/cupsd.conf"],
+	}
 }

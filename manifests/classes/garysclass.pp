@@ -11,8 +11,6 @@ class garyclass {
 	include desktop
 	include hslabs
 	include developertools
-	include printers_mjhs_mbcart01
-	include printers_mjhs_mbcart02
 
 	# Package Names
 	$adobecs3 = "AdobeCS3.dmg"
