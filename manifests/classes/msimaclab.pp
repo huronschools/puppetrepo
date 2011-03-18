@@ -6,8 +6,8 @@ class msimaclab {
 	include hslabs
 	include desktopbackground
 	include studentuser
-	include printers_mjhs_imaclabbw
-	include printers_mjhs_imaclabcolor
+	include printers::mjhs_imaclabbw
+	include printers::mjhs_imaclabcolor
 	include loginhooks
 
 	# Package Names

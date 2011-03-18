@@ -5,6 +5,7 @@ class mjhsmultimedia {
 	#  Includes
 	include studentdata
 	include general
+	include desktop
 	include desktopbackground
 
 	# Package Names

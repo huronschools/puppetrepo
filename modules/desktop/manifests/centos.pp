@@ -22,7 +22,7 @@ class desktop::centos {
 		owner		=> "root",
 		group 		=> "root",
 		mode 		=> 755,
-		source 		=> "puppet:///general/ipw2200-bss.fw",
+		source 		=> "puppet:///modules/general/ipw2200-bss.fw",
 		notify		=> Exec["ModprobeFlip"],
 	}
 	
@@ -30,7 +30,7 @@ class desktop::centos {
 		owner		=> "root",
 		group 		=> "root",
 		mode 		=> 755,
-		source 		=> "puppet:///general/ipw2200-ibss.fw",
+		source 		=> "puppet:///modules/general/ipw2200-ibss.fw",
 		notify		=> Exec["ModprobeFlip"],
 	}
 	
@@ -38,7 +38,7 @@ class desktop::centos {
 		owner		=> "root",
 		group 		=> "root",
 		mode 		=> 755,
-		source 		=> "puppet:///general/ipw2200-sniffer.fw",
+		source 		=> "puppet:///modules/general/ipw2200-sniffer.fw",
 		notify		=> Exec["ModprobeFlip"],
 	}
 	
@@ -46,7 +46,7 @@ class desktop::centos {
 		owner 		=> "root",
 		group 		=> "root",
 		mode		=> 440,
-		source 		=> "puppet:///desktop/sudoers",
+		source 		=> "puppet:///modules/desktop/sudoers",
 	}
 	
 }

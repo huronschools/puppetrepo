@@ -7,10 +7,11 @@ class mjhscart01 {
 	include studentdata
 	include studentuser
 	include general
+	include desktop
 	include desktopbackground
 	include crankd
-	include printers_mjhs_mbcart01
-	include printers_mjhs_mbcart02
+	include printers::mjhs_mbcart01
+	include printers::mjhs_mbcart02
 
 	# Package Names
 	$audacityppc = "AudacityPPC.dmg"

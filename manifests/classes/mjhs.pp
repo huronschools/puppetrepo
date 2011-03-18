@@ -2,8 +2,8 @@
 
 class mjhs {
 
-	include printers_mjhs_mediacenter
-	include printers_mjhs_office9040
-	include printers_mjhs_office9050
+	include printers::mjhs_mediacenter
+	include printers::mjhs_office9040
+	include printers::mjhs_office9050
 
 } # End of Class

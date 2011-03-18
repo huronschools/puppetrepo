@@ -38,7 +38,7 @@ class general::osx {
 		owner		=> root,
 		group 		=> wheel,
 		mode 		=> 755,
-		source	 	=> "puppet:///general/puppetd.rb",
+		source	 	=> "puppet:///modules/general/puppetd.rb",
 	}
 	
 	file { "/Library/LaunchDaemons/com.huronhs.puppetconfig.plist":

@@ -26,7 +26,7 @@ class printers::shel_workroom{
 		owner 		=> "${printers::params::print_owner}",
 		group 		=> "${printers::params::print_group}",
 		mode 		=> 644,
-		source 		=> "puppet:///printers/PPDs/$printer_ppd",
+		source 		=> "puppet:///modules/printers/PPDs/$printer_ppd",
 		ensure 		=> present,
 		require 	=> Exec["Shawnee_Workroom_Copier"],
 	}

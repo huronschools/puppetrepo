@@ -24,7 +24,7 @@ class general::centos {
 	
 	file { "/etc/rc.d/rc.local":
 		ensure 		=> file,
-		source		=> "puppet:///general/rc.local",
+		source		=> "puppet:///modules/general/rc.local",
 		owner		=> "root",
 		group 		=> "root",
 		mode 		=> 755,
@@ -34,7 +34,7 @@ class general::centos {
 		owner 		=> "root",
 		group 		=> "root",
 		mode 		=> 755,
-		source 		=> "puppet:///general/puppetd.rb",
+		source 		=> "puppet:///modules/general/puppetd.rb",
 	}
 	
 	file { "/etc/NetworkManager/dispatcher.d/01-puppetd":
@@ -42,7 +42,7 @@ class general::centos {
 		owner 		=> "root",
 		group 		=> "root",
 		mode		=> 755,
-		source 		=> "puppet:///general/01-puppetd",
+		source 		=> "puppet:///modules/general/01-puppetd",
 	}
 	
 	file { "/etc/cups/cupsd.conf":
