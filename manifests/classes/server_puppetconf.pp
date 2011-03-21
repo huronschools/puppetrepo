@@ -17,6 +17,11 @@ class server_puppet_conf {
 		content => template("sample.erb"),
 	}
 	
+	file { "/etc/puppet/auth.conf":
+		ensure 	=> file,
+		source 	=> "puppet:///files/auth.conf",
+	}
+	
 	# Set the puppet.conf file
 	file { "/etc/puppet/puppet.conf":
 		ensure	=> file,

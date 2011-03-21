@@ -17,7 +17,6 @@ class printers::hhs_201lab{
 	
 	exec { "HHS_Room_201_Lab_Printer":
 		command 	=> "$printer_command",
-		before 		=> File["/etc/cups/ppd/$printer_ppd"],
 		unless 		=> "$printer_check",
 	}
 }

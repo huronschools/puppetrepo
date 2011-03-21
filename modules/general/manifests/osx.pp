@@ -6,7 +6,6 @@ class general::osx {
 	User { provider => "directoryservice" }
 
 	include mcollective_module
-	include desktop
 	include user
 	
 	$facter = "facter-1.5.8.dmg"

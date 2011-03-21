@@ -12,6 +12,7 @@ server = <%= servername %>
 report = true
 
 [master]
+facts_terminus = yaml
 ssl_client_header = SSL_CLIENT_S_DN
 ssl_client_verify_header = SSL_CLIENT_VERIFY
 certname = <%= hostname %>.<%= domain %>

@@ -17,7 +17,6 @@ class printers::hhs_g5labcolor{
 	
 	exec { "HHS_G5_Lab_Color_Printer":
 		command 	=> "$printer_command",
-		before 		=> File["/etc/cups/ppd/$printer_ppd"],
 		unless 		=> "$printer_check",
 	}
 }

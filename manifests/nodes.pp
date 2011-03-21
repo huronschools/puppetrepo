@@ -48,6 +48,7 @@ node "ldap.huronhs.com" {
 #Gary's Laptop
 node "ym8243s5ze3.huronhs.com" {
 	include general_image
+	include mcollective_module
 	include garyclass
 	include boe
 }
