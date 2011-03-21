@@ -94,7 +94,12 @@ class mcollective_module::params {
 	        darwin => "/usr/libexec/mcollective",
 	        centos => "/usr/libexec/mcollective",
 	    }
-	
+		
+		$defaultpath = $operatingsystem ? {
+			darwin => "$libdir",
+			centos => "$libdir/mcollective",
+		}
+		
 	  	$logdir = $operatingsystem ? {
 			default => "/var/log/mcollective",
 	}

@@ -12,9 +12,10 @@
 #
 class mcollective_module::plugins {
 
-
 #### huron repo
 	mcollective_module::plugin { "agent/yaml_store.ddl": source => "agent/yaml_store.ddl" , type => "ddl" , repo => "huron" }
+	mcollective_module::plugin { "agent/etc_facts.rb": source => "agent/etc_facts.rb" , repo => "huron" }
+	mcollective_module::plugin { "agent/etc_facts.ddl": source => "agent/etc_facts.ddl" , type => "ddl" , repo => "huron" }
 
 #### puppetlabs repo
     # Filemgr plugin

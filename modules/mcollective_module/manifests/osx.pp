@@ -4,12 +4,13 @@ class mcollective_module::osx {
 
 	Package {ensure => installed, provider => pkgdmg}
 
-	include mcplugins
-
+	include mcollective_module::plugins
+	require mcollective_module::params
+	
 	$mcollective = "MCollective_Installer_Full-1.1.1Revb.dmg"
 	$stomp = "Stomp_Install-20101216.dmg"
 
-	package { "$mcollective":
+	package { "${mcollective_module::params::packagename}":
 		source		=> "$pkg_base/$mcollective",
 		before		=> [File["/etc/mcollective/server.cfg"], File["/etc/mcollective/client.cfg"]],
 	}
@@ -21,7 +22,7 @@ class mcollective_module::osx {
 		group  		=> "wheel",
 		require		=> [Package["$mcollective"], File["/etc/mcollective/server.cfg"]],
 	}
-	service { "com.huronhs.mcollective":
+	service { "${mcollective_module::params::servicename}":
 		enable		=> true,
 		ensure		=> running,
 		subscribe	=> File["/Library/LaunchDaemons/com.huronhs.mcollective.plist"],
