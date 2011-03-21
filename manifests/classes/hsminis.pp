@@ -2,7 +2,7 @@
 
 class hsminis {
 
-	include printers_hhs_g5labbw
+	include printers::hhs_g5labbw
 	include hslabs
 
 	# Package Names

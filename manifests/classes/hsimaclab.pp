@@ -7,7 +7,7 @@ class hsimaclab {
 	include hslabs
 	include desktopbackground
 	include studentuser
-	include printers_hhs_201lab
+	include printers::hhs_201lab
 	include loginhooks
 
 	# Package Names

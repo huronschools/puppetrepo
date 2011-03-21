@@ -9,8 +9,8 @@ class g5lab {
 	include hslabs
 	include studentuser
 	include office2008
-	include printers_hhs_g5labbw
-	include printers_hhs_g5labcolor
+	include printers::hhs_g5labbw
+	include printers::hhs_g5labcolor
 	include loginhooks
 
 	# Package Names
