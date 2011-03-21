@@ -15,7 +15,7 @@ require 'yaml'
 require 'puppet'
 
 # Intitialize Variables
-vardir = Puppet[:vardir]
+vardir = "/var/lib/puppet"
 yamldir = "#{vardir}/yaml/facts/"
 default = {'classes' => []}
 yaml_output = {}
