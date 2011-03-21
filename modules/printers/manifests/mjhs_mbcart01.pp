@@ -17,7 +17,6 @@ class printers::mjhs_mbcart01{
 	
 	exec { "MJHS_Macbook_Cart_01_Printer":
 		command 	=> "$printer_command",
-		before 		=> File["/etc/cups/ppd/$printer_ppd"],
 		unless 		=> "$printer_check",
 	}
 }

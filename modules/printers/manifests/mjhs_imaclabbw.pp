@@ -17,7 +17,6 @@ class printers::mjhs_imaclabbw{
 	
 	exec { "MJHS_iMac_Lab_BW_Printer":
 		command 	=> "$printer_command",
-		before 		=> File["/etc/cups/ppd/$printer_ppd"],
 		unless 		=> "$printer_check",
 	}
 }
