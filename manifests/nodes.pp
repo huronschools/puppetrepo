@@ -42,6 +42,10 @@ node "boe.huronhs.com" {
 }
 node "ldap.huronhs.com" {
 	include mcollective_module
+	include general
+}
+node "logstash.huronhs.com" {
+	include mcollective_module
 	include activemq
 	include general
 }

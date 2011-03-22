@@ -35,7 +35,7 @@ class mcollective_module::params {
 
 	# Stomp settings
 	    $stomp_host = $mcollective_stomp_host ? {
-	        ''      => "ldap.huronhs.com",
+	        ''      => "logstash.huronhs.com",
 	        default => "${mcollective_stomp_host}",
 	    }
 
@@ -91,13 +91,23 @@ class mcollective_module::params {
 
 	    # Libdir. Used in config templates
 	    $libdir = $operatingsystem ? {
-	        darwin => "/usr/libexec/mcollective",
+	        darwin => "/usr/libexec",
 	        centos => "/usr/libexec/mcollective",
 	    }
 		
 		$defaultpath = $operatingsystem ? {
-			darwin => "$libdir",
+			darwin => "$libdir/mcollective",
 			centos => "$libdir/mcollective",
+		}
+		
+		$topicprefix = $operatingsystem ? {
+			darwin => "/topic/mcollective",
+			centos => "/topic/",
+		}
+		
+		$daemonize = $operatingsystem ? {
+			darwin => "0",
+			centos => "1",
 		}
 		
 	  	$logdir = $operatingsystem ? {

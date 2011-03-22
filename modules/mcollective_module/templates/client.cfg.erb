@@ -1,7 +1,7 @@
 ##File controlled by Puppet - Any local changes will be lost at the next Puppet Run
 ##File last modified <%= File.stat('/etc/puppet/files/templates/mc-client.erb').mtime %>
 
-topicprefix = /topic/
+topicprefix = <%= scope.lookupvar('mcollective_module::params::topicprefix') %>
 libdir = <%= scope.lookupvar('mcollective_module::params::libdir') %>
 logfile = /var/log/mcollectiveclient.log
 loglevel = info

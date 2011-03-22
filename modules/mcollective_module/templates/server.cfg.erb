@@ -1,11 +1,11 @@
 ##File controlled by Puppet - Any local changes will be lost at the next Puppet Run
 ##File last modified <%= File.stat('/etc/puppet/files/templates/mc-server.erb').mtime %>
 
-topicprefix = /topic/
+topicprefix = <%= scope.lookupvar('mcollective_module::params::topicprefix') %>
 libdir = <%= scope.lookupvar('mcollective_module::params::libdir') %>
 logfile = /var/log/mcollectiveserver.log
 loglevel = info
-daemonize = 1
+daemonize = <%= scope.lookupvar('mcollective_module::params::daemonize') %>
 identity = <%= hostname %>
 
 # Plugins - PSK active # TODO Manage alternatives
