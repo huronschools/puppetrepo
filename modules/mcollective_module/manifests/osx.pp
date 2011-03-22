@@ -28,6 +28,10 @@ class mcollective_module::osx {
 		subscribe	=> File["/Library/LaunchDaemons/com.huronhs.mcollective.plist"],
 		require		=> File["/Library/LaunchDaemons/com.huronhs.mcollective.plist"],
 	}
+	service { "com.puppetlabs.mcollective":
+		enable		=> false,
+		ensure		=> stopped,
+	}
 	file { "/etc/mcollective/facts.yaml":
 		ensure 		=> file,
 		content		=> inline_template("<%= facts = {}; scope.to_hash.each_pair {|k,v| facts[k.to_s] = v.to_s}; facts.to_yaml %>"),
