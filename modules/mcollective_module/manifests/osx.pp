@@ -55,7 +55,7 @@ class mcollective_module::osx {
 
 	file { "/etc/mcollective/server.cfg":
 		ensure 		=> file,
-		content => template("mcollective_module/server.cfg.erb"),
+		content 	=> template("mcollective_module/server.cfg.erb"),
 		owner		=> "root",
 		group  		=> "wheel",
 		mode		=> 0600,
@@ -63,7 +63,7 @@ class mcollective_module::osx {
 	
 	file { "/etc/mcollective/client.cfg":
 		ensure 		=> file,
-		content => template("mcollective_module/client.cfg.erb"),
+		content 	=> template("mcollective_module/client.cfg.erb"),
 		owner		=> "root",
 		group  		=> "wheel",
 		mode		=> 0600,
