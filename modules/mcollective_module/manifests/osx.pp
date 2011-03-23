@@ -31,6 +31,10 @@ class mcollective_module::osx {
 	service { "com.puppetlabs.mcollective":
 		enable		=> false,
 		ensure		=> stopped,
+		before		=> File["/Library/LaunchDaemons/com.puppetlabs.mcollective.plist"],
+	}
+	file { "/Library/LaunchDaemons/com.puppetlabs.mcollective.plist":
+		ensure => absent,
 	}
 	file { "/etc/mcollective/facts.yaml":
 		ensure 		=> file,
