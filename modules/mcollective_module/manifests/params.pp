@@ -35,7 +35,7 @@ class mcollective_module::params {
 
 	# Stomp settings
 	    $stomp_host = $mcollective_stomp_host ? {
-	        ''      => "logstash.huronhs.com",
+	        ''      => "newpuppet.huronhs.com",
 	        default => "${mcollective_stomp_host}",
 	    }
 

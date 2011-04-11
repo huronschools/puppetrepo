@@ -37,7 +37,7 @@ $stdout.sync=(true) if not $stdout.sync
 Puppet.settings.parse
 
 ## Declare Global Variables
-$script_version = '1.6.6'
+$script_version = '1.6.5'
 $arg_file = Tempfile.new('puppetd') if ARGV[0] == "-v"
 $suffix = 'huronhs.com'
 $mac_uid = %x(/usr/sbin/nvram MAC_UID 2>/dev/null | awk '{print $2}').chomp if Facter.value(:operatingsystem) == 'Darwin'
@@ -114,12 +114,12 @@ end
 ########
 def clean_certs ()
   
-  $command = "http://#{$server}/cgi-bin/pclean.rb?certname=#{Puppet[:certname]}"
+  $command = getCurlCommand()
   
   puts "Removing /etc/puppet/ssl and #{$vardir}"
   FileUtils.rm_rf '/etc/puppet/ssl'
   FileUtils.rm_rf $vardir
-  puts "Removing the #{Puppet[:certname]} Certificate from #{$server}"
+  puts "Removing Certificate from #{$server}"
   puts "/usr/bin/curl #{$command}"
   system "/usr/bin/curl #{$command}"
 
@@ -180,8 +180,24 @@ end
 
 def getCurlCommand()
   
-  return 
+  if Facter.value(:operatingsystem) == 'CentOS'
+    $command = "http://#{$server}/cgi-bin/pclean.rb?certname=#{$linux_uid}"
+    return $command
+  elsif Facter.value(:operatingsystem) == 'Darwin'
+    ## Check for an empty $mac_uid variable.
+    if $mac_uid.empty?
+      $mac_uid = %x(system_profiler SPHardwareDataType | awk '/Serial Number/ {print $NF}').chomp.downcase + "." + $suffix
+      $mac_uid = %x(hostname).chomp if $mac_uid.empty?
+      ## Set the mac_uid variable in NVRAM.
+      %x(/usr/sbin/nvram MAC_UID=#{$mac_uid})
+    end
 
+    $command = "http://#{$server}/cgi-bin/pclean.rb?certname=#{$mac_uid}"
+    return $command
+  else
+    puts "Sorry, Your Operating System Is Not Supported."
+    exit(1)
+  end
 end
 
 def runOSXWrapper(runtype)
