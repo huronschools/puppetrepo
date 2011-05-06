@@ -7,8 +7,8 @@ class mcollective_module::osx {
 	include mcollective_module::plugins
 	require mcollective_module::params
 	
-	$mcollective = "MCollective_Installer_Full-1.1.1Revb.dmg"
-	$stomp = "Stomp_Install-20101216.dmg"
+	$mcollective 	= "MCollective_Installer_Full-1.1.1Revb.dmg"
+	$stomp 			= "Stomp_Install-20101216.dmg"
 
 	package { "${mcollective_module::params::packagename}":
 		source		=> "$pkg_base/$mcollective",
@@ -28,18 +28,9 @@ class mcollective_module::osx {
 		subscribe	=> File["/Library/LaunchDaemons/com.huronhs.mcollective.plist"],
 		require		=> File["/Library/LaunchDaemons/com.huronhs.mcollective.plist"],
 	}
-	service { "com.puppetlabs.mcollective":
-		enable		=> false,
-		ensure		=> stopped,
-		before		=> File["/Library/LaunchDaemons/com.puppetlabs.mcollective.plist"],
-	}
-	file { "/Library/LaunchDaemons/com.puppetlabs.mcollective.plist":
-		ensure => absent,
-	}
 	file { "/etc/mcollective/facts.yaml":
 		ensure 		=> file,
 		content		=> inline_template("<%= facts = {}; scope.to_hash.each_pair {|k,v| facts[k.to_s] = v.to_s}; facts.to_yaml %>"),
-		#content 	=> inline_template("<%= scope.to_hash.reject { |k,v| !( k.is_a?(String) && v.is_a?(String) ) }.to_yaml %>"),
 		before		=> Service["com.huronhs.mcollective"],
 		require		=> Package["$mcollective"],
 		notify		=> Service["com.huronhs.mcollective"],

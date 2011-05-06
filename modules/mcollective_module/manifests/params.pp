@@ -120,7 +120,7 @@ class mcollective_module::params {
 	# (Modify to adapt to unsupported OSes)
 
 	    $packagename = $operatingsystem ? {
-	        darwin => "MCollective_Installer_Full-1.1.1Revb.dmg",
+	        darwin 	=> "MCollective_Installer_Full-1.1.1Revb.dmg",
 			default => "mcollective",
 	    }
 
