@@ -13,9 +13,9 @@ action "status", :description => "Gets the status of a service" do
           :prompt      => "Service Name",
           :description => "The service to get the status for",
           :type        => :string,
-          :validation  => '^[a-zA-Z\-_\d]+$',
+          :validation  => '^[a-zA-Z\-_\d\.]+$',
           :optional    => false,
-          :maxlength   => 30
+          :maxlength   => 230
 
     output "status",
           :description => "The status of service",
