@@ -10,4 +10,10 @@ class studentuser {
     gid => '20'
 }
 
+  file { '/Users/students':
+    ensure  => 'directory',
+    owner   => 'students',
+    group   => 'staff',
+    recurse => true,
+  }
 } # End of Class
