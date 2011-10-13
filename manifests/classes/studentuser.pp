@@ -6,6 +6,8 @@ class studentuser {
     comment => 'Student User',
     home => '/Users/students',
     ensure => 'present',
+    uid => '502',
+    gid => '20',
 }
 
   file { '/Users/students':
