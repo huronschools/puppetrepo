@@ -15,5 +15,6 @@ class studentuser {
     owner   => 'students',
     group   => 'staff',
     recurse => true,
+    force   => true,  
   }
 } # End of Class
