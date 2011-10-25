@@ -2,7 +2,7 @@
 
 class mc_serverplugins {
 
-	file { "/usr/libexec/mcollective/agent/yaml_store.rb":
+	file { "/usr/libexec/mcollective/mcollective/agent/yaml_store.rb":
 		ensure 		=> file,
 		owner		=> "root",
 		group  		=> "wheel",

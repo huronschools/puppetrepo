@@ -91,7 +91,7 @@ class mcollective_module::params {
 
 	    # Libdir. Used in config templates
 	    $libdir = $operatingsystem ? {
-	        darwin => "/usr/libexec",
+	        darwin => "/usr/libexec/mcollective",
 	        centos => "/usr/libexec/mcollective",
 	    }
 		
@@ -101,7 +101,7 @@ class mcollective_module::params {
 		}
 		
 		$topicprefix = $operatingsystem ? {
-			darwin => "/topic/mcollective",
+			darwin => "/topic/",
 			centos => "/topic/",
 		}
 		
@@ -120,7 +120,7 @@ class mcollective_module::params {
 	# (Modify to adapt to unsupported OSes)
 
 	    $packagename = $operatingsystem ? {
-	        darwin 	=> "MCollective_Installer_Full-1.1.1Revb.dmg",
+	        darwin 	=> "MCollective_Installer_Full-1.2.1.dmg",
 			default => "mcollective",
 	    }
 

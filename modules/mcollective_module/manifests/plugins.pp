@@ -19,39 +19,40 @@ class mcollective_module::plugins {
 
 #### puppetlabs repo
     # Filemgr plugin
-    mcollective_module::plugin { "agent/filemgr.rb": source => "agent/filemgr/filemgr.rb" } 
+    mcollective_module::plugin { "agent/filemgr.rb": source => "agent/filemgr/agent/filemgr.rb", repo => 'mcollective-plugins' } 
 
     # Iptables plugin
-    mcollective_module::plugin { "agent/iptables.rb": source => "agent/iptables-junkfilter/iptables.rb" }
-    mcollective_module::plugin { "agent/iptables.ddl": source => "agent/iptables-junkfilter/iptables.ddl" , type => "ddl" }
+    mcollective_module::plugin { "agent/iptables.rb": source => "agent/iptables-junkfilter/agent/iptables.rb", repo => 'mcollective-plugins'}
+    mcollective_module::plugin { "agent/iptables.ddl": source => "agent/iptables-junkfilter/agent/iptables.ddl" , type => "ddl", repo => 'mcollective-plugins' }
     if ( $mcollective_client == "yes" ) {
-        mcollective_module::plugin { "mc-iptables": source => "agent/iptables-junkfilter/mc-iptables" , type => "client" }
+        mcollective_module::plugin { "mc-iptables": source => "agent/iptables-junkfilter/application/iptables.rb" , type => "client", repo => 'mcollective-plugins' }
     }
 
     # package Plugin
-    mcollective_module::plugin { "agent/package.rb": source => "agent/package/puppet-package.rb" }
-    mcollective_module::plugin { "agent/package.ddl": source => "agent/package/package.ddl" , type => "ddl" }
+    mcollective_module::plugin { "agent/package.rb": source => "agent/package/agent/puppet-package.rb", repo => 'mcollective-plugins' }
+    mcollective_module::plugin { "agent/package.ddl": source => "agent/package/agent/package.ddl" , type => "ddl", repo => 'mcollective-plugins' }
     if ( $mcollective_client == "yes" ) {
-        mcollective_module::plugin { "mc-package": source => "agent/package/mc-package" , type => "client" }
+        mcollective_module::plugin { "mc-package": source => "agent/package/application/package.rb" , type => "client", repo => 'mcollective-plugins' }
     }
 
 
     # puppetd plugin
-    mcollective_module::plugin { "agent/puppetd.rb": source => "agent/puppetd/puppetd.rb" }
-    mcollective_module::plugin { "agent/puppetd.ddl": source => "agent/puppetd/puppetd.ddl" , type => "ddl" }
+    mcollective_module::plugin { "agent/puppetd.rb": source => "agent/puppetd/agent/puppetd.rb", repo => 'mcollective-plugins' }
+    mcollective_module::plugin { "agent/puppetd.ddl": source => "agent/puppetd/agent/puppetd.ddl" , type => "ddl", repo => 'mcollective-plugins' }
     if ( $mcollective_client == "yes" ) {
-        mcollective_module::plugin { "mc-puppetd": source => "agent/puppetd/mc-puppetd" , type => "client" }
+        mcollective_module::plugin { "mc-puppetd": source => "agent/puppetd/application/puppetd.rb" , type => "client", repo => 'mcollective-plugins' }
     }
 
     # service plugin
-    mcollective_module::plugin { "agent/service.rb": source => "agent/service/puppet-service.rb" }
-    mcollective_module::plugin { "agent/service.ddl": source => "agent/service/service.ddl" , type => "ddl" }
+    mcollective_module::plugin { "agent/service.rb": source => "agent/service/agent/puppet-service.rb", repo => 'mcollective-plugins' }
+    mcollective_module::plugin { "agent/service.ddl": source => "agent/service/agent/service.ddl" , type => "ddl", repo => 'mcollective-plugins' }
     if ( $mcollective_client == "yes" ) {
-        mcollective_module::plugin { "mc-service": source => "agent/service/mc-service" , type => "client" }
+        mcollective_module::plugin { "mc-service": source => "agent/service/application/service.rb" , type => "client", repo => 'mcollective-plugins' }
     }
 
     # facts
-    mcollective_module::plugin { "facts/facter.rb": source => "facts/facter/facter.rb" }
+    mcollective_module::plugin { "facts/facter.rb": source => "facts/facter/facter.rb", repo => 'mcollective-plugins' }
+    mcollective_module::plugin { "facts/facter_facts.rb": source => "facts/facter/facter_facts.rb", repo => 'mcollective-plugins' }
 
 
 
@@ -76,14 +77,14 @@ class mcollective_module::plugins {
     # }
 
     # process plugin
-    mcollective_module::plugin { "agent/process.rb": source => "agent/process/process.rb" , repo => "ripienaar" }
+    mcollective_module::plugin { "agent/process.rb": source => "agent/process/agent/process.rb" , repo => "mcollective-plugins" }
     if ( $mcollective_client == "yes" ) {
-        mcollective_module::plugin { "mc-pgrep": source => "agent/process/mc-pgrep" , type => "client" , repo => "ripienaar" }
+        mcollective_module::plugin { "mc-pgrep": source => "agent/process/sbin/mc-pgrep" , type => "client" , repo => "mcollective-plugins" }
     }
 
     # puppetca plugin
-    mcollective_module::plugin { "agent/puppetca.rb": source => "agent/puppetca/puppetca.rb" , repo => "ripienaar" }
-    mcollective_module::plugin { "agent/puppetca.ddl": source => "agent/puppetca/puppetca.ddl" , type => "ddl" , repo => "ripienaar" }
+    mcollective_module::plugin { "agent/puppetca.rb": source => "agent/puppetca/agent/puppetca.rb" , repo => "mcollective-plugins" }
+    mcollective_module::plugin { "agent/puppetca.ddl": source => "agent/puppetca/agent/puppetca.ddl" , type => "ddl" , repo => "mcollective-plugins" }
 
     # urltest plugin
     mcollective_module::plugin { "agent/urltest.rb": source => "agent/urltest/urltest.rb" , repo => "ripienaar" }
@@ -98,12 +99,6 @@ class mcollective_module::plugins {
 
 
 #### Example42 Experiments 
-    mcollective_module::plugin { "agent/puppi.rb": source => "agent/puppi/puppi.rb" , repo => "example42" }
-    mcollective_module::plugin { "agent/puppi.ddl": source => "agent/puppi/puppi.ddl" , type => "ddl" , repo => "example42" }
-    if ( $mcollective_client == "yes" ) {
-        mcollective_module::plugin { "mc-puppi": source => "agent/puppi/mc-puppi" , type => "client" , repo => "example42" }
-    }
-
     mcollective_module::plugin { "agent/nrpe.rb": source => "agent/nrpe/nrpe.rb" , repo => "example42" }
     mcollective_module::plugin { "agent/nrpe.ddl": source => "agent/nrpe/nrpe.ddl" , type => "ddl" , repo => "example42" }
     if ( $mcollective_client == "yes" ) {

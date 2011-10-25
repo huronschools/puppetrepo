@@ -7,7 +7,7 @@ class mcollective_module::osx {
 	include mcollective_module::plugins
 	require mcollective_module::params
 	
-	$mcollective 	= "MCollective_Installer_Full-1.1.1Revb.dmg"
+	$mcollective 	= "MCollective_Installer_Full-1.2.1.dmg"
 	$stomp 			= "Stomp_Install-20101216.dmg"
 
 	package { "${mcollective_module::params::packagename}":
