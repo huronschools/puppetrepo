@@ -21,4 +21,9 @@ $home = '/Users/students'
     recurse => true,
     force   => true,  
   }
+
+  exec { 'reset-user-perms':
+    command => '/usr/sbin/chown -R students:staff /Users/students',
+    require => User['students'],
+  }
 } # End of Class
