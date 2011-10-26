@@ -9,6 +9,7 @@ node "wesdocs.huronhs.com" {
 	include server_puppet_conf
 }
 node "testing-client.huronhs.com"{
+	$mcollective_client = 'yes'
 	include server_puppet_conf
 	include mc_serverplugins
 	include mcollective_module
@@ -18,18 +19,21 @@ node "odm.testhuronenvironment.com"{
 	include general_image
 }
 node "msreplica-client.huronhs.com" {
+	$mcollective_client = 'yes'
 	include server_puppet_conf
 	include nrpe
 	include mcollective_module
 	include mc_serverplugins
 }
 node "helpdesk-client.huronhs.com" {
+	$mcollective_client = 'yes'
 	include server_puppet_conf
 	include mcollective_module
 	include mc_serverplugins
 	include nrpe
 }
 node "wesreplica-client.huronhs.com" {
+	$mcollective_client = 'yes'
 	include server_puppet_conf
 	include mcollective_module
 	include mc_serverplugins
@@ -44,7 +48,7 @@ node "ldap.huronhs.com" {
 	include mcollective_module
 	include general
 }
-node "logstash.huronhs.com" {
+node "newpuppet.huronhs.com" {
 	include mcollective_module
 	include activemq
 	include general
