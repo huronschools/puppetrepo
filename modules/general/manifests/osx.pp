@@ -9,7 +9,7 @@ class general::osx {
 	include user
 	
 	$facter = "facter-1.5.8.dmg"
-	$puppetcurrent = "puppet-2.6.4.dmg"
+	$puppetcurrent = "Puppet_Install-2.7.6.dmg"
 	
 	package{"$facter": 
 		source 	=> "$pkg_base/$facter",
