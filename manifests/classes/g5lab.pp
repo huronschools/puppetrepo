@@ -7,7 +7,9 @@ class g5lab {
 	include general
 	include desktop
 	include hslabs
-	include studentuser
+	class { 'studentuser':
+	  uid => '503',
+        }
 	include office2008
 	include printers::hhs_g5labbw
 	include printers::hhs_g5labcolor
