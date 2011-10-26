@@ -36,6 +36,10 @@ class mcollective_module::plugins {
     }
 
 
+    # puppetral plugin
+    mcollective_module::plugin { "agent/puppetral.rb": source => "agent/puppetral/agent/puppetral.rb", repo => 'mcollective-plugins' }
+    mcollective_module::plugin { 'agent/puppetral.ddl': source => 'agent/puppetral/agent/puppetral.ddl', repo => 'mcollective-plugins' }
+
     # puppetd plugin
     mcollective_module::plugin { "agent/puppetd.rb": source => "agent/puppetd/agent/puppetd.rb", repo => 'mcollective-plugins' }
     mcollective_module::plugin { "agent/puppetd.ddl": source => "agent/puppetd/agent/puppetd.ddl" , type => "ddl", repo => 'mcollective-plugins' }
