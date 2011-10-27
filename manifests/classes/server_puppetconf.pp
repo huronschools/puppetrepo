@@ -11,12 +11,6 @@ class server_puppet_conf {
 		owner 	=> "puppet",
 	}
 	
-	# Templating Example
-	file { "/etc/puppet/template.txt":
-		ensure 	=> file,
-		content => template("sample.erb"),
-	}
-	
 	file { "/etc/puppet/auth.conf":
 		ensure 	=> file,
 		source 	=> "puppet:///files/auth.conf",
