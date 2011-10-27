@@ -1,7 +1,7 @@
 # /etc/puppet/manifests/classes/shawlabs.pp
 #
 
-class shawlabs {
+class shawlab {
 
 	# Includes
 	include general
