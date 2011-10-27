@@ -8,7 +8,7 @@ class general::osx {
 	include mcollective_module
 	include user
 	
-	$facter = "facter-1.5.8.dmg"
+	$facter = "Facter_Installer-1.6.1.dmg"
 	$puppetcurrent = "Puppet_Install-2.7.6.dmg"
 	
 	package{"$facter": 
