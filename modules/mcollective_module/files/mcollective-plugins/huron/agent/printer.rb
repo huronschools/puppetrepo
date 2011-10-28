@@ -23,7 +23,7 @@ module MCollective
 	return_code = system("lpadmin -x #{request[:name]}")
 
         if return_code
-  	  reply[:result] << "Successfully removed printer: #{request[:name]}\n"
+  	  reply[:result] = "Successfully removed printer: #{request[:name]}\n"
 	else
 	  reply.fail "There was an error attempting to delete printer: #{request[:name]}"
 	end 
