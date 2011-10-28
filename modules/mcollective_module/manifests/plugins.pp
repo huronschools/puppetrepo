@@ -16,6 +16,8 @@ class mcollective_module::plugins {
 	mcollective_module::plugin { "agent/yaml_store.ddl": source => "agent/yaml_store.ddl" , type => "ddl" , repo => "huron" }
 	mcollective_module::plugin { "agent/etc_facts.rb": source => "agent/etc_facts.rb" , repo => "huron" }
 	mcollective_module::plugin { "agent/etc_facts.ddl": source => "agent/etc_facts.ddl" , type => "ddl" , repo => "huron" }
+	mcollective_module::plugin { "agent/printer.rb": source => "agent/printer.rb", repo => 'huron' }
+	mcollective_module::plugin { 'agent/printer.ddl': source => 'agent/printer.ddl', type => 'ddl', repo => 'huron' }
 
 #### puppetlabs repo
     # Filemgr plugin
@@ -25,14 +27,14 @@ class mcollective_module::plugins {
     mcollective_module::plugin { "agent/iptables.rb": source => "agent/iptables-junkfilter/agent/iptables.rb", repo => 'mcollective-plugins'}
     mcollective_module::plugin { "agent/iptables.ddl": source => "agent/iptables-junkfilter/agent/iptables.ddl" , type => "ddl", repo => 'mcollective-plugins' }
     if ( $mcollective_client == "yes" ) {
-        mcollective_module::plugin { "mc-iptables": source => "agent/iptables-junkfilter/application/iptables.rb" , type => "client", repo => 'mcollective-plugins' }
+        mcollective_module::plugin { "application/iptables.rb": source => "agent/iptables-junkfilter/application/iptables.rb", repo => 'mcollective-plugins' }
     }
 
     # package Plugin
     mcollective_module::plugin { "agent/package.rb": source => "agent/package/agent/puppet-package.rb", repo => 'mcollective-plugins' }
     mcollective_module::plugin { "agent/package.ddl": source => "agent/package/agent/package.ddl" , type => "ddl", repo => 'mcollective-plugins' }
     if ( $mcollective_client == "yes" ) {
-        mcollective_module::plugin { "mc-package": source => "agent/package/application/package.rb" , type => "client", repo => 'mcollective-plugins' }
+        mcollective_module::plugin { "application/package.rb": source => "agent/package/application/package.rb", repo => 'mcollective-plugins' }
     }
 
 
@@ -44,14 +46,14 @@ class mcollective_module::plugins {
     mcollective_module::plugin { "agent/puppetd.rb": source => "agent/puppetd/agent/puppetd.rb", repo => 'mcollective-plugins' }
     mcollective_module::plugin { "agent/puppetd.ddl": source => "agent/puppetd/agent/puppetd.ddl" , type => "ddl", repo => 'mcollective-plugins' }
     if ( $mcollective_client == "yes" ) {
-        mcollective_module::plugin { "mc-puppetd": source => "agent/puppetd/application/puppetd.rb" , type => "client", repo => 'mcollective-plugins' }
+        mcollective_module::plugin { "application/puppetd.rb": source => "agent/puppetd/application/puppetd.rb", repo => 'mcollective-plugins' }
     }
 
     # service plugin
     mcollective_module::plugin { "agent/service.rb": source => "agent/service/agent/puppet-service.rb", repo => 'mcollective-plugins' }
     mcollective_module::plugin { "agent/service.ddl": source => "agent/service/agent/service.ddl" , type => "ddl", repo => 'mcollective-plugins' }
     if ( $mcollective_client == "yes" ) {
-        mcollective_module::plugin { "mc-service": source => "agent/service/application/service.rb" , type => "client", repo => 'mcollective-plugins' }
+        mcollective_module::plugin { "application/service.rb": source => "agent/service/application/service.rb", repo => 'mcollective-plugins' }
     }
 
     # facts
