@@ -12,7 +12,7 @@ class office2008 {
 	$update1223 = "Office2008-1223UpdateEN.dmg"
 	$update1224 = "Office2008-1224UpdateEN.dmg"
 	$update1226 = "Office2008-1226UpdateEN.dmg"
-	$update1229 = "Office2008-1229UpdateEN.dmg"
+	#$update1229 = "Office2008-1229UpdateEN.dmg"
 	
 	# Package Calls
 	package{"$office": 
@@ -22,13 +22,13 @@ class office2008 {
 	package{"$update1220":
       source 	=> "$pkg_base/$update1220",
       require	=> Package[$office],
-      before 	=> Package[$update1229],
+   #   before 	=> Package[$update1229],
     }
 
-    package{"$update1229":
-      source => "$pkg_base/$update1229",
-      require => Package[$update1220],
-    }
+   # package{"$update1229":
+   #   source => "$pkg_base/$update1229",
+   #   require => Package[$update1220],
+   # }
 
 }
 
