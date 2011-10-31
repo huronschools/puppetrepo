@@ -139,7 +139,7 @@ end
 ########
 def puppetrun()
   puppet_results = %x(#{$puppet_command} 2>&1)
-  if /Retrieved certificate does not match private key/ =~ puppet_results || /Certificate request does not match existing certificate/ =~ puppet_results
+  if /Retrieved certificate does not match private key/ =~ puppet_results || /Certificate request does not match existing certificate/ =~ puppet_results || /sslv3 alert certificate revoked/ =~ puppet_results
     cert_error = true
   end
   
