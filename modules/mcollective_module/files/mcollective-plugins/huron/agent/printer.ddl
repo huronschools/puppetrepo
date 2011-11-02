@@ -14,6 +14,14 @@ action "list", :description => "Lists current printers on the system" do
          :display_as  => "Printers"
 end
 
+action "add", :description => "Adds a printer to the system" do
+  display :always
+
+  output :output,
+         :description => "Add a printer",
+         :display_as  => "Printer"
+end
+
 action "remove", :description => "Removes specified printers" do
   display :always
 
@@ -28,4 +36,20 @@ action "devices", :description => "List printers and their devices" do
   output :output,
 	 :description => "Printers and their devices",
 	 :display_as  => "Printers"
+end
+
+action "cancel", :description => "Cancels print jobs for a specified queue" do
+  display :always
+
+  output :output,
+         :description => "Cancelled Print Jobs",
+         :display_as  => "Cancelled Jobs"
+end
+
+action "cancel_all", :description => "Cancels ALL print jobs for ALL printers" do
+  display :always
+
+  output :output,
+         :description => "Cancelled Print Jobs",
+         :display_as  => "Cancelled Jobs"
 end
