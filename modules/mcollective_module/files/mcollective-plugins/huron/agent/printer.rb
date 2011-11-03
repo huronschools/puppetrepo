@@ -17,34 +17,6 @@ module MCollective
 	      reply[:output] = `lpstat -v | cut -d ' ' -f 3,4`.split("\n")
       end
 
-      action 'add' do
-        validate :printer, :shellsafe
-        validate :address, :shellsafe
-
-        printerarray = `lpstat -a | cut -d ' ' -f 1`
-        reply.fail! "Printer already installed on the system." if printerarray.include? request[:printer] }
-
-        args = ['lpadmin ']
-        args.push "-p #{request[:printer]} " if request[:printer]
-        args.push "-v #{request[:address]} " if request[:address]
-
-        validate :location, :shellsafe and
-          args.push "-L #{request[:location]} " if request[:location]
-        validate :driver, :shellsafe and
-          args.push "-P #{request[:driver]} " if request[:driver]
-        args.push "-E "
-
-        `#{args}`
-
-        printerarray = `lpstat -a | cut -d ' ' -f 1`.split("\n")
-        if printerarray.include? request[:printer]
-          reply[:output] = "Printer #{request[:printer]} successfully installed on the system."
-        else
-          reply.fail! "Error: The printer could not be installed."
-        end
-
-      end
-
       action 'remove' do
         validate :printer, :shellsafe
 
