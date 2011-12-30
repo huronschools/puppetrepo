@@ -13,7 +13,6 @@ class crankd {
 	file { "/Library/HuronHS/Python2.5": 
 		recurse => true,
 		source 	=> "puppet:///files/crankd/HuronHS/",
-		require => File["/Library/HuronHS"],
 		mode	=> 0755,
 	}
 	

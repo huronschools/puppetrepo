@@ -2,17 +2,35 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+<key>NSWorkspace</key>
+  <dict>
+    <key>NSWorkspaceDidTerminateApplicationNotification</key>
+    <dict>
+      <key>method</key>
+      <array>
+        <string>NSWorkspaceHandler</string>
+        <string>OnApplicationQuit</string>
+      </array>
+    </dict>
+    <key>NSWorkspaceWillLaunchApplicationNotification</key>
+    <dict>
+      <key>method</key>
+      <array>
+        <string>NSWorkspaceHandler</string>
+        <string>OnApplicationLaunch</string>
+      </array>
+    </dict>
+  </dict>
   <key>SystemConfiguration</key>
+    <dict>	
+      <key>State:/Network/Global/IPv4</key>
       <dict>
-	
-		<key>State:/Network/Global/IPv4</key>
-        <dict>
-          	<key>method</key>
-	          <array>
-					<string>CrankTools</string>
-					<string>onNetworkStateChange</string>
-			  </array>
-        </dict>
-	  </dict>	
+        <key>method</key>
+	<array>
+          <string>CrankTools</string>
+          <string>onNetworkStateChange</string>
+        </array>
+      </dict>
+    </dict>	
 </dict>
 </plist>
