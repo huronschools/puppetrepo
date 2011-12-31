@@ -36,7 +36,7 @@ begin
         appdate = "UNKNOWN" if appdate.nil?
         Facter.add(factname) do
           setcode do
-            Time.at(appdate)
+            Time.at(appdate.to_i)
           end
         end
       end

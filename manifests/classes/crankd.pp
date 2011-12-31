@@ -1,7 +1,13 @@
 # /etc/puppet/manifests/classes/crankd.pp
 
 class crankd {
-	
+
+
+        package { 'sqlite3':
+    	  ensure   => present,
+          provider => 'macports',
+          before   => File['/Library/Application Support/crankd'],
+	}	
 	#  Ensure the required directories
 	file { "/Library/HuronHS": 
 		ensure => directory,}

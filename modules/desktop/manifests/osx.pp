@@ -38,13 +38,25 @@ class desktop::osx {
 		source 		=> "$pkg_base/$firefox",
 		provider 	=> appdmg,
 	}
-	
+
 	case $macosx_productversion_major {
 		10.5: { 
+			class { 'developertools':
+	  		  before => Class['leopard'],
+			}	
 			include leopard
+			class { 'crankd':
+			  require => Class['leopard'],
+			}
 		       }			
 		10.6: { 
+			class { 'developertools':
+	  		  before => Class['snowleopard'],
+			}	
 			include snowleopard
+			class { 'crankd':
+			  require => Class['snowleopard'],
+			}
 	               }
 		10.4: { 
 			include tiger
